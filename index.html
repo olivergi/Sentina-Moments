@@ -4,11 +4,44 @@
    <head>
       <meta charset = "UTF-8">
       <title>Sentina Moments</title>
+
+   	  <link href="styles/style.css" rel="stylesheet">
+      <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
    </head>
 
-   <body>
-      <div id = "app"></div>
-      <script src = "index.js"></script>
+   <body ng-app="SentinaMoments">
+   <!-- Static navbar -->
+      <nav class="navbar navbar-default">
+          <div class="navbar-header">
+            <a class="navbar-brand " href="#">Moments</a>
+          </div>
+          <div id="navbar" class="">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="../navbar-fixed-top/">Valikko</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+      </nav>
+      <div id ="app">
+      	
+      <h1> hello </h1>
+
+      </div>
    </body>
+
+   <!-- Include angular files & plugins -->
+    <script src="./node_modules/angular/angular.js"></script>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+
+    <!-- Include angular ui bootstrap -->
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+
+    <!-- Include My App's JS file(s)-->
+    <script src="./script.js"></script>
+
 
 </html>

@@ -1,0 +1,19 @@
+.navbar-header {
+	float: left;
+	padding: 15px;
+	text-align: center;
+}
+.navbar.brand {
+	float: none;
+}
+
+
+.navbar {
+   position: relative;
+}
+.brand {
+   position: absolute;
+   left: 50%;
+   margin-left: -50px !important;  /* 50% of your logo width */
+   display: block;
+}
