@@ -1,22 +1,17 @@
 'use strict';
 
-angular.module('SentinaMoments')
-    .controller('ContentController', function ($scope, $log) {
-    	$scope.currentView = "player";
+var app = angular.module('SentinaMoments', ['ngRoute']);
+	 app.config(function($routeProvider){
+		    $routeProvider
+		    .when("/player", {
+		        templateUrl : "../../views/player.html"
+		    })
+		    .when("/menu", {
+		        templateUrl : "../../views/menu.html"
+		    });
+	});
+    app.controller('ContentController', function ($scope, $log, $compile) {
+    	
       
-        $scope.changeView = function(v) {
-        	$log.info("hello " + v);
-        	switch(v){
-        		case "player":
-        			$log.info("player");
-        			// change to player changeView
-        			break;
-        		case "menu":
-        			// change to menu view
-        			$log.info("menu");
-        			break;
-
-        	}
-        };
-
+       
     });
