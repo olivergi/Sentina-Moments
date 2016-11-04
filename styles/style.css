@@ -8,3 +8,28 @@
 .navbar-toggle {
     z-index:3;
 }
+#keho{
+    background-color: aliceblue;
+}
+
+#valikko{
+    margin-right: 20px;
+    color: white;
+    text-shadow: 2px 2px 5px grey;
+}
+#moments{
+    color:white;
+    text-shadow: 2px 2px 5px grey;
+}
+#asd{
+    background-color: steelblue;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-color: transparent;
+}
+#grad {
+  background: lightskyblue; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(-90deg, lightskyblue, aliceblue); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(-90deg, lightskyblue, aliceblue); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(-90deg, lightskyblue, aliceblue); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(-90deg, lightskyblue, aliceblue); /* Standard syntax */
+}
