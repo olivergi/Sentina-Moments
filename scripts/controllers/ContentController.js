@@ -1,7 +1,7 @@
 'use strict';
 
-var app = angular.module('SentinaMoments', ['ngRoute']);
-	 app.config(function($routeProvider){
+var app = angular.module('SentinaMoments', ['ngRoute', 'ngAudio']);
+	app.config(function($routeProvider){
 		    $routeProvider
 		    .when("/player", {
 		        templateUrl : "../../views/player.html"
