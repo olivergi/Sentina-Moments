@@ -8,3 +8,7 @@
 .navbar-toggle {
     z-index:3;
 }
+
+.navbar li {
+	float: right;
+}
