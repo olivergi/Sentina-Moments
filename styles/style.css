@@ -1,14 +1,77 @@
+body, html {
+    height: 100%;
+    overflow: hidden;
+}
+
+.main {
+    height: 100%;
+    overflow:hidden;
+}
+
 .navbar-brand {
     position: absolute;
     width: 100%;
     left: 0;
     text-align: center;
     margin:0 auto;
+    font-size: 2em !important;
 }
+
+.nav  {
+    font-size: 2em !important;
+    }
+
 .navbar-toggle {
     z-index:3;
 }
 
 .navbar li {
 	float: right;
+    margin-right: 20px;
+}
+
+.audio-info {
+    text-align: center;
+}
+
+.playerbutton {
+    display: inline-block;
+    text-align: center;
+    width: 30%;
+    height: 200px;
+    background-color: darkgrey;
+}
+
+.buttons {
+    display: block;
+    position: absolute;
+    width: 80%;
+    top: 30%;
+    height: 150px;
+    z-index: 15;
+    left: 14%;
+}
+
+.progress {
+    display: inline-block;
+    width: 90%;
+    z-index: 15;
+    left: 5%;
+    margin-top: 320px;
+}
+
+.feedback {
+    margin-top: 20px;
+    display: inline-block;
+    position: absolute;
+    width: 50%;
+    left: 30%;
+}
+
+.feedback-button {
+    display: inline-block;
+    text-align: center;
+    width: 40%;
+    height: 130px;
+    background-color: darkgrey;
 }

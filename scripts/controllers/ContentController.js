@@ -3,7 +3,7 @@
 var app = angular.module('SentinaMoments', ['ngRoute', 'ngAudio']);
 	app.config(function($routeProvider){
 		    $routeProvider
-		    .when("/player", {
+		    .when("/", {
 		        templateUrl : "../../views/player.html"
 		    })
 		    .when("/menu", {

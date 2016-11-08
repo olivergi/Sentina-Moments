@@ -1,11 +1,21 @@
 <div id="playerContainer" ng-controller="PlayerController">
-	<h1> player div here </h1>
-	 <button ng-click='audio.paused ? audio.play() : audio.pause()'>Pause</button>
-	 <button ng-click='audio.restart()'>Stop</button>
+    <div class="audio-info">
+        <h1>Playlist Name</h1>
+        <h2>Song Name - Artist Name</h2>
+    </div>
+    <div class="buttons">
+            <div class="playerbutton" ng-click='audio.restart()'>Previous</div>
+            <div class="playerbutton" ng-click='audio.paused ? audio.play() : audio.pause()'>{{audio.paused ? "Play" : "Pause" }}</div>
+            <div class="playerbutton" ng-click='audio.restart()'>Next</div>
+    </div>
 
-	 <div class="input-group">
-        <span class="input-group-addon">Progress</span>
-        <input class='form-control' type=range min=0 max=1 step=0.01 ng-model='audio.progress'>
-		<input class='form-control' type=text ng-model='audio.currentTime'>	
-     </div>
+    <div class="input-group progress">
+        <input type=range min=0 max='1' step=0.01 ng-model='audio.progress'>
+        <div class="audio-duration">{{formatTime(audio.currentTime)}}  /  {{formatTime(audio.duration)}}</div>
+    </div>
+    
+    <div class="feedback">
+        <div class="feedback-button">Up</div>
+        <div class="feedback-button">Down</div>
+    </div>
 </div>
