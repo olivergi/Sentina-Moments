@@ -27,6 +27,15 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-color: transparent;
 }
+
+#playerContainer{
+    background-color: red;
+}
+
+#progressBar {
+    background-color: blue;
+}
+
 #grad {
   background: lightskyblue; /* For browsers that do not support gradients */
   background: -webkit-linear-gradient(-90deg, lightskyblue, aliceblue); /* For Safari 5.1 to 6.0 */
