@@ -1,6 +1,7 @@
 'use strict';
 
 var app = angular.module('SentinaMoments', ['ngRoute', 'ngAudio']);
+	// Content routing for the application
 	app.config(function($routeProvider){
 		    $routeProvider
 		    .when("/", {
@@ -10,8 +11,11 @@ var app = angular.module('SentinaMoments', ['ngRoute', 'ngAudio']);
 		        templateUrl : "../../views/menu.html"
 		    });
 	});
-    app.controller('ContentController', function ($scope, $log, $compile) {
-    	
-      
-       
-    });
+
+	app.value("songRemember",{})
+	    .controller('ContentController', function($scope, ngAudio) {
+	        $scope.audios = [
+	        ngAudio.load("https://archive.org/download/InceptionSoundtrackHD12TimeHansZimmer/Inception%20Soundtrack%20HD%20-%20%2312%20Time%20%28Hans%20Zimmer%29.mp3"),
+ 	
+	        ]
+	    })
