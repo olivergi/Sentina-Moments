@@ -12,14 +12,12 @@
    <body ng-app="SentinaMoments" ng-controller="ContentController as content">
    		<navbar> </navbar>
 
-      <div class="main" id ="app" ng-view>
-      </div>
+      <div class="main" id ="app" ui-view />
 
    </body>
 
    <!-- Include angular files & plugins -->
     <script src="./node_modules/angular/angular.js"></script>
-    <script src="./node_modules/angular-route/angular-route.js"></script>
     <script src="./node_modules/angular-audio/app/angular.audio.js"></script>
     <script src="./node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
 
