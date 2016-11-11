@@ -1,13 +1,21 @@
-<div id="playerContainer" ng-controller="PlayerController" style="background-color=red;">
-	<h1> player div here </h1>
-	 <button ng-click='audio.paused ? audio.play() : audio.pause()'><img src="../images/ic_play_circle_outline_white_48dp_2x.png"></button>
-	 <button ng-click='audio.restart()'>Stop</button>
-	 <button ng-click='audio.muting = !audio.muting'>Mute</button>
+<div id="playerContainer" ng-controller="PlayerController">
+    <div class="audio-info">
+        <h1>Playlist Name</h1>
+        <h2>Song Name - Artist Name</h2>
+    </div>
+    <div class="buttons">
+            <div class="playerbutton" ng-click='audio.restart()'><img src="../images/ic_skip_previous_white_48dp_2x.png"></div>
+            <div class="playerbutton" ng-click='audio.paused ? audio.play() : audio.pause()'><img src="../images/ic_play_circle_outline_white_48dp_2x.png"></div>
+            <div class="playerbutton" ng-click='audio.restart()'><img src="../images/ic_skip_next_white_48dp_2x.png"></div>
+    </div>
 
-	 <label>Current Time</label>
-    <!--<div id="progressBar"> -->
-        <input class='form-control' type=text ng-model='audio.currentTime'>
-    <!--</div>-->
-	 <label>Volume</label>
-	 <input class='form-control' type=range min=0 max=1 step=0.01 ng-model='audio.volume'>
+    <div class="input-group progress">
+        <input type=range min=0 max='1' step=0.01 ng-model='audio.progress'>
+        <div class="audio-duration">{{formatTime(audio.currentTime)}}  /  {{formatTime(audio.duration)}}</div>
+    </div>
+    
+    <div class="feedback">
+        <div class="feedback-button">Up</div>
+        <div class="feedback-button">Down</div>
+    </div>
 </div>

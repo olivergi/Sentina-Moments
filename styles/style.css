@@ -1,45 +1,220 @@
+/* DOC */
+body, html {
+    height: 100%;
+    overflow: hidden;
+}
+
+.main {
+    height: 100%;
+    overflow:hidden;
+}
+
+#grad { /*background gradient color */
+  background: #78A6C7; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(-90deg, #4D6886, #78A6C7); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(-90deg, #4D6886, #78A6C7); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(-90deg, #4D6886, #78A6C7); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(-90deg, #4D6886, #78A6C7); /* Standard syntax */
+}
+
+
+
+/*  !!!!!   NAVBAR   !!!!!*/
 .navbar-brand {
     position: absolute;
     width: 100%;
     left: 0;
     text-align: center;
     margin:0 auto;
-}
-.navbar-toggle {
-    z-index:3;
+    font-size: 2em !important;
 }
 
-#keho{
-    background-color: aliceblue;
+.nav  {
+    font-size: 2em !important;
+    }
+
+.navbar-toggle {
+    z-index:3;
 }
 
 #valikko{
     margin-right: 20px;
     color: white;
-    text-shadow: 2px 2px 5px grey;
+    text-shadow: 2px 2px 5px black;
+    font-family: 'Bitter', sans-serif;
 }
+
+#valikkoLi{
+    border-color: aliceblue;
+}
+
 #moments{
     color:white;
-    text-shadow: 2px 2px 5px grey;
+    text-shadow: 2px 2px 5px black;
+    font-family: 'Pacifico', sans-serif;
 }
+
 #asd{
-    background-color: steelblue;
+    background-color: #2A375E;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-color: transparent;
 }
 
-#playerContainer{
-    background-color: red;
+
+
+/*  !!!!!! MUSIC PLAYER !!!!!!  */
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: 1px solid #000000;
+  height: 36px;
+  width: 16px;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+  margin-top: -14px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; /* Add cool effects to your sliders! */
+}
+
+/* All the same stuff for Firefox */
+input[type=range]::-moz-range-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #000000;
+  height: 36px;
+  width: 16px;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+/* All the same stuff for IE */
+input[type=range]::-ms-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #000000;
+  height: 36px;
+  width: 16px;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+/* HERE ENDS THUMB */
+
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  background: #3071a9;
+  border-radius: 1.3px;
+  border: 0.2px solid #010101;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #367ebd;
+}
+
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  background: #3071a9;
+  /*border-radius: 1.3px;
+  border: 0.2px solid #010101;*/
+}
+
+input[type=range]::-ms-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  border-width: 16px 0;
+  color: transparent;
+}
+input[type=range]::-ms-fill-lower {
+  background: #2a6495;
+  border: 0.2px solid #010101;
+  border-radius: 2.6px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+input[type=range]:focus::-ms-fill-lower {
+  background: #3071a9;
+}
+input[type=range]::-ms-fill-upper {
+  background: #3071a9;
+  border: 0.2px solid #010101;
+  border-radius: 2.6px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+input[type=range]:focus::-ms-fill-upper {
+  background: #367ebd;
+}
+
+
+
+/* HERE ENDS PROGRESS BAR */
+
+.player{
+    color: aqua;
 }
 
 #progressBar {
     background-color: blue;
 }
 
-#grad {
-  background: lightskyblue; /* For browsers that do not support gradients */
-  background: -webkit-linear-gradient(-90deg, lightskyblue, aliceblue); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(-90deg, lightskyblue, aliceblue); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(-90deg, lightskyblue, aliceblue); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(-90deg, lightskyblue, aliceblue); /* Standard syntax */
+
+.navbar li {
+	float: right;
+    margin-right: 20px;
 }
+
+.audio-info {
+    text-align: center;
+}
+
+.playerbutton {
+    display: inline-block;
+    text-align: center;
+    width: 30%;
+    height: 200px;
+    background-color: transparent;
+}
+
+.buttons {
+    display: block;
+    position: absolute;
+    width: 80%;
+    top: 30%;
+    height: 150px;
+    z-index: 15;
+    left: 14%;
+}
+.input-group.progress{
+    background-color:transparent;
+}
+
+.progress {
+    display: inline-block;
+    width: 90%;
+    z-index: 15;
+    left: 5%;
+    margin-top: 320px;
+}
+
+.feedback {
+    margin-top: 20px;
+    display: inline-block;
+    position: absolute;
+    width: 50%;
+    left: 30%;
+}
+
+.feedback-button {
+    display: inline-block;
+    text-align: center;
+    width: 40%;
+    height: 130px;
+    background-color: darkgrey;
+}
+
