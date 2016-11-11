@@ -4,9 +4,9 @@
         <h2>Song Name - Artist Name</h2>
     </div>
     <div class="buttons">
-            <div class="playerbutton" ng-click='audio.restart()'>Previous</div>
-            <div class="playerbutton" ng-click='audio.paused ? audio.play() : audio.pause()'>{{audio.paused ? "Play" : "Pause" }}</div>
-            <div class="playerbutton" ng-click='audio.restart()'>Next</div>
+            <div class="playerbutton" ng-click='audio.restart()'><img src="../images/ic_skip_previous_white_48dp_2x.png"></div>
+            <div class="playerbutton" ng-click='audio.paused ? audio.play() : audio.pause()'><img src="../images/ic_play_circle_outline_white_48dp_2x.png"></div>
+            <div class="playerbutton" ng-click='audio.restart()'><img src="../images/ic_skip_next_white_48dp_2x.png"></div>
     </div>
 
     <div class="input-group progress">
