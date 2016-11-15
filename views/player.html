@@ -5,19 +5,24 @@
     </div>
     <div class="buttons">
         <div class="playerbutton" ng-click='audio.restart()'>
-            <img src="../images/ic_skip_previous_white_48dp_2x.png">
+            <img class="play" src="../images/ic_skip_previous_white_24px.svg">
         </div>
         <div class="playerbutton" ng-click='audio.paused ? audio.play() : audio.pause()'>
-            <img id="play" ng-src="{{audio.paused && '../images/ic_play_circle_outline_white_48dp_2x.png' || '../images/ic_pause_circle_outline_white_48dp_2x.png'}}">
+            <img class="play" ng-src="{{audio.paused && '../images/ic_audiotrack_white_24px.svg' || '../images/ic_pause_white_24px.svg'}}">
         </div>
         <div class="playerbutton" ng-click='audio.restart()'>
-            <img src="../images/ic_skip_next_white_48dp_2x.png">
+            <img class="play" src="../images/ic_skip_next_white_24px.svg">
         </div>
     </div>
 
     <div class="input-group progress">
-        <input type=range min=0 max='1' step=0.01 ng-model='audio.progress'>
-        <div class="audio-duration">{{formatTime(audio.currentTime)}} /  {{audio.duration | trackTime}}</div>
+        <div class="audio-duration">
+            {{formatTime(audio.currentTime)}}
+            <div id="proge">
+                <input type=range min=0 max='1' step=0.01 ng-model='audio.progress'>  
+            </div>
+            {{audio.duration | trackTime}}
+            </div>
     </div>
     
     <div class="feedback">
