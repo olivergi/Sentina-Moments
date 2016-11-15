@@ -1,0 +1,277 @@
+/* DOC */
+body, html {
+    height: 100%;
+    overflow: hidden;
+    color: black !important;
+}
+
+.main, .menu {
+    height: 100%;
+    overflow:hidden;
+    font-family: 'Bitter', sans-serif;
+}
+
+#grad { /*background gradient color */
+	background: #c3ddea;
+	background: -moz-linear-gradient(left, #c3ddea 0%, #78a6c7 100%, #c3ddea 100%);
+	background: -webkit-gradient(left top, right top, color-stop(0%, #c3ddea), color-stop(100%, #78a6c7), color-stop(100%, #c3ddea));
+	background: -webkit-linear-gradient(left, #c3ddea 0%, #78a6c7 100%, #c3ddea 100%);
+	background: -o-linear-gradient(left, #c3ddea 0%, #78a6c7 100%, #c3ddea 100%);
+	background: -ms-linear-gradient(left, #c3ddea 0%, #78a6c7 100%, #c3ddea 100%);
+	background: linear-gradient(to right, #c3ddea 0%, #78a6c7 100%, #c3ddea 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c3ddea', endColorstr='#c3ddea', GradientType=1 );
+}
+
+/*  !!!!!   NAVBAR   !!!!!*/
+.navbar-brand {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    text-align: center;
+    margin:0 auto;
+    font-size: 2em !important;
+    font-family: 'Pacifico', sans-serif;
+}
+
+.nav  {
+    font-size: 2em !important;
+}
+
+.navbar-toggle {
+    z-index:3;
+}
+
+.navbar li {
+	float: right;
+    margin-right: 20px;
+    font-family: 'Bitter', sans-serif;
+}
+
+/*  !!!!!! MUSIC PLAYER !!!!!!  */
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: 1px solid #000000;
+  height: 36px;
+  width: 16px;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+  margin-top: -14px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; /* Add cool effects to your sliders! */
+}
+
+/* All the same stuff for Firefox */
+input[type=range]::-moz-range-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #000000;
+  height: 36px;
+  width: 16px;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+/* All the same stuff for IE */
+input[type=range]::-ms-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #000000;
+  height: 36px;
+  width: 16px;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+/* HERE ENDS THUMB */
+
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  background: #3071a9;
+  border-radius: 1.3px;
+  border: 0.2px solid #010101;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #367ebd;
+}
+
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  background: #3071a9;
+  /*border-radius: 1.3px;
+  border: 0.2px solid #010101;*/
+}
+
+input[type=range]::-ms-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  border-width: 16px 0;
+  color: transparent;
+}
+input[type=range]::-ms-fill-lower {
+  background: #2a6495;
+  border: 0.2px solid #010101;
+  border-radius: 2.6px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+input[type=range]:focus::-ms-fill-lower {
+  background: #3071a9;
+}
+input[type=range]::-ms-fill-upper {
+  background: #3071a9;
+  border: 0.2px solid #010101;
+  border-radius: 2.6px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+input[type=range]:focus::-ms-fill-upper {
+  background: #367ebd;
+}
+
+/* HERE ENDS PROGRESS BAR */
+
+.player{
+    color: aqua;
+}
+
+#progressBar {
+    background-color: blue;
+}
+
+.audio-info {
+    text-align: center;
+}
+
+.buttons {
+    display: block;
+    position: absolute;
+    width: 80%;
+    top: 30%;
+    height: 150px;
+    z-index: 15;
+    left: 14%;
+}
+.input-group.progress{
+    background-color:transparent;
+}
+
+.progress {
+    display: inline-block;
+    width: 90%;
+    z-index: 15;
+    left: 5%;
+    margin-top: 320px;
+}
+
+.feedback {
+    margin-top: 20px;
+    display: inline-block;
+    position: absolute;
+    width: 50%;
+    left: 30%;
+}
+
+.feedback-button {
+    display: inline-block;
+    text-align: center;
+    width: 40%;
+    height: 130px;
+    background-color: darkgrey;
+}
+
+#menuContainer {
+	width: 90%;
+	margin: 0 auto;
+	text-align: center;
+}
+
+/* Buttons */
+
+.playerIcon {
+	width: 70%;
+	height: auto;
+}
+
+.playerButton {
+    display: inline-block;
+    text-align: center;
+    width: 30%;
+    height: 200px;
+}
+
+.menuIcon {
+ 	width: 30%;
+ 	height: auto;
+}
+
+.menuButton {
+	color: rgb(255, 255, 255);
+	font-size: 3em;
+	padding: 30px;
+	width: 100%;
+    margin-top: 0.5em;
+    text-align: center;
+    display: inline-block;
+	
+	text-shadow: 1px 4px 4px rgba(30, 30, 30, 0.51);
+	-webkit-border-radius: 14px;
+	-moz-border-radius: 14px;
+	border-radius: 14px;
+	background: rgb(42, 55, 94);
+	background: -moz-linear-gradient(90deg, rgb(42, 55, 94) 20%, rgb(61, 92, 137) 64%);
+	background: -webkit-linear-gradient(90deg, rgb(42, 55, 94) 20%, rgb(61, 92, 137) 64%);
+	background: -o-linear-gradient(90deg, rgb(42, 55, 94) 20%, rgb(61, 92, 137) 64%);
+	background: -ms-linear-gradient(90deg, rgb(42, 55, 94) 20%, rgb(61, 92, 137) 64%);
+	background: linear-gradient(0deg, rgb(42, 55, 94) 20%, rgb(61, 92, 137) 64%);
+	-webkit-box-shadow: 1px 3px 6px rgba(50, 50, 50, 0.45);
+	-moz-box-shadow:    1px 3px 6px rgba(50, 50, 50, 0.45);
+	box-shadow:         1px 3px 6px rgba(50, 50, 50, 0.45);
+}
+
+@media screen and (orientation:portrait) {
+	.menuIcon {
+ 		width: 20%;
+ 		height: auto;
+	}
+	.menuButton {
+		padding: 10px;
+	}
+}
+
+/* Shadows */
+
+/*For SVG images*/
+.menuIcon, .playerIcon {
+    -webkit-filter: drop-shadow( 2px 2px 2px rgba(50, 50, 50, 0.90) );
+            filter: drop-shadow( 2px 2px 2px rgba(50, 50, 50, 0.90) );
+}
+
+.textShadow, .navbar-brand, .navbar li {
+    -webkit-filter: drop-shadow( 2px 2px 2px rgba(40, 40, 40, 0.70) );
+            filter: drop-shadow( 2px 2px 2px rgba(40, 40, 40, 0.70) );
+}
+
+.feedback-button {
+	-webkit-box-shadow: 8px 9px 17px -4px rgba(0,0,0,0.36);
+	-moz-box-shadow: 8px 9px 17px -4px rgba(0,0,0,0.36);
+	box-shadow: 8px 9px 17px -4px rgba(0,0,0,0.36);
+}
+
+.navbar-brand {
+	-webkit-box-shadow: 0px 4px 5px -1px rgba(0,0,0,0.25);
+	-moz-box-shadow: 0px 4px 5px -1px rgba(0,0,0,0.25);
+	box-shadow: 0px 4px 5px -1px rgba(0,0,0,0.25);
+}
+
+.audio-info {
+	text-shadow: 0px 2px 4px rgba(91, 91, 91, 0.20);
+}
+

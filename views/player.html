@@ -1,0 +1,27 @@
+<div id="playerContainer" ng-controller="PlayerController">
+    <div class="audio-info">
+        <h1>Playlist Name</h1>
+        <h2>Song Name - Artist Name</h2>
+    </div>
+    <div class="buttons">
+        <div class="playerButton" ng-click='audio.restart()'>
+            <img src="../images/previous.svg" class="playerIcon">
+        </div>
+        <div class="playerButton" ng-click='audio.paused ? audio.play() : audio.pause()'>
+            <img id="play" ng-src="{{audio.paused && '../images/play.svg' || '../images/pause.svg'}}" class="playerIcon">
+        </div>
+        <div class="playerButton" ng-click='audio.restart()'>
+            <img src="../images/next.svg" class="playerIcon">
+        </div>
+    </div>
+
+    <div class="input-group progress">
+        <input type=range min=0 max='1' step=0.01 ng-model='audio.progress'>
+        <div class="audio-duration">{{formatTime(audio.currentTime)}} /  {{audio.duration | trackTime}}</div>
+    </div>
+    
+    <div class="feedback">
+        <div class="feedback-button">Up</div>
+        <div class="feedback-button">Down</div>
+    </div>
+</div>

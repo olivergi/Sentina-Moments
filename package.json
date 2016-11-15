@@ -1,0 +1,31 @@
+{
+  "name": "moments",
+  "version": "1.0.0",
+  "description": "This is a project for Sentina & Helsinki Metropolia University of applied sciences.",
+  "main": "main.js",
+  "dependencies": {
+    "babel-core": "^6.17.0",
+    "babel-preset-es2016": "^6.16.0",
+    "babel-loader": "^6.2.5",
+    "babel-preset-react": "^6.16.0",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.16.2",
+    "angular-ui-router": "~0.3.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "webpack-dev-server --hot"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/olivergi/SentinaMoments.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/olivergi/SentinaMoments/issues"
+  },
+  "homepage": "https://github.com/olivergi/SentinaMoments#readme"
+}
