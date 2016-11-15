@@ -4,14 +4,14 @@
         <h2>Song Name - Artist Name</h2>
     </div>
     <div class="buttons">
-        <div class="playerbutton" ng-click='audio.restart()'>
-            <img class="play" src="../images/ic_skip_previous_white_24px.svg">
+        <div class="playerButton" ng-click='audio.restart()'>
+            <img src="../images/previous.svg" class="playerIcon">
         </div>
-        <div class="playerbutton" ng-click='audio.paused ? audio.play() : audio.pause()'>
-            <img class="play" ng-src="{{audio.paused && '../images/ic_audiotrack_white_24px.svg' || '../images/ic_pause_white_24px.svg'}}">
+        <div class="playerButton" ng-click='audio.paused ? audio.play() : audio.pause()'>
+            <img id="play" ng-src="{{audio.paused && '../images/play.svg' || '../images/pause.svg'}}" class="playerIcon">
         </div>
-        <div class="playerbutton" ng-click='audio.restart()'>
-            <img class="play" src="../images/ic_skip_next_white_24px.svg">
+        <div class="playerButton" ng-click='audio.restart()'>
+            <img src="../images/next.svg" class="playerIcon">
         </div>
     </div>
 
