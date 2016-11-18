@@ -1,0 +1,14 @@
+#searchContainer {
+	position: relative;
+	height: 100%;
+}
+
+#resultsContainer {
+	position: absolute;
+	height: 80%;
+	width: 90%;
+	left: 5%;
+	overflow-x: hidden;
+	overflow-y: auto;
+
+}
