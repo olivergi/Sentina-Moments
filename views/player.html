@@ -18,8 +18,8 @@
     <div class="input-group progress">
         <div class="audio-duration">
             {{formatTime(audio.currentTime)}}
-            <div id="proge">
-                <input type=range min=0 max='1' step=0.01 ng-model='audio.progress'>  
+            <div id="proge" style="display: inline-block;">
+                <input type=range min=0 max='1' step=0.001 ng-model='audio.progress' style="background: transparent;">  
             </div>
             {{audio.duration | trackTime}}
             </div>

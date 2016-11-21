@@ -26,6 +26,11 @@ var app = angular.module('SentinaMoments', ['ui.router', 'ngAudio']);
 	            url: "/menu",
 	            templateUrl: "../../views/menu.html",
 	        })
+            .state('favourites', {
+	            url: "/favourites",
+	            templateUrl: "../../views/favourites.html",
+	        })
+            
 
 
         	$urlRouterProvider.otherwise('/');
