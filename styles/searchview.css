@@ -12,3 +12,10 @@
 	overflow-y: auto;
 
 }
+
+#pageNavContainer {
+	top: 84%;
+	left: 4%;
+	position: absolute;
+
+}

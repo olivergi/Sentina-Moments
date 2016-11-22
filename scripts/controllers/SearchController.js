@@ -1,24 +1,23 @@
 'use strict';
 
-angular.module('SentinaMoments')
- .controller('SearchController',function($scope, $http, $log){
+var app = angular.module('SentinaMoments')
+ app.controller('SearchController',function($scope, $http, $log,$window){
  	$scope.apiurl = "http://localhost:8080/services/"
  	$scope.searchResults = [];
  	$scope.currentResultPage = 0;
- 	$scope.resultPageSize = 5; 	
+ 	$scope.resultPageSize = 4; 	
 
  	// Function to calculate how many pages are made from the search results
+ 	// Math.ceil rounds the result
  	$scope.numberOfPages = function() {
         return Math.ceil($scope.searchResults.length/$scope.resultPageSize);                
-}
+	}
+	$scope.currentPage = function() {
+		return Math.ceil($scope.currentResultPage + 1);
+	}
 
 	$scope.getFromServer = function() {
-		var query;
-		if ($scope.searchQuery != null){
-			query = $scope.searchQuery;
-		} else {
-			query = {}
-		}
+
 	   	$http({
 	        method: 'GET',
 	        url: $scope.apiurl.concat('data/recipes'),
@@ -26,12 +25,40 @@ angular.module('SentinaMoments')
 	        'Accept': 'application/json'
 	   		},
 	   		params: {
-	   			similarityQuery: query
+	   			contentQuery: $scope.searchQuery
 	   		}
 
 	    }).then(function successCallback(response) {
+	    	$scope.searchResults = [];
+	    	$scope.currentResultPage = 0;
 
 	        $log.info("Success:", response.data);
+
+	        for (var i = 0; i < response.data.result.length; i++) {
+	        	$scope.searchResults[i] = response.data.result[i];
+	        }
+
+
+	    }, function errorCallback(response) {
+	        $log.error("ERROR:", response.data);
+	    });
+   }
+
+   $scope.getNonce = function() {
+
+	   	$http({
+	        method: 'GET',
+	        url: $scope.apiurl.concat('data/audiofilenonces'),
+	        headers: {
+	        'Accept': 'application/json'
+	   		},
+	   		params: {
+	   			 sessionToken: ""
+	   		}
+
+	    }).then(function successCallback(response) {
+	        $log.info("Success:", response.data);
+
 
 	    }, function errorCallback(response) {
 	        $log.error("ERROR:", response.data);
@@ -64,7 +91,8 @@ angular.module('SentinaMoments')
             throw err;
           });
         }
-         $log.info(route + ":", resp.data);
+         $log.info(route + ":", resp);
+         $log.info(document.cookie);
         return resp.json();
       });
   };
@@ -81,21 +109,9 @@ angular.module('SentinaMoments')
       return $scope.request('POST', route, {}, cred);
     }
 
-
-   // temporary populating function for the results
-   $scope.pop = function() {
-   	$log.info("populating")
-   		for (var i = 0; i < 50; i++) {
-			$scope.searchResults[i] = {
-				recipeName: "recipe name",
-				recipeDesc: "recipe description containing information about the playlist"
-			} 			
-   		}
-   };
-
-   $scope.pop();
+   // temporary setup for authorizing the user
+   // TODO: Authorization through login page
    $scope.formPost("auth/page/hashdb/login");
-   $log.info($scope.searchResults);
  });
 
  // Custom filter for the search results 
