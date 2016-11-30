@@ -1,0 +1,47 @@
+<div id="searchContainer" ng-controller="SearchController" >
+    
+	<div class="container" id="searchbarContainer">
+		<div class="col-xs-8 col-sm-10 col-md-8 col-lg-8">
+			<form class="form-inline">
+				<div class="form-group">
+		    		<input class="form-control input-lg" type="text" placeholder="Search here" ng-model="searchQuery">
+		    		<input class="btn btn-default btn-lg" value="Search Recipes" type="submit" ng-click="searchRecipes()">
+				    <input class="btn btn-default btn-lg" value="Search Tracks" type="submit" ng-click="searchTracks()">
+				    <input class="btn btn-default btn-sm" value="Search Audioprograms" type="submit" ng-click="searchPrograms()">
+				    <input class="btn btn-default btn-sm" value="Search Categories" type="submit" ng-click="searchCategories()">
+				</div>
+			</form>
+			<button ng-click="getNonces()"> nonces </button>
+			<button ng-click="audioTest()"> audiotest </button>
+
+	    </div>
+	</div>
+    <div id="resultsContainer">
+	    <div id="searchResults" ng-repeat="res in searchResults | startFrom:currentResultPage*resultPageSize | limitTo:resultPageSize">
+	    	<div class="row">
+		        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-8" ng-click="loadPlaylist(res.id)">
+		        	<h4>{{res.name}}</h4>
+		        	<p ng-show="res.artist != null">{{res.artist}} </p>
+		        	<p>{{res.description}} </p>
+		    	</div>
+		    	<div class="col-xs-2 col-sm-2 col-md-2 col-lg-4">
+		    		<img style="width: 50%;height: 50%;" src="../images/favourite.svg" ng-click=""> 
+		    	</div>
+		    </div>
+		    <hr>
+	    </div>
+   </div>
+
+   <div  id="pageNavContainer" ng-hide="resultPageSize < 2">
+	   	<button class="btn btn-default btn-lg" ng-disabled="currentResultPage == 0" ng-click="currentResultPage=currentResultPage-1">Edellinen</button>
+	    <button class="btn btn-default btn-sm" ng-hide="currentResultPage < 1" ng-click="currentResultPage = 0">1</button> 
+
+	    {{currentPage()}}
+
+	    <button class="btn btn-default btn-sm" ng-hide="currentResultPage >= searchResults.length/resultPageSize - 1" ng-click="currentResultPage = searchResults.length/resultPageSize-1">{{numberOfPages()}}</button> 
+	    <button class="btn btn-default btn-lg" ng-disabled="currentResultPage >= searchResults.length/resultPageSize - 1" ng-click="currentResultPage=currentResultPage+1">Seuraava</button>
+   </div>
+
+   
+
+</div>

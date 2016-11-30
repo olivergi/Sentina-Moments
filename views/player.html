@@ -10,7 +10,7 @@
         <div class="playerButton" ng-click='audio.paused ? audio.play() : audio.pause()'>
             <img id="play" ng-src="{{audio.paused && '../images/play.svg' || '../images/pause.svg'}}" class="playerIcon">
         </div>
-        <div class="playerButton" ng-click='audio.restart()'>
+        <div class="playerButton" ng-click='audio.restart(); nextTrack();'>
             <img src="../images/next.svg" class="playerIcon">
         </div>
     </div>
