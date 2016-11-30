@@ -1,23 +1,31 @@
 <div id="searchContainer" ng-controller="SearchController" >
     
 	<div class="container" id="searchbarContainer">
-		<div class="input-group input-group-lg col-xs-6 col-sm-6- col-md-6 col-lg-4">
-		    <input class="form-control" type="text" placeholder="Search here" ng-model="searchQuery">
-		    <div class="input-group-btn">
-		    	<button class="btn btn-default " ng-click="getFromServer(); getNonce()">Get </button>
-		    </div>
+		<div class="col-xs-8 col-sm-10 col-md-8 col-lg-8">
+			<form class="form-inline">
+				<div class="form-group">
+		    		<input class="form-control input-lg" type="text" placeholder="Search here" ng-model="searchQuery">
+		    		<input class="btn btn-default btn-lg" value="Search Recipes" type="submit" ng-click="searchRecipes()">
+				    <input class="btn btn-default btn-lg" value="Search Tracks" type="submit" ng-click="searchTracks()">
+				    <input class="btn btn-default btn-sm" value="Search Audioprograms" type="submit" ng-click="searchPrograms()">
+				    <input class="btn btn-default btn-sm" value="Search Categories" type="submit" ng-click="searchCategories()">
+				</div>
+			</form>
+			<button ng-click="getNonces()"> nonces </button>
+			<button ng-click="audioTest()"> audiotest </button>
 
 	    </div>
 	</div>
     <div id="resultsContainer">
 	    <div id="searchResults" ng-repeat="res in searchResults | startFrom:currentResultPage*resultPageSize | limitTo:resultPageSize">
 	    	<div class="row">
-		        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-8">
+		        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-8" ng-click="loadPlaylist(res.id)">
 		        	<h4>{{res.name}}</h4>
+		        	<p ng-show="res.artist != null">{{res.artist}} </p>
 		        	<p>{{res.description}} </p>
 		    	</div>
 		    	<div class="col-xs-2 col-sm-2 col-md-2 col-lg-4">
-		    		<p> favourite button</p>
+		    		<img style="width: 50%;height: 50%;" src="../images/favourite.svg" ng-click=""> 
 		    	</div>
 		    </div>
 		    <hr>
