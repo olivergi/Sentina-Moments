@@ -21,10 +21,19 @@ var app = angular.module('SentinaMoments', ['ui.router', 'ngAudio']);
                 }
             })
 
-
 	        .state('menu', {
 	            url: "/menu",
 	            templateUrl: "../../views/menu.html",
+	        })
+
+	        .state('search', {
+	        	url: "/search",
+	            templateUrl: "../../views/search.html",
+	        })
+	        
+	        .state('channels', {
+	        	url: "/channels",
+	            templateUrl: "../../views/channels.html",
 	        })
 
 
