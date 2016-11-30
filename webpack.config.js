@@ -1,37 +1,37 @@
 var config = {
-   entry: './main.js',
+   	entry: './main.js',
 	
-   output: {
-      path:'./',
-      filename: 'index.js',
-   },
+   	output: {
+      	path:'./',
+      	filename: 'index.js',
+   	},
 	
-   devServer: {
-      historyApiFallback: {
-         index: '/'
-       },
+   	devServer: {
+		historyApiFallback: {
+         	index: '/'
+       	},
 
-      proxy: {
-         '/services/*': {
-            target: 'https://sentina.savelsirkku.fi',
-            secure: false
-         }
-    }
-   },
+      	proxy: {
+         	'/services/*': {
+            	target: 'https://sentina.savelsirkku.fi',
+            	secure: false
+         	}
+    	}
+	},
 	
-   module: {
-      loaders: [
-         {
-            test: /\.jsx?$/,
-            exclude: /node_modules/,
-            loader: 'babel',
+   	module: {
+      	loaders: [
+      		{
+            	test: /\.jsx?$/,
+            	exclude: /node_modules/,
+            	loader: 'babel',
 				
-            query: {
-               presets: ['es2015', 'react']
-            }
-         }
-      ]
-   }
+            	query: {
+               		presets: ['es2015', 'react']
+            	}
+         	}
+      	]
+   	}
 }
 
 module.exports = config;

@@ -1,0 +1,17 @@
+<div id="channels" ng-controller="ChannelController">
+	<header class="channelInfo"><h1>{{title}}</h1></header>
+	<div id="channelContainer container-fluid">
+    	
+		<div class="col-md-6" ng-repeat="chButton in channelButtons">
+    		<div class="col-md-12">
+    			<button ng-click="toggleChannelButton()" class="channelButton" ng-class="{on : chButton.state, channelSmall : chButton.longTitle}">
+    				{{chButton.label}}
+    			</button>
+			</div>
+		</div>
+		
+		<!--Poista myöhemmin-->
+		<button ng-click="getSelectedChannels()">TEST</button>
+		
+  	</div>
+</div>

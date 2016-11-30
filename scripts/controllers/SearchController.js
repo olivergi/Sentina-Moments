@@ -3,8 +3,8 @@
 var app = angular.module('SentinaMoments')
  app.controller('SearchController',function($scope, $http, $log, VariableFactory){
  	$scope.apiurl = "http://localhost:8080/services/"
-  $scope.user = {};
-  $scope.nonces = [];
+  	$scope.user = {};
+  	$scope.nonces = [];
  	$scope.searchResults = [];
  	$scope.currentResultPage = 0;
  	$scope.resultPageSize = 4; 	
@@ -126,30 +126,28 @@ var app = angular.module('SentinaMoments')
     });
   }
 
-  $scope.audioTest = function() {
-    $scope.afId = 21983;
-    $scope.nonce = VariableFactory.nonces[0].nonce;
+  	$scope.audioTest = function() {
+    	$scope.afId = 21983;
+    	$scope.nonce = VariableFactory.nonces[0].nonce;
 
-    $http({
-          method: 'GET',
-          url: $scope.apiurl.concat('audiofile/' + $scope.afId + '/' + $scope.nonce + '/file.mp3'),
-          headers: {
-          'Accept': 'application/json'
-        }
+		$http({
+          	method: 'GET',
+          	url: $scope.apiurl.concat('audiofile/' + $scope.afId + '/' + $scope.nonce + '/file.mp3'),
+          	headers: {
+          	'Accept': 'application/json'
+			}
 
-      }).then(function successCallback(response) {
-          $log.info("Success:", response);
+      	}).then(function successCallback(response) {
+          	$log.info("Success:", response);
 
-          $scope.audios = [];
-          $scope.audios[0] = $scope.apiurl.concat('audiofile/' + $scope.afId + '/' + $scope.nonce + '/file.mp3');
-          $log.info($scope.audios);
+          	$scope.audios = [];
+          	$scope.audios[0] = $scope.apiurl.concat('audiofile/' + $scope.afId + '/' + $scope.nonce + '/file.mp3');
+          	$log.info($scope.audios);
 
-      }, function errorCallback(response) {
-          $log.error("ERROR:", response.data);
-      });
-
-  };
-
+      	}, function errorCallback(response) {
+          	$log.error("ERROR:", response.data);
+      	});
+  	};
 });
 
 // Custom filter for the search results 

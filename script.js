@@ -1,6 +1,5 @@
-angular.module('SentinaMoments', []);
-
-$(document).ready(function () {
+var app = angular.module('SentinaMoments', []);
 
 
-});
+
+

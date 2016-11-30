@@ -32,6 +32,11 @@ app.config(function($urlRouterProvider, $stateProvider){
         	url: "/search",
             templateUrl: "../../views/search.html",
         })
+        
+        .state('channels', {
+        	url: "/channels",
+            templateUrl: "../../views/channels.html",
+        })
 
 
     	$urlRouterProvider.otherwise('/');
