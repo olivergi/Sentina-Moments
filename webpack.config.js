@@ -7,8 +7,15 @@ var config = {
    },
 	
    devServer: {
-      inline: true,
-      port: 8080
+      historyApiFallback: {
+        index: '/'
+      },      
+       proxy: {
+        '/services/*': {
+           target: 'https://sentina.savelsirkku.fi',
+           secure: false
+            }
+        }
    },
 	
    module: {
