@@ -3,8 +3,6 @@
 var app = angular.module('SentinaMoments')
  app.controller('SearchController',function($scope, $http, $log, VariableFactory){
  	$scope.apiurl = "http://localhost:8080/services/"
-  $scope.user = {};
-  $scope.nonces = [];
  	$scope.searchResults = [];
  	$scope.currentResultPage = 0;
  	$scope.resultPageSize = 4; 	

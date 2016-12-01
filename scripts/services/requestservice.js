@@ -71,9 +71,27 @@ app.service("RequestService", function($log, $http, VariableFactory, $rootScope)
 		if(VariableFactory.nonceIndex < 9){
       		VariableFactory.nonceIndex++;
       	} else {
-      		$rootScope.$broadcast('getNonces');
+      		// Have a timeout to get new nonces, otherwise the current nonce won't get used 
+      		setTimeout(function() {
+      			$rootScope.$broadcast('getNonces');
+      		},500)
       		VariableFactory.nonceIndex = 0;
       	}
+	},
+
+	insertAudio: function(songIndex) {
+		var i = songIndex;
+
+      	// assign the file ID's
+      	if (VariableFactory.todaysRecipe[i].musicPieceAudioFileId != null){
+        	var afId = VariableFactory.todaysRecipe[i].musicPieceAudioFileId;
+      	} else if (VariableFactory.todaysRecipe[i].audioProgramId != null){
+        	var afId = VariableFactory.todaysRecipe[i].audioProgramAudioFileId;
+      	}
+      	// Assign the audio playlist's file URL with the ID and nonce
+      	VariableFactory.audios[i] = VariableFactory.apiurl + 'audiofile/' + afId + '/' + VariableFactory.nonces[VariableFactory.nonceIndex].nonce + '/file.mp3';
+      	// call nextNonce() to check the state of available nonces
+      	return this.nextNonce();
 
 	},
 
@@ -92,9 +110,13 @@ app.service("RequestService", function($log, $http, VariableFactory, $rootScope)
 
 	          $rootScope.$broadcast('getNonces');
 
+
 	      }, function errorCallback(response) {
 	          $log.error("ERROR:", response.data);
 	      });
+
+	  	// Get today's playlist
+		return this.getTodaysRecipe();
   	},
 
  	// use 'Moment' library to get today's date and then call
@@ -105,8 +127,6 @@ app.service("RequestService", function($log, $http, VariableFactory, $rootScope)
 	},
 
 	getRecipeTimings: function(dayList) {
-		$log.info("getting today's recipe")
-
 		$http({
           method: 'GET',
           url: VariableFactory.apiurl + 'data/recipetimings',
@@ -121,7 +141,10 @@ app.service("RequestService", function($log, $http, VariableFactory, $rootScope)
           $log.info("Success, today's recipe: ", response.data.result);
 
           $rootScope.$broadcast('loadPlaylist', {
-                data: response.data.result[0].id
+                data: {
+                	id: response.data.result[0].id,
+                	name: response.data.result[0].name
+                }
           });
 
       }, function errorCallback(response) {
