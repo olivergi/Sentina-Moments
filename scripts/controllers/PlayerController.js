@@ -2,7 +2,7 @@
 
 angular.module('SentinaMoments')
  .controller('PlayerController',function($rootScope, $scope, ngAudio, $http, $log, VariableFactory, RequestService){
- 	$scope.apiurl = "http://localhost:8080/services/"
+ 	$scope.apiurl = "http://localhost:8080/services/";
 
     $scope.formatTime = function(seconds) {
         var minutes = Math.floor(seconds / 60);
@@ -13,8 +13,11 @@ angular.module('SentinaMoments')
  	};
 
  	// Have a listener when the RequestService calls for loading a playlist with a recipeID
-	$scope.$on('loadPlaylist', function(event, rId) {
-        $scope.loadPlaylist(rId);
+	$scope.$on('loadPlaylist', function(event, obj) {
+		// Parameter obj is an data object which contains needed info about the recipe
+        $scope.loadPlaylist(obj.data.id);
+        // set a variable for the user interface to see what playlist is currently on
+        VariableFactory.currentRecipeName = obj.data.name;
     })
 
 	$scope.loadPlaylist = function(rId) {
@@ -26,27 +29,21 @@ angular.module('SentinaMoments')
           'Accept': 'application/json'
           },
           params: {
-            recipeId: rId.data
+            recipeId: rId
           }
 
       }).then(function successCallback(response) {
-          $log.info("Success, recipe loaded:", response.data);
-          VariableFactory.audios = [];
+        $log.info("Success, recipe loaded:", response.data);
+        $scope.todRecipe, VariableFactory.todaysRecipe = response.data.result;
+        VariableFactory.audios = [];
 
-          for (var i = 0; i < response.data.result.length; i++) {
-          	if (response.data.result[i].musicPieceAudioFileId != null){
-            	var afId = response.data.result[i].musicPieceAudioFileId;
-          	} else if (response.data.result[i].audioProgramId != null){
-            	var afId = response.data.result[i].audioProgramAudioFileId;
-          	}
-            VariableFactory.audios[i] = $scope.apiurl.concat('audiofile/' + afId + '/' + VariableFactory.nonces[VariableFactory.nonceIndex].nonce + '/file.mp3');
-          	RequestService.nextNonce();
-          }
+        // Inserts the first audio file from the recipe to the playlist
+        RequestService.insertAudio(VariableFactory.currentSong);
 
-          $log.info("audios after recipeload: ", VariableFactory.audios);
+        //$log.info("audios after recipeload: ", VariableFactory.audios);
 
-          // Broadcast to the player that the playlist can be started
-          $rootScope.$broadcast('startPlaylist');
+        // Broadcast to the player that the playlist can be started
+        $rootScope.$broadcast('startPlaylist');
 
 
       }, function errorCallback(response) {
