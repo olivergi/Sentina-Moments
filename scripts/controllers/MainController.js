@@ -43,7 +43,6 @@ app.config(function($urlRouterProvider, $stateProvider){
             templateUrl: "../../views/search.html",
         })
         
-<<<<<<< HEAD
         .state('daily', {
                 url: "/daily",
                 templateUrl: "../../views/daily.html",
@@ -53,18 +52,13 @@ app.config(function($urlRouterProvider, $stateProvider){
                 url: "/login",
                 templateUrl: "../../views/login.html",
         })
-          
-        $urlRouterProvider.otherwise('/');
      
-=======
         .state('channels', {
         	url: "/channels",
             templateUrl: "../../views/channels.html",
         })
 
-
     	$urlRouterProvider.otherwise('/');
->>>>>>> a34a451126bebe3740300ababdf79ba6bafca891
 });
 
 // Value for remembering the audio when in other views

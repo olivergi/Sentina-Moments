@@ -9,7 +9,9 @@ During this application we will be working together with Sentina on a redesign o
 
 #https://sentina.savelsirkku.fi/
 
-To server the application using webpack in terminal use: 
+We have used NPM, bootstrap, moments and angular libraries in our project. 
+
+To serve the application using webpack in terminal use: 
 
 > npm test
 
