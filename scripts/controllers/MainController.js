@@ -57,6 +57,11 @@ app.config(function($urlRouterProvider, $stateProvider){
         	url: "/channels",
             templateUrl: "../../views/channels.html",
         })
+        
+        .state('favourites', {
+            url: "/favourites",
+            templateUrl: "../../views/favourites.html",
+        })
 
     	$urlRouterProvider.otherwise('/');
 });

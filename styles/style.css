@@ -63,6 +63,7 @@ input[type=range] {
  -webkit-appearance: none;
  width: 100%;
  margin: 6.5px 0;
+
 }
 
 input[type=range]:focus {
@@ -96,25 +97,23 @@ input[type=range]:focus::-webkit-slider-runnable-track {
 }
 
 input[type=range]::-moz-range-track {
- width: 100%;
- height: 12px;
- cursor: pointer;
- box-shadow: 1px 1px 1px #000000
-, 0px 0px 1px #0d0d0d;
- background: #2a375e;
- border-radius: 7px;
- border: 0px solid rgba(1, 1, 1, 0);
+  width: 100%;
+  height: 12px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  background: #2a375e;
+  border-radius: 7px;
+  border: 0px solid rgba(1, 1, 1, 0);
 }
 
 input[type=range]::-moz-range-thumb {
-     box-shadow: 1px 1px 1px #000000
-    , 0px 0px 1px #0d0d0d;
-     border: 1px solid rgba(0, 0, 0, 0);
-     height: 25px;
-     width: 25px;
-     border-radius: 30px;
-     background: #ffffff; 
-    cursor: pointer;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid rgba(0, 0, 0, 0);
+  height: 25px;
+  width: 25px;
+  border-radius: 30px;
+  background: #ffffff;
+  cursor: pointer;
 }
 
 input[type=range]::-ms-track {
@@ -124,28 +123,24 @@ input[type=range]::-ms-track {
  background: transparent;
  border-color: transparent;
  color: transparent;
->>>>>>> Oliver
 }
 
 input[type=range]::-ms-fill-lower {
  background: #1a223b;
  border: 0px solid rgba(1, 1, 1, 0);
  border-radius: 14px;
- box-shadow: 1px 1px 1px #000000
-, 0px 0px 1px #0d0d0d;
+ box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
 }
 
 input[type=range]::-ms-fill-upper {
  background: #2a375e;
  border: 0px solid rgba(1, 1, 1, 0);
  border-radius: 14px;
- box-shadow: 1px 1px 1px #000000
-, 0px 0px 1px #0d0d0d;
+ box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
 }
 
 input[type=range]::-ms-thumb {
- box-shadow: 1px 1px 1px #000000
-, 0px 0px 1px #0d0d0d;
+ box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
  border: 1px solid rgba(0, 0, 0, 0);
  height: 25px;
  width: 25px;
@@ -180,7 +175,6 @@ input[type=range]:focus::-ms-fill-upper {
     color: aqua;
 }
 
-
 .navbar li {
 	float: right;
     margin-right: 20px;
@@ -210,7 +204,7 @@ input[type=range]:focus::-ms-fill-upper {
    width: 100%;
 }
 
-.audio-duration{
+.audio-duration {
    color: white;
    text-shadow: 1px 1px 1px #000000;
    text-align: center;

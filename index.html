@@ -1,57 +1,60 @@
 <!DOCTYPE html>
-<html lang = "en">
-   <head>
-      <meta charset = "UTF-8">
-      <title>Sentina Moments</title>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sentina Moments</title>
 
-		<link href="styles/style.css" rel="stylesheet">
-		<link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-		<link href="styles/navbar_main.css" rel="stylesheet">
-		<link href="styles/scrollbar.css" rel="stylesheet">
-		<link href="styles/searchview.css" rel="stylesheet">
-		
-    	<link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
-    	<link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
-   </head>
+    <link href="styles/style.css" rel="stylesheet">
+    <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles/navbar_main.css" rel="stylesheet">
+    <link href="styles/scrollbar.css" rel="stylesheet">
+    <link href="styles/searchview.css" rel="stylesheet">
+    <link href="styles/favourites_style.css" rel="stylesheet">
 
-   <body id="grad" ng-app="SentinaMoments" ng-controller="MainController as content">
-		<navbar> </navbar>
-		<div class="main" id ="app" ui-view />
-   </body>
+    <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
+</head>
 
-   <!-- Include angular files & plugins -->
-    <script src="./node_modules/angular/angular.js"></script>
-    <script src="./node_modules/angular-audio/app/angular.audio.js"></script>
-    <script src="./node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
-    <script src="./node_modules/moment/moment.js"></script>
+<body id="grad" ng-app="SentinaMoments" ng-controller="MainController as content">
+    <navbar> </navbar>
+    <div class="main" id="app" ui-view />
+</body>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+<!-- Include angular files & plugins -->
+<script src="./node_modules/angular/angular.js"></script>
+<script src="./node_modules/angular-audio/app/angular.audio.js"></script>
+<script src="./node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="./node_modules/moment/moment.js"></script>
 
-    <!-- Include angular ui bootstrap -->
-    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="./node_modules/jquery/dist/jquery.min.js"></script>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+<!-- Include angular ui bootstrap -->
+<script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 
-    <!-- Include My App's JS file(s)-->
-    <script src="./script.js"></script>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="./node_modules/jquery/dist/jquery.min.js"></script>
 
-    <!-- Controllers -->
-    <script src="./scripts/controllers/MainController.js"></script>
-    <script src="./scripts/controllers/PlayerController.js"></script>
-    <script src="./scripts/controllers/ChannelController.js"></script>
-    <script src="./scripts/controllers/SearchController.js"></script>
-    <script src="./scripts/controllers/LoginController.js"></script>
-    <script src="./scripts/controllers/NavbarController.js"></script>
+<!-- Include My App's JS file(s)-->
+<script src="./script.js"></script>
 
-    <!-- Directives -->
-    <script src="scripts/directives/navbar.js"></script>
-    <script src="scripts/directives/player.js"></script>
-    <script src="scripts/directives/menu.js"></script>
-    <script src="scripts/directives/channels.js"></script>
-    
-    <!-- Services -->
-    <script src="scripts/services/requestservice.js"></script>
-    <script src="scripts/services/variablefactory.js"></script>
+<!-- Controllers -->
+<script src="./scripts/controllers/MainController.js"></script>
+<script src="./scripts/controllers/PlayerController.js"></script>
+<script src="./scripts/controllers/ChannelController.js"></script>
+<script src="./scripts/controllers/SearchController.js"></script>
+<script src="./scripts/controllers/LoginController.js"></script>
+<script src="./scripts/controllers/NavbarController.js"></script>
+<script src="./scripts/controllers/FavouritesController.js"></script>
+
+<!-- Directives -->
+<script src="scripts/directives/navbar.js"></script>
+<script src="scripts/directives/player.js"></script>
+<script src="scripts/directives/menu.js"></script>
+<script src="scripts/directives/channels.js"></script>
+
+<!-- Services -->
+<script src="scripts/services/requestservice.js"></script>
+<script src="scripts/services/variablefactory.js"></script>
+
 </html>
