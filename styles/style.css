@@ -1,14 +1,13 @@
 /* DOC */
 body, html {
     height: 100%;
-    
     color: black !important;
     overflow-x: hidden;
     padding-top: 2.5em;   
 }
 
 .main, .menu, .channels  {
-    height: 100%;
+    height: 97%;
     font-family: 'Bitter', sans-serif;  
 }
 
