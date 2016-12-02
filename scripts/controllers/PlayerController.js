@@ -11,3 +11,4 @@ angular.module('SentinaMoments')
         return minutes + ":" + seconds;
  	};
  })
+
