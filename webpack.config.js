@@ -1,11 +1,11 @@
 var config = {
-   entry: './main.js',
+   	entry: './main.js',
 	
-   output: {
-      path:'./',
-      filename: 'index.js',
-   },
-	
+   	output: {
+      	path:'./',
+      	filename: 'index.js',
+   	},
+
    devServer: {
       historyApiFallback: {
         index: '/'
@@ -18,19 +18,19 @@ var config = {
         }
    },
 	
-   module: {
-      loaders: [
-         {
-            test: /\.jsx?$/,
-            exclude: /node_modules/,
-            loader: 'babel',
+   	module: {
+      	loaders: [
+      		{
+            	test: /\.jsx?$/,
+            	exclude: /node_modules/,
+            	loader: 'babel',
 				
-            query: {
-               presets: ['es2015', 'react']
-            }
-         }
-      ]
-   }
+            	query: {
+               		presets: ['es2015', 'react']
+            	}
+         	}
+      	]
+   	}
 }
 
 module.exports = config;

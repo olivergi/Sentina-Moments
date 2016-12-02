@@ -1,5 +1,7 @@
 var app = angular.module('SentinaMoments');
 app.factory("VariableFactory", function($log, $http) {
+	// URL using webpack's proxy to the Sentina server for requesting data
+	var apiurl =  "http://localhost:8080/services/";
 	// User object
 	var user = [];
 	// Audio nonces for getting the audio file from backend
@@ -10,16 +12,20 @@ app.factory("VariableFactory", function($log, $http) {
 	var audios = [];
 	// Song index for the current playing audio file
 	var currentSong = 0;
-	// URL using webpack's proxy to the Sentina server for requesting data
-	var apiurl =  "http://localhost:8080/services/";
+	// Store for the curŕent recipe's name to be shown on the user interface
+	var currentRecipeName = "";
+	// Store the todays recipe in an object so the information can be fetched easily
+	var todaysRecipe = {};
 
 	return {
-		// variables
+		// return the values when the factory is called upon
+		apiurl,
 		user,
 		nonces,
 		nonceIndex,
-		currentSong,
 		audios,
-		apiurl
+		currentSong,
+		currentRecipeName,
+		todaysRecipe
 	};
 });
