@@ -1,32 +1,40 @@
 <div id="playerContainer" ng-controller="PlayerController">
     <div class="audio-info">
-        <h1>Playlist Name</h1>
-        <h2>Song Name - Artist Name</h2>
+        <h1 class="textShadow" style="color: white;">Playlist Name</h1>
+        <h2 class="textShadow" style="color: white;">Song Name - Artist Name</h2>
     </div>
     <div class="buttons">
-        <div class="playerButton" ng-click='audio.restart()'>
-            <img src="../images/previous.svg" class="playerIcon">
-        </div>
         <div class="playerButton" ng-click='audio.paused ? audio.play() : audio.pause()'>
             <img id="play" ng-src="{{audio.paused && '../images/play.svg' || '../images/pause.svg'}}" class="playerIcon">
-        </div>
-        <div class="playerButton" ng-click='audio.restart(); nextTrack();'>
-            <img src="../images/next.svg" class="playerIcon">
+            <p class="textShadow playerText">{{audio.paused && 'Listen' || 'Stop'}}</p>
         </div>
     </div>
 
-    <div class="input-group progress">
-        <div class="audio-duration">
-            {{formatTime(audio.currentTime)}}
-            <div id="proge">
-                <input type=range min=0 max='1' step=0.01 ng-model='audio.progress'>  
-            </div>
-            {{audio.duration | trackTime}}
-            </div>
-    </div>
+       <div class="input-group progress">
+       <div class="audio-duration">
+           {{formatTime(audio.currentTime)}}
+           <div id="proge" style="display: inline-block;">
+               <input type=range min=0 max='1' step=0.001 ng-model='audio.progress' style="background: transparent;">  
+           </div>
+           {{audio.duration | trackTime}}
+           </div>
+   </div>
     
-    <div class="feedback">
-        <div class="feedback-button">Up</div>
-        <div class="feedback-button">Down</div>
+    <div class="buttonSection">
+        <div class="col-xs-4 col-sm-4 col-md-4">
+    		<div class="greenCircle">
+				<p class="textShadow">Good</p>
+			</div>
+		</div>
+        <div class="col-xs-4 col-sm-4 col-md-4">
+    		<div class="yellowCircle" >
+				<p class="textShadow">Ok</p>
+			</div>
+		</div>
+        <div class="col-xs-4 col-sm-4 col-md-4">
+    		<div class="redCircle" ng-click="audio.restart(); nextTrack(); audio.play();">
+				<p class="textShadow">Bad</p>
+			</div>
+		</div>
     </div>
 </div>

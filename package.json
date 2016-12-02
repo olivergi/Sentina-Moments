@@ -4,16 +4,16 @@
   "description": "This is a project for Sentina & Helsinki Metropolia University of applied sciences.",
   "main": "main.js",
   "dependencies": {
+    "angular-ui-router": "~0.3.2",
     "babel-core": "^6.17.0",
-    "babel-preset-es2016": "^6.16.0",
     "babel-loader": "^6.2.5",
+    "babel-preset-es2016": "^6.16.0",
     "babel-preset-react": "^6.16.0",
+    "moment": "^2.17.0",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "webpack": "^1.13.2",
-    "webpack-dev-server": "^1.16.2",
-    "angular-ui-router": "~0.3.2",
-    "moment": "~2.17.0"
+    "webpack-dev-server": "^1.16.2"
   },
   "devDependencies": {},
   "scripts": {

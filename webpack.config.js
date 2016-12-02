@@ -8,15 +8,14 @@ var config = {
 	
    devServer: {
       historyApiFallback: {
-         index: '/'
-       },
-
-      proxy: {
-         '/services/*': {
-            target: 'https://sentina.savelsirkku.fi',
-            secure: false
-         }
-    }
+        index: '/'
+      },      
+       proxy: {
+        '/services/*': {
+           target: 'https://sentina.savelsirkku.fi',
+           secure: false
+            }
+        }
    },
 	
    module: {

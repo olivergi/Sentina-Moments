@@ -8,7 +8,11 @@ app.config(function($urlRouterProvider, $stateProvider){
 	    .state("player", {
             url: "/",
             templateUrl: "../../views/player.html",
-            controller: function($scope, ngAudio, songRemember,$log, VariableFactory) {
+            controller: function($scope, ngAudio, songRemember,$log, VariableFactory, $state, RequestService) {
+                if (VariableFactory.user.id == null){
+                        $state.go('login');
+                    }
+                
             	var url = VariableFactory.audios[VariableFactory.currentSong];
 
                 if (songRemember[url]) {
@@ -26,15 +30,30 @@ app.config(function($urlRouterProvider, $stateProvider){
         .state('menu', {
             url: "/menu",
             templateUrl: "../../views/menu.html",
+            controller: function(VariableFactory, $state) {
+                if (VariableFactory.user.id == null){   
+                        $state.go('login');
+                    }
+            }
         })
 
         .state('search', {
         	url: "/search",
             templateUrl: "../../views/search.html",
         })
-
-
-    	$urlRouterProvider.otherwise('/');
+        
+        .state('daily', {
+                url: "/daily",
+                templateUrl: "../../views/daily.html",
+        })
+        
+        .state('login', {
+                url: "/login",
+                templateUrl: "../../views/login.html",
+        })
+          
+        $urlRouterProvider.otherwise('/');
+     
 });
 
 // Value for remembering the audio when in other views
@@ -43,12 +62,12 @@ app.value("songRemember",{})
     .controller('MainController', function($scope, ngAudio, $log, $state, $http, RequestService, VariableFactory) {
 	    // temporary setup for authorizing the user
 	    // TODO: Authorization through login page
-	    RequestService.formPost("auth/page/hashdb/login");
+	    //RequestService.formPost("auth/page/hashdb/login");
 	    // Get the user object
-	    RequestService.getUser();
+	    //RequestService.getUser();
 
 	  	// Get today's playlist
-		RequestService.getTodaysRecipe();
+		//RequestService.getTodaysRecipe();
 
         // Have a listener when the RequestService calls for loading a playlist with a recipeID
 		$scope.$on('startPlaylist', function(event) {
@@ -58,6 +77,10 @@ app.value("songRemember",{})
 	    //Listener for getting the nonces once the user object is available
 		$scope.$on('getNonces', function(event) {
 		  	RequestService.getNonces()
+	    })
+        
+        $scope.$on('getTodaysRecipe', function(event) {
+		  	RequestService.getTodaysRecipe();
 	    })
 
         $scope.nextTrack = function() {

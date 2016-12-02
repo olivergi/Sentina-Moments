@@ -45,6 +45,18 @@ app.service("RequestService", function($log, $http, VariableFactory, $rootScope)
 	    cred.append('password', _password);
 	    return this.request('POST', route, {}, cred);
 	},
+    
+    //Login form function    
+    loginFormPost: function(route, username, password) {
+	    var _username = username;
+	    var _password = password; 
+	      
+	    var cred = new FormData();
+
+	    cred.append('username', _username);
+	    cred.append('password', _password);
+	    return this.request('POST', route, {}, cred);
+	},
 
 	getNonces: function() {
 
@@ -91,6 +103,7 @@ app.service("RequestService", function($log, $http, VariableFactory, $rootScope)
 	          VariableFactory.user = response.data.user;
 
 	          $rootScope.$broadcast('getNonces');
+            $rootScope.$broadcast('getTodaysRecipe');
 
 	      }, function errorCallback(response) {
 	          $log.error("ERROR:", response.data);
@@ -120,9 +133,11 @@ app.service("RequestService", function($log, $http, VariableFactory, $rootScope)
       }).then(function successCallback(response) {
           $log.info("Success, today's recipe: ", response.data.result);
 
-          $rootScope.$broadcast('loadPlaylist', {
+            setTimeout(function(){
+                $rootScope.$broadcast('loadPlaylist', {
                 data: response.data.result[0].id
-          });
+                });
+            }, 1000)
 
       }, function errorCallback(response) {
           $log.error("ERROR:", response.data);

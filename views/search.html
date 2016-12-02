@@ -3,12 +3,12 @@
 	<div class="container" id="searchbarContainer">
 		<div class="col-xs-8 col-sm-10 col-md-8 col-lg-8">
 			<form class="form-inline">
-				<div class="form-group">
 		    		<input class="form-control input-lg" type="text" placeholder="Search here" ng-model="searchQuery">
-		    		<input class="btn btn-default btn-lg" value="Search Recipes" type="submit" ng-click="searchRecipes()">
-				    <input class="btn btn-default btn-lg" value="Search Tracks" type="submit" ng-click="searchTracks()">
-				    <input class="btn btn-default btn-sm" value="Search Audioprograms" type="submit" ng-click="searchPrograms()">
-				    <input class="btn btn-default btn-sm" value="Search Categories" type="submit" ng-click="searchCategories()">
+				<div class="form-group">
+		    		<input class="btn btn-default btn-md" value="Search Recipes" type="submit" ng-click="searchRecipes()">
+				    <input class="btn btn-default btn-md" value="Search Tracks" type="submit" ng-click="searchTracks()">
+				    <input class="btn btn-default btn-md" value="Search Audioprograms" type="submit" ng-click="searchPrograms()">
+				    <input class="btn btn-default btn-md" value="Search Categories" type="submit" ng-click="searchCategories()">
 				</div>
 			</form>
 			<button ng-click="getNonces()"> nonces </button>
@@ -25,7 +25,7 @@
 		        	<p>{{res.description}} </p>
 		    	</div>
 		    	<div class="col-xs-2 col-sm-2 col-md-2 col-lg-4">
-		    		<img style="width: 50%;height: 50%;" src="../images/favourite.svg" ng-click=""> 
+		    		<img style="width: 50%;height: 50%;" src="../images/play.svg" ng-click=""> 
 		    	</div>
 		    </div>
 		    <hr>
