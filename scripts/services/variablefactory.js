@@ -18,7 +18,7 @@ app.factory("VariableFactory", function($log, $http) {
 	var currentRecipe = {};
 	// Store the todays recipe in an object so the information can be fetched easily
 	var todaysRecipe = {};
-
+    
 	return {
 		// return the values when the factory is called upon
 		apiurl,

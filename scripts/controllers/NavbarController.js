@@ -1,23 +1,26 @@
 'use strict';
 
-angular.module('SentinaMoments').controller('NavbarController',function($scope, $log){
+angular.module('SentinaMoments').controller('NavbarController',function($scope, $log, $state){
 	
 	$scope.clicks = 0;
 	$scope.firstClickDate = 0;
 	$scope.showMenu = false;
 
 	$scope.tripleclick = function() {
-		if(new Date() - $scope.firstClickDate < 500){
+		if (!$state.is("login")){
+			if(new Date() - $scope.firstClickDate < 500){
 			$scope.clicks++;
+			}
+			else{
+				$scope.clicks = 1;	
+			}
+			if($scope.clicks == 3){
+				toggleAdvancedMode();
+				$scope.clicks = 1;
+			}
+			$scope.firstClickDate = new Date();
 		}
-		else{
-			$scope.clicks = 1;	
-		}
-		if($scope.clicks == 3){
-			toggleAdvancedMode();
-			$scope.clicks = 1;
-		}
-		$scope.firstClickDate = new Date();
+		
 	}
 	
 	function toggleAdvancedMode() {
