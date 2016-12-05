@@ -14,6 +14,8 @@ app.factory("VariableFactory", function($log, $http) {
 	var currentSong = 0;
 	// Store for the curŕent recipe's name to be shown on the user interface
 	var currentRecipeName = "";
+	// Variable for the current playlist for the audio player
+	var currentRecipe = {};
 	// Store the todays recipe in an object so the information can be fetched easily
 	var todaysRecipe = {};
 
@@ -26,6 +28,7 @@ app.factory("VariableFactory", function($log, $http) {
 		audios,
 		currentSong,
 		currentRecipeName,
+		currentRecipe,
 		todaysRecipe
 	};
 });

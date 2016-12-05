@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SentinaMoments')
-    .controller('FavouritesController', function ($scope, $http, $log, $state) {
+    .controller('FavouritesController', function ($rootScope, $scope, $http, $log, $state, RequestService, VariableFactory) {
         $scope.apiurl = "http://localhost:8080/services/";
         //Variables for storing 
         $scope.user = {};
@@ -11,6 +11,7 @@ angular.module('SentinaMoments')
         $scope.showFavourite = false;
         $scope.userTags = [];
         $scope.viewState = '';
+
         $scope.getFromServer = function (route) {
             $log.info(route);
             var getRoute = route;
@@ -45,115 +46,6 @@ angular.module('SentinaMoments')
             }, function errorCallback(response) {
                 $log.error("ERROR:", response.data);
             });
-        }
-
-
-        //Request to handle post/gets to the backend
-        $scope.request = function (method, route, headersObj, body) {
-            let headers = new Headers();
-            if (typeof headersObj === 'object') {
-                Object.keys(headersObj).forEach(function (key) {
-                    let value = headersObj[key];
-                    headers.append(key, value);
-                });
-            }
-            headers.append('Accept', 'application/json');
-            return fetch('/services/' + route, {
-                method,
-                body,
-                headers,
-                credentials: 'same-origin'
-            }).then(resp => {
-                if (!resp.ok) {
-                    if (resp.status >= 500 || resp.status < 400) {
-                        throw new Error('Internal error: ' + resp.status);
-                    }
-                    return resp.json().then(json => {
-                        console.error(json);
-                        let err = new Error('Request failed');
-                        throw err;
-                    });
-                }
-                $log.info(route + ":", resp);
-                $scope.getUser();
-                return resp.json();
-            });
-        }
-
-
-        // First, get the user object
-        $scope.getUser = function () {
-
-            $http({
-                method: 'GET',
-                url: $scope.apiurl,
-                headers: {
-                    'Accept': 'application/json'
-                }
-
-            }).then(function successCallback(response) {
-                $log.info("Success:", response.data.user);
-                $scope.user = response.data.user;
-                $scope.getFromServer('musicpieces');
-
-            }, function errorCallback(response) {
-                $log.error("ERROR:", response.data);
-            });
-        }
-
-        /*$scope.$watch(function () {
-            return $scope.showDelete;
-        }, function (newValue) {
-            $log.info(newValue)
-            if (newValue == false) {
-            }
-        });*/
-
-        // then get the nonces
-        $scope.getNonces = function () {
-
-            $http({
-                method: 'GET',
-                url: $scope.apiurl.concat('data/audiofilenonces'),
-                headers: {
-                    'Accept': 'application/json'
-                },
-                params: {
-                    onlyTagged
-                }
-
-            }).then(function successCallback(response) {
-                $log.info("Success:", response.data);
-                $scope.nonces = response.data.result;
-                $log.info("nonces: ", $scope.nonces);
-
-            }, function errorCallback(response) {
-                $log.error("ERROR:", response.data);
-            });
-        }
-
-        // getting the actual audio file
-        $scope.audioTest = function () {
-            // Hard coded audio file ID, found it in
-            // https://sentina.savelsirkku.fi/services/data/musicpieces
-            $scope.afId = 21983;
-            $scope.nonce = $scope.nonces[0].nonce;
-
-            $http({
-                method: 'GET',
-                url: $scope.apiurl.concat('audiofile/' + $scope.afId + '/' + $scope.nonce + '/file.mp3'),
-                headers: {
-                    'Accept': 'application/json'
-                }
-
-            }).then(function successCallback(response) {
-                $log.info("Success:", response);
-                // Then do something with the audio file
-
-            }, function errorCallback(response) {
-                $log.error("ERROR:", response.data);
-            });
-
         }
         
         $scope.deleteFav = function (id) {
@@ -237,31 +129,25 @@ angular.module('SentinaMoments')
                 $log.error("ERROR: ", response.data);
             }); */
         }
-        $scope.post = function (route, data) {
-            $scope.request('POST', route, {
-                'Content-Type': 'application/json'
-            }, JSON.stringify(data));
+
+
+        $scope.loadPlaylist = function(id, name) {
+            if ($scope.viewState == "recipes"){
+                $state.go("player");
+                if (VariableFactory.currentRecipeName != name) {
+                    RequestService.loadPlaylist(id);
+                    VariableFactory.currentRecipeName = name;
+                } else {
+                    $log.info("this item is the current recipe")
+                    // Maybe add some kind of visual indicator that this is the current playing playlist
+                }
+            } else if ($scope.viewState == "audioprograms") {
+                // assign the audio as current audio
+            } else if ($scope.viewState == "musicpieces") {
+                // assign the audio as current audio
+            }
+            
+
         }
-
-
-
-        //Log in function
-        $scope.formPost = function (route) {
-            var _username = 'Metropolia1';
-            var _password = 'metr0609!';
-
-            var cred = new FormData();
-
-            cred.append('username', _username);
-            cred.append('password', _password);
-            return $scope.request('POST', route, {}, cred);
-        }
-
-
-
-        // temporary setup for authorizing the user
-        // TODO: Authorization through login page
-        $scope.formPost("auth/page/hashdb/login");
-
 
     });

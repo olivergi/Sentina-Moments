@@ -1,33 +1,33 @@
 'use strict';
 
 var app = angular.module('SentinaMoments');
- app.controller('SearchController',function($scope, $http, $log, VariableFactory){
- 	$scope.searchResults = [];
- 	$scope.currentResultPage = 0;
- 	$scope.resultPageSize = 4; 	
+app.controller('SearchController',function($scope, $http, $log, VariableFactory){
+  $scope.searchResults = [];
+  $scope.currentResultPage = 0;
+  $scope.resultPageSize = 4; 	
 
  	// Function to calculate how many pages are made from the search results
  	// Math.ceil rounds the result
  	$scope.numberOfPages = function() {
     return Math.ceil($scope.searchResults.length/$scope.resultPageSize);                
-	}
-	$scope.currentPage = function() {
-		return Math.ceil($scope.currentResultPage + 1);
-	}
+  }
+  $scope.currentPage = function() {
+    return Math.ceil($scope.currentResultPage + 1);
+  }
 
-	$scope.searchRecipes = function() {
+  $scope.searchRecipes = function() {
 
-   	$http({
-        method: 'GET',
-        url: VariableFactory.apiurl + 'data/recipes',
-        headers: {
+    $http({
+      method: 'GET',
+      url: VariableFactory.apiurl + 'data/recipes',
+      headers: {
         'Accept': 'application/json'
-   		},
-   		params: {
+      },
+      params: {
         start: 0,
         hideDeleted: true,
-   			contentQuery: $scope.searchQuery
-   		}
+        contentQuery: $scope.searchQuery
+      }
 
     }).then(function successCallback(response) {
     	$scope.searchResults = [];
@@ -38,16 +38,16 @@ var app = angular.module('SentinaMoments');
       $scope.searchResults = response.data.result;
 
     }, function errorCallback(response) {
-        $log.error("ERROR:", response.data);
+      $log.error("ERROR:", response.data);
     });
   }
 
   $scope.searchTracks = function() {
 
     $http({
-        method: 'GET',
-        url: VariableFactory.apiurl + 'data/musicpieces',
-        headers: {
+      method: 'GET',
+      url: VariableFactory.apiurl + 'data/musicpieces',
+      headers: {
         'Accept': 'application/json'
       },
       params: {
@@ -65,16 +65,16 @@ var app = angular.module('SentinaMoments');
       $scope.searchResults = response.data.result;
 
     }, function errorCallback(response) {
-        $log.error("ERROR:", response.data);
+      $log.error("ERROR:", response.data);
     });
   } 
 
   $scope.searchPrograms = function() {
 
     $http({
-        method: 'GET',
-        url: VariableFactory.apiurl + 'data/audioprograms',
-        headers: {
+      method: 'GET',
+      url: VariableFactory.apiurl + 'data/audioprograms',
+      headers: {
         'Accept': 'application/json'
       },
       params: {
@@ -92,16 +92,16 @@ var app = angular.module('SentinaMoments');
       $scope.searchResults = response.data.result;
 
     }, function errorCallback(response) {
-        $log.error("ERROR:", response.data);
+      $log.error("ERROR:", response.data);
     });
   }
 
   $scope.searchCategories = function() {
 
     $http({
-        method: 'GET',
-        url: VariableFactory.apiurl + 'data/musiccategories',
-        headers: {
+      method: 'GET',
+      url: VariableFactory.apiurl + 'data/musiccategories',
+      headers: {
         'Accept': 'application/json'
       },
       params: {
@@ -119,15 +119,15 @@ var app = angular.module('SentinaMoments');
       $scope.searchResults = response.data.result;
 
     }, function errorCallback(response) {
-        $log.error("ERROR:", response.data);
+      $log.error("ERROR:", response.data);
     });
   }
 });
 
 // Custom filter for the search results 
 app.filter('startFrom', function() {
-    return function(input, start) {
+  return function(input, start) {
         start = +start; //parse to int
         return input.slice(start);
-    }
+      }
 });
