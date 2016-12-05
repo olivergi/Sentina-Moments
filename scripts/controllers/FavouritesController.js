@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SentinaMoments')
-    .controller('FavouritesController', function ($scope, $http, $log, $state) {
+    .controller('FavouritesController', function ($scope, $http, $log, $state, VariableFactory, RequestService) {
         $scope.apiurl = "http://localhost:8080/services/";
         //Variables for storing 
         $scope.user = {};
@@ -156,8 +156,7 @@ angular.module('SentinaMoments')
 
         }
         
-        $scope.deleteFav = function (id) {
-            var getId = id;
+        $scope.deleteFav = function (obj) {
             $http({
                 method: 'GET',
                 url: $scope.apiurl.concat('data/usertags'),
@@ -173,8 +172,8 @@ angular.module('SentinaMoments')
                 $log.info("Success:", response.data);
                 $scope.userTags = response.data.result;
                 var i = 0;
-                while (i <= response.data.result.length) {
-                    if (response.data.result[i].audioFileTaggedId == getId) {
+                while (i <= response.data.result.length -1) {
+                    if (response.data.result[i].audioFileTaggedId == obj.audioFileId) {
                         $log.info("Hello tämä löyty nyt")
 
                         $http({
@@ -217,8 +216,8 @@ angular.module('SentinaMoments')
         $scope.favourite = function (obj) {
             $log.info(obj);
             var i = 0;
-            while (i <= $scope.userTags.length) {
-                if ($scope.userTags[i].audioFileTaggedId == obj.audioFileId) {
+            while (i <= $scope.userTags.length -1) {
+                if ($scope.userTags[i].audioFileTaggedId == obj.audioFileId){
                     $scope.post('/data/usertags/0', $scope.userTags[i]);
                     break;
                 }
@@ -255,6 +254,10 @@ angular.module('SentinaMoments')
             cred.append('username', _username);
             cred.append('password', _password);
             return $scope.request('POST', route, {}, cred);
+        }
+        
+        $scope.manageFavo = function(type, obj){
+            RequestService.manageFav(type, obj);
         }
 
 
