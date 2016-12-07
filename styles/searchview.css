@@ -13,7 +13,19 @@
 }
 
 #pageNavContainer {
-	top: 84%;
+    width: 98%;
+    background: #c3ddea;
+    background: -moz-linear-gradient(left, #c3ddea 0%, #78a6c7 100%, #c3ddea 100%);
+	background: -webkit-gradient(left top, right top, color-stop(0%, #c3ddea), color-stop(100%, #78a6c7), color-stop(100%, #c3ddea));
+	background: -webkit-linear-gradient(left, #c3ddea 0%, #78a6c7 100%, #c3ddea 100%);
+	background: -o-linear-gradient(left, #c3ddea 0%, #78a6c7 100%, #c3ddea 100%);
+	background: -ms-linear-gradient(left, #c3ddea 0%, #78a6c7 100%, #c3ddea 100%);
+	background: linear-gradient(to right, #c3ddea 0%, #78a6c7 100%, #c3ddea 100%);
+	bottom: -5px;
 	left: 4%;
 	position: absolute;
+}
+
+.btn {
+    
 }

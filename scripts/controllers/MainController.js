@@ -41,26 +41,51 @@ app.config(function($urlRouterProvider, $stateProvider){
         .state('search', {
         	url: "/search",
             templateUrl: "../../views/search.html",
+            controller: function(VariableFactory, $state) {
+                if (VariableFactory.user.id == null){   
+                        $state.go('login');
+                    }
+            }
         })
         
         .state('daily', {
-                url: "/daily",
-                templateUrl: "../../views/daily.html",
+            url: "/daily",
+            templateUrl: "../../views/daily.html",
+            controller: function(VariableFactory, $state) {
+                if (VariableFactory.user.id == null){   
+                        $state.go('login');
+                    }
+            }
         })
         
         .state('login', {
-                url: "/login",
-                templateUrl: "../../views/login.html",
+            url: "/login",
+            templateUrl: "../../views/login.html",
+            controller: function(VariableFactory, $state) {
+                if (VariableFactory.user.id == null){   
+                        $state.go('login');
+                    }
+            }
         })
      
         .state('channels', {
         	url: "/channels",
             templateUrl: "../../views/channels.html",
+            controller: function(VariableFactory, $state) {
+                if (VariableFactory.user.id == null){   
+                        $state.go('login');
+                    }
+            }
         })
         
         .state('favourites', {
             url: "/favourites",
             templateUrl: "../../views/favourites.html",
+            controller: function(VariableFactory, $state) {
+                if (VariableFactory.user.id == null){   
+                        $state.go('login');
+                    }
+            }
         })
 
     	$urlRouterProvider.otherwise('/');
@@ -107,6 +132,14 @@ app.value("songRemember",{})
 				}
 			});
 	    }) 	
+        
+        $scope.logout = function() {
+         localStorage.clear();
+         VariableFactory.user = {};
+            document.cookie = "_SESSION=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+         $log.info("USER OBJECT: ", VariableFactory.user);
+         $state.go('login');
+        }
 
 	    //Listener for getting the nonces once the user object is available
 		$scope.$on('getNonces', function(event) {

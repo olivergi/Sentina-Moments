@@ -1,8 +1,8 @@
 <div id="playerContainer" ng-controller="PlayerController">
     <div class="audio-info">
-        <h1>{{recipeName}}</h1>
-        <h2 ng-show="currentSongInfo.musicPieceArtist != null">{{trackName}} - {{artistName}}</h2>
-        <h2 ng-show="currentSongInfo.audioProgramName != null">{{audioProgramName}} </h2>
+        <h1 style="color: white;">{{recipeName}}</h1>
+        <h2 ng-show="currentSongInfo.musicPieceArtist != null" style="color: white;">{{trackName}} - {{artistName}}</h2>
+        <h2 ng-show="currentSongInfo.audioProgramName != null" style="color: white;">{{audioProgramName}} </h2>
     </div>
     <div class="buttons">
         <div class="playerButton" ng-click='audio.paused ? audio.play() : audio.pause()'>
