@@ -84,9 +84,14 @@ app.service("RequestService", function($log, $http, VariableFactory, $rootScope)
       	var playlist = VariableFactory.currentRecipe;
 
       	// assign the file ID's
-      	if (playlist[i].musicPieceAudioFileId != null){
+      	if (playlist[i].musicPieceAudioFileId != null ){
+      		// recipe musicpiece items have this id
       		var afId = playlist[i].musicPieceAudioFileId;
-      	} else {
+      	} else if (playlist[i].audioFileId != null) {
+      		// audiofiles through search have this id
+      		var afId = playlist[i].audioFileId;
+      	} else if (playlist[i].audioProgramAudioFileId != null){
+      		// recipe audioprograms have this id
       		var afId = playlist[i].audioProgramAudioFileId;
       	}
       	// Assign the audio playlist's file URL with the ID and nonce

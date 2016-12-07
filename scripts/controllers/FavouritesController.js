@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('SentinaMoments')
-    .controller('FavouritesController', function ($rootScope, $scope, $http, $log, $state, RequestService, VariableFactory) {
-        $scope.apiurl = "http://localhost:8080/services/";
+.controller('FavouritesController', function ($rootScope, $scope, $http, $log, $state, RequestService, VariableFactory) {
+    $scope.apiurl = "http://localhost:8080/services/";
         //Variables for storing 
         $scope.user = {};
         $scope.nonces = [];
@@ -29,15 +29,15 @@ angular.module('SentinaMoments')
             }).then(function successCallback(response) {
                 $log.info("Success:", response.data);
                 switch (getRoute) {
-                case "recipes":
+                    case "recipes":
                     $scope.viewState = 'recipes';
                     $scope.favourites = response.data.result;
                     break;
-                case "musicpieces":
+                    case "musicpieces":
                     $scope.viewState = 'musicpieces';
                     $scope.favourites = response.data.result;
                     break;
-                case "audioprograms":
+                    case "audioprograms":
                     $scope.viewState = 'audioprograms';
                     $scope.favourites = response.data.result;
                     break;
@@ -94,14 +94,14 @@ angular.module('SentinaMoments')
         $scope.checkView = function (){
             switch($scope.viewState){
                 case 'musicpieces':
-                    $scope.getFromServer('musicpieces');
-                    break;
+                $scope.getFromServer('musicpieces');
+                break;
                 case 'audioprograms':
-                    $scope.getFromServer('audioprograms');
-                    break;
+                $scope.getFromServer('audioprograms');
+                break;
                 case 'recipes':
-                    $scope.getFromServer('recipes');
-                    break;
+                $scope.getFromServer('recipes');
+                break;
             }
         }
         
@@ -130,7 +130,7 @@ angular.module('SentinaMoments')
         }
 
 
-        $scope.loadPlaylist = function(id, name) {
+        $scope.loadPlaylist = function(id, name, itemIndex) {
             if ($scope.viewState == "recipes"){
                 $state.go("player");
                 if (VariableFactory.currentRecipeName != name) {
@@ -141,16 +141,41 @@ angular.module('SentinaMoments')
                     // Maybe add some kind of visual indicator that this is the current playing playlist
                 }
             } else if ($scope.viewState == "audioprograms") {
-                // assign the audio as current audio
-            } else if ($scope.viewState == "musicpieces") {
-                // assign the audio as current audio
-            }
-            
+                // assign the audio as current audio and all of the audioprograms as the playlist
+                $state.go("player");
+                VariableFactory.currentRecipeName = "Suosikit - Ohjelmat";
+                VariableFactory.currentRecipe = $scope.favourites;
+                VariableFactory.audios = [];
+                VariableFactory.currentSong = itemIndex;
 
-        }
-        
+                // Inserts the first audio file from the recipe to the playlist
+                RequestService.insertAudio(VariableFactory.currentSong);
+
+                // Broadcast to the player that the playlist can be started
+                $rootScope.$broadcast('startPlaylist');
+
+            } else if ($scope.viewState == "musicpieces") {
+                // assign the audio as current audio and all musicpieces as the playlist
+                $state.go("player");
+                VariableFactory.currentRecipeName = "Suosikit - Kappaleet";
+                VariableFactory.currentRecipe = $scope.favourites;
+                VariableFactory.audios = [];
+                VariableFactory.currentSong = itemIndex;
+
+                // Inserts the first audio file from the recipe to the playlist
+                RequestService.insertAudio(VariableFactory.currentSong);
+
+                // Broadcast to the player that the playlist can be started
+                $rootScope.$broadcast('startPlaylist');
+            }
+                
+            };
+            
         $scope.manageFavo = function(type, obj){
             RequestService.manageFav(type, obj);
-        }
+        };
+
+        // Get and show the musicpieces when arriving to the view.
+        $scope.getFromServer("musicpieces");
 
     });

@@ -41,11 +41,21 @@ app.config(function($urlRouterProvider, $stateProvider){
 	.state('search', {
 		url: "/search",
 		templateUrl: "../../views/search.html",
+		controller: function(VariableFactory, $state) {
+			if (VariableFactory.user.id == null){   
+				$state.go('login');
+			}
+		}
 	})
 
 	.state('daily', {
 		url: "/daily",
 		templateUrl: "../../views/daily.html",
+		controller: function(VariableFactory, $state) {
+			if (VariableFactory.user.id == null){   
+				$state.go('login');
+			}
+		}
 	})
 
 	.state('login', {
@@ -56,11 +66,21 @@ app.config(function($urlRouterProvider, $stateProvider){
 	.state('channels', {
 		url: "/channels",
 		templateUrl: "../../views/channels.html",
+		controller: function(VariableFactory, $state) {
+			if (VariableFactory.user.id == null){   
+				$state.go('login');
+			}
+		}
 	})
 
 	.state('favourites', {
 		url: "/favourites",
 		templateUrl: "../../views/favourites.html",
+		controller: function(VariableFactory, $state) {
+			if (VariableFactory.user.id == null){   
+				$state.go('login');
+			}
+		}
 	})
 
 	$urlRouterProvider.otherwise('/');
@@ -81,16 +101,25 @@ app.value("songRemember",{})
         	}
 
         	$scope.audio = ngAudio.load(VariableFactory.audios[VariableFactory.currentSong]);
-        	$scope.todRecipe = VariableFactory.todaysRecipe;
         	$scope.recipeName = VariableFactory.currentRecipeName;
         	$scope.currentSongInfo = VariableFactory.currentRecipe[VariableFactory.currentSong];
 
-        	if ($scope.currentSongInfo.musicPieceArtist != null) {
+        	if ($scope.currentSongInfo.musicPieceArtist != null ) {
+        		// Check for musicpieces from a recipe
         		$scope.artistName = $scope.currentSongInfo.musicPieceArtist;
         		$scope.trackName = $scope.currentSongInfo.musicPieceName;
-        	} else {
+        	} else if ($scope.currentSongInfo.audioProgramName != null) {
+        		// Check for audioprogram items from a recipe
         		$scope.audioProgramName = $scope.currentSongInfo.audioProgramName;
         		$scope.audioProgramDescription = $scope.currentSongInfo.audioProgramDescription;
+        	} else if ($scope.currentSongInfo.artist != null) {
+        		// this check is for musicpieces through favourites and search view
+        		$scope.artistName = $scope.currentSongInfo.artist;
+        		$scope.trackName = $scope.currentSongInfo.name;
+        	} else if ($scope.currentSongInfo.name != null) {
+        		// this check is for audioprograms through favourites and search view
+        		$scope.audioProgramName = $scope.currentSongInfo.name;
+        		$scope.audioProgramDescription = $scope.currentSongInfo.description;
         	}
 	        // assign an autoplay for audiofiles, call nextTrack() when the current track's progress is full
 	        $scope.$watch(function() {
