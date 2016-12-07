@@ -16,5 +16,3 @@ We have used NPM, bootstrap, moments and angular libraries in our project. These
 To serve the application using webpack in terminal use: 
 
 > npm test
-
-

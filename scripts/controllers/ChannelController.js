@@ -156,6 +156,5 @@ app.controller('ChannelController', function ($scope, $http, $log, $rootScope, V
 	});
      
    	getChannelsFromServer();
-   	RequestService.getNonces();
  });
 

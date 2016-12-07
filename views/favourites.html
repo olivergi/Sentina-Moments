@@ -10,17 +10,19 @@
             <thead>
                 <tr class="bigger">
                     <th ng-show="favourites[0].artist != null">Artist</th>
-                    <th ng-show="favourites[0].artist != null">Track</th><th ng-show="favourites[0].artist == null">Name</th>
-                    <th ng-show="favourites[0].length != null">Duration</th><th ng-show="favourites[0].length == true">Description</th>
+                    <th ng-show="favourites[0].artist != null">Track</th>
+                    <th ng-show="favourites[0].artist == null">Name</th>
+                    <th ng-show="favourites[0].length != null">Duration</th>
+                    <th ng-show="favourites[0].length == true">Description</th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="fav in favourites" class="bigger">
+                <tr ng-repeat="fav in favourites" class="bigger" ng-click="loadPlaylist(fav.id, fav.name)">
                     <td ng-show="favourites[0].artist != null">{{fav.artist}}</td>
                     <td>{{fav.name}}</td>
-                    <td ng-show="favourites[0].length != null">{{fav.length | trackTime}}<img class="theIkoni" ng-show="showDelete" style="float:right" ng-src="{{showFavourite && '../images/favourite.svg' || '../images/cross.svg'}}" ng-click="showFavourite ? favourite(fav) : deleteFav(fav.audioFileId); showFavourite = !showFavourite"></td>
-                    <td ng-show="favourites[0].length == true">{{fav.description}} 
-                    <img ng-click="showFavourite ? favourite(fav) : deleteFav(fav.audioFileId); showFavourite = !showFavourite" class="theIkoni" ng-show="showDelete" style="float:right"  ng-src="{{showFavourite && '../images/favourite.svg' || '../images/cross.svg'}}"></td>
+                    <td ng-show="favourites[0].length != null">{{fav.length | trackTime}}<img class="theIkoni" ng-show="showDelete" style="float:right" ng-src="{{showFavourite && '../images/favourite.svg' || '../images/cross.svg'}}" ng-click="showFavourite ? favourite(fav) : deleteFav(fav); showFavourite = !showFavourite"></td>
+                    <td ng-show="favourites[0].description != null">{{fav.description}}
+                        <img ng-click="showFavourite ? favourite(fav) : deleteFav(fav); showFavourite = !showFavourite" class="theIkoni" ng-show="showDelete" style="float:right" ng-src="{{showFavourite && '../images/favourite.svg' || '../images/cross.svg'}}"></td>
                 </tr>
             </tbody>
         </table>
