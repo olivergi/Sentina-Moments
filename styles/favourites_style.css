@@ -12,6 +12,15 @@
     height: 34px;
     color: blue;
 }
+.theIkoni{
+    width: 38px;
+    height: 38px;
+    -webkit-filter: drop-shadow( 2px 2px 2px rgba(50, 50, 50, 0.90) );
+            filter: drop-shadow( 2px 2px 2px rgba(50, 50, 50, 0.90) );
+}
+#desc{
+    font-weight: bold;
+}
 
 .bigger{
     height: 50px;
@@ -37,12 +46,22 @@
 footer{
     float: bottom;
 }
+
+#favourites-container{
+    color: white;
+}
 h1{
     -webkit-filter: drop-shadow( 2px 2px 2px rgba(50, 50, 50, 0.90) );
             filter: drop-shadow( 2px 2px 2px rgba(50, 50, 50, 0.90) );
     margin-left: 2%;
     margin-top: none;
     margin-bottom: none;
+}
+header {
+    text-align: center;
+}
+header h1 {
+    display: inline-block;
 }
 #headeri{
     float:right;

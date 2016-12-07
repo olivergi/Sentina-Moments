@@ -79,7 +79,7 @@ app.value("songRemember",{})
         	if ($scope.audio != null) {
         		$scope.audio.restart();
         	}
-
+            
         	$scope.audio = ngAudio.load(VariableFactory.audios[VariableFactory.currentSong]);
         	$scope.todRecipe = VariableFactory.todaysRecipe;
         	$scope.recipeName = VariableFactory.currentRecipeName;

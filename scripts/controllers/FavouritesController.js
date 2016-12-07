@@ -3,9 +3,7 @@
 angular.module('SentinaMoments')
     .controller('FavouritesController', function ($rootScope, $scope, $http, $log, $state, RequestService, VariableFactory) {
         $scope.apiurl = "http://localhost:8080/services/";
-        //Variables for storing 
-        $scope.user = {};
-        $scope.nonces = [];
+        //Variables for storing
         $scope.favourites = [];
         $scope.showDelete = false;
         $scope.showFavourite = false;
@@ -110,23 +108,11 @@ angular.module('SentinaMoments')
             var i = 0;
             while (i <= $scope.userTags.length -1) {
                 if ($scope.userTags[i].audioFileTaggedId == obj.audioFileId){
-                    $scope.post('/data/usertags/0', $scope.userTags[i]);
+                    RequestService.request('POST','/data/usertags/0', {'Content-Type': 'application/json'},JSON.stringify($scope.userTags[i]));
                     break;
                 }
                 i++;
             }
-            /* $http({
-                method: 'POST',
-                url: $scope.apiurl.concat('data/usertags/' + id),
-                headers: {
-                    'Accept': 'application/json'
-                }
-            }).then(function successCallback(response){
-                $log.info("Succeess: ", response.data);
-                
-            }, function errorCallback(response){
-                $log.error("ERROR: ", response.data);
-            }); */
         }
 
 
@@ -145,12 +131,7 @@ angular.module('SentinaMoments')
             } else if ($scope.viewState == "musicpieces") {
                 // assign the audio as current audio
             }
-            
-
         }
         
-        $scope.manageFavo = function(type, obj){
-            RequestService.manageFav(type, obj);
-        }
 
     });
