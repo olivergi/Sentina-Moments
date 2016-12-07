@@ -3,7 +3,7 @@
 var app = angular.module('SentinaMoments')
  app.controller('LoginController',function($scope, $http, $log, VariableFactory, RequestService, $state){
      
-     $scope.sessionCheck = function () {
+     $scope.sessionCheck = function() {
          $log.info("SessionCheck Called");
       if (localStorage.username != null) {
          $log.info("Session Check True");

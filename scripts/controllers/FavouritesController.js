@@ -2,10 +2,7 @@
 
 angular.module('SentinaMoments')
 .controller('FavouritesController', function ($rootScope, $scope, $http, $log, $state, RequestService, VariableFactory) {
-    $scope.apiurl = "http://localhost:8080/services/";
-        //Variables for storing 
-        $scope.user = {};
-        $scope.nonces = [];
+        // Variables for storing
         $scope.favourites = [];
         $scope.showDelete = false;
         $scope.showFavourite = false;
@@ -94,14 +91,14 @@ angular.module('SentinaMoments')
         $scope.checkView = function (){
             switch($scope.viewState){
                 case 'musicpieces':
-                $scope.getFromServer('musicpieces');
-                break;
+                    $scope.getFromServer('musicpieces');
+                    break;
                 case 'audioprograms':
-                $scope.getFromServer('audioprograms');
-                break;
+                    $scope.getFromServer('audioprograms');
+                    break;
                 case 'recipes':
-                $scope.getFromServer('recipes');
-                break;
+                    $scope.getFromServer('recipes');
+                    break;
             }
         }
         

@@ -84,6 +84,7 @@ app.config(function($urlRouterProvider, $stateProvider){
 	})
 
 	$urlRouterProvider.otherwise('/');
+
 });
 
 // Value for remembering the audio when in other views
@@ -130,6 +131,14 @@ app.value("songRemember",{})
 	        	}
 	        });
 	    }) 	
+        
+        $scope.logout = function() {
+         localStorage.clear();
+         VariableFactory.user = {};
+            document.cookie = "_SESSION=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+         $log.info("USER OBJECT: ", VariableFactory.user);
+         $state.go('login');
+        }
 
 	    //Listener for getting the nonces once the user object is available
 	    $scope.$on('getNonces', function(event) {
@@ -168,16 +177,28 @@ app.value("songRemember",{})
 		 	}
         	// update the scope values for the new track, so the UI values update
         	$scope.currentSongInfo = VariableFactory.currentRecipe[VariableFactory.currentSong];
-        	if ($scope.currentSongInfo.musicPieceArtist != null) {
+        	if ($scope.currentSongInfo.musicPieceArtist != null ) {
+        		// Check for musicpieces from a recipe
         		$scope.artistName = $scope.currentSongInfo.musicPieceArtist;
         		$scope.trackName = $scope.currentSongInfo.musicPieceName;
-        	} else {
+        	} else if ($scope.currentSongInfo.audioProgramName != null) {
+        		// Check for audioprogram items from a recipe
         		$scope.audioProgramName = $scope.currentSongInfo.audioProgramName;
         		$scope.audioProgramDescription = $scope.currentSongInfo.audioProgramDescription;
+        	} else if ($scope.currentSongInfo.artist != null) {
+        		// this check is for musicpieces through favourites and search view
+        		$scope.artistName = $scope.currentSongInfo.artist;
+        		$scope.trackName = $scope.currentSongInfo.name;
+        	} else if ($scope.currentSongInfo.name != null) {
+        		// this check is for audioprograms through favourites and search view
+        		$scope.audioProgramName = $scope.currentSongInfo.name;
+        		$scope.audioProgramDescription = $scope.currentSongInfo.description;
         	}
 
-        	// reload the view
-        	$state.reload();
+        	// reload the view if in player view
+        	if ($state.is("player")){
+        		$state.reload();
+        	}
 
         	// have a timer for the button to be clickable again
         	setTimeout(function() {

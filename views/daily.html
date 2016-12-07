@@ -1,8 +1,26 @@
-<div id="dailyContent">
-	<div id="menuContainer container-fluid">
-    		<div class="titleBar">
-                    <img src="../images/books.svg" class="titleIcon" style="display: inline;">
-				    <p class="textShadow" style="display: inline;">Daily Content</p>
-			</div>
-  	</div>
+<div id="favourites-container" style="color: white;" ng-controller="FavouritesController">
+    <header style="text-align:center;">
+        <h1 ng-click="getFromServer('musicpieces')" style="display: inline-block;">Kappaleet</h1>
+        <h1 ng-click="getFromServer('recipes')" style="display: inline-block;">Reseptit</h1>
+        <h1 ng-click="getFromServer('audioprograms')" style="display: inline-block;">Ohjelmat</h1>
+    </header>
+    <div style="width: 100%;" class="playlist table-responsive">
+        <table class="table table-condensed table-striped table-inverse">
+            <thead>
+                <tr class="bigger">
+                    <th ng-show="favourites[0].artist != null">Artist</th>
+                    <th ng-show="favourites[0].artist != null">Track</th><th ng-show="favourites[0].artist == null">Name</th>
+                    <th ng-show="favourites[0].length != null">Duration</th><th ng-show="favourites[0].length == true">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="fav in favourites" class="bigger">
+                    <td ng-show="favourites[0].artist != null">{{fav.artist}}</td>
+                    <td>{{fav.name}}</td>
+                    <td ng-show="favourites[0].length != null">{{fav.length | trackTime}}<img class="theIkoni" ng-show="showDelete" style="float:right"></td>
+                    <td ng-show="favourites[0].length == true">{{fav.description}} </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
