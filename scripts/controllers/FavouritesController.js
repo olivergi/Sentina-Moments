@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SentinaMoments')
-.controller('FavouritesController', function ($rootScope, $scope, $http, $log, $state, RequestService, VariableFactory) {
+    .controller('FavouritesController', function ($rootScope, $scope, $http, $log, $state, RequestService, VariableFactory) {
         // Variables for storing
         $scope.favourites = [];
         $scope.showDelete = false;
@@ -14,7 +14,7 @@ angular.module('SentinaMoments')
             var getRoute = route;
             $http({
                 method: 'GET',
-                url: $scope.apiurl.concat('data/' + getRoute),
+                url: VariableFactory.apiurl + 'data/' + getRoute,
                 headers: {
                     'Accept': 'application/json'
                 },
@@ -26,15 +26,15 @@ angular.module('SentinaMoments')
             }).then(function successCallback(response) {
                 $log.info("Success:", response.data);
                 switch (getRoute) {
-                    case "recipes":
+                case "recipes":
                     $scope.viewState = 'recipes';
                     $scope.favourites = response.data.result;
                     break;
-                    case "musicpieces":
+                case "musicpieces":
                     $scope.viewState = 'musicpieces';
                     $scope.favourites = response.data.result;
                     break;
-                    case "audioprograms":
+                case "audioprograms":
                     $scope.viewState = 'audioprograms';
                     $scope.favourites = response.data.result;
                     break;
@@ -44,11 +44,11 @@ angular.module('SentinaMoments')
                 $log.error("ERROR:", response.data);
             });
         }
-        
+
         $scope.deleteFav = function (obj) {
             $http({
                 method: 'GET',
-                url: $scope.apiurl.concat('data/usertags'),
+                url: VariableFactory.apiurl + 'data/usertags',
                 headers: {
                     'Accept': 'application/json'
                 },
@@ -61,13 +61,13 @@ angular.module('SentinaMoments')
                 $log.info("Success:", response.data);
                 $scope.userTags = response.data.result;
                 var i = 0;
-                while (i <= response.data.result.length -1) {
+                while (i <= response.data.result.length - 1) {
                     if (response.data.result[i].audioFileTaggedId == obj.audioFileId) {
                         $log.info("Hello tämä löyty nyt")
 
                         $http({
                             method: 'DELETE',
-                            url: $scope.apiurl.concat('/data/usertags/' + response.data.result[i].id),
+                            url: VariableFactory.apiurl + '/data/usertags/' + response.data.result[i].id,
                             headers: {
                                 'Accept': 'application/json'
                             }
@@ -87,55 +87,45 @@ angular.module('SentinaMoments')
                 $log.error("ERROR:", response.data);
             });
         }
-        
-        $scope.checkView = function (){
-            switch($scope.viewState){
-                case 'musicpieces':
-                    $scope.getFromServer('musicpieces');
-                    break;
-                case 'audioprograms':
-                    $scope.getFromServer('audioprograms');
-                    break;
-                case 'recipes':
-                    $scope.getFromServer('recipes');
-                    break;
+
+        $scope.checkView = function () {
+            switch ($scope.viewState) {
+            case 'musicpieces':
+                $scope.getFromServer('musicpieces');
+                break;
+            case 'audioprograms':
+                $scope.getFromServer('audioprograms');
+                break;
+            case 'recipes':
+                $scope.getFromServer('recipes');
+                break;
             }
         }
-        
+
         $scope.favourite = function (obj) {
             $log.info(obj);
             var i = 0;
-            while (i <= $scope.userTags.length -1) {
-                if ($scope.userTags[i].audioFileTaggedId == obj.audioFileId){
-                    $scope.post('/data/usertags/0', $scope.userTags[i]);
+            while (i <= $scope.userTags.length - 1) {
+                if ($scope.userTags[i].audioFileTaggedId == obj.audioFileId) {
+                    RequestService.request('POST', '/data/usertags/0', {
+                        'Content-Type': 'application/json'
+                    }, JSON.stringify($scope.userTags[i]));
                     break;
                 }
                 i++;
             }
-            /* $http({
-                method: 'POST',
-                url: $scope.apiurl.concat('data/usertags/' + id),
-                headers: {
-                    'Accept': 'application/json'
-                }
-            }).then(function successCallback(response){
-                $log.info("Succeess: ", response.data);
-                
-            }, function errorCallback(response){
-                $log.error("ERROR: ", response.data);
-            }); */
         }
 
 
-        $scope.loadPlaylist = function(id, name, itemIndex) {
-            if ($scope.viewState == "recipes"){
+        $scope.loadPlaylist = function (id, name, itemIndex) {
+            if ($scope.viewState == "recipes") {
                 $state.go("player");
                 if (VariableFactory.currentRecipeName != name) {
                     RequestService.loadPlaylist(id);
                     VariableFactory.currentRecipeName = name;
                 } else {
                     $log.info("this item is the current recipe")
-                    // Maybe add some kind of visual indicator that this is the current playing playlist
+                        // Maybe add some kind of visual indicator that this is the current playing playlist
                 }
             } else if ($scope.viewState == "audioprograms") {
                 // assign the audio as current audio and all of the audioprograms as the playlist
@@ -165,14 +155,14 @@ angular.module('SentinaMoments')
                 // Broadcast to the player that the playlist can be started
                 $rootScope.$broadcast('startPlaylist');
             }
-                
-            };
-            
-        $scope.manageFavo = function(type, obj){
-            RequestService.manageFav(type, obj);
+
         };
+
+
 
         // Get and show the musicpieces when arriving to the view.
         $scope.getFromServer("musicpieces");
+
+
 
     });
