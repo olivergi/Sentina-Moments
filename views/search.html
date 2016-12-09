@@ -1,42 +1,41 @@
 <div id="searchContainer" ng-controller="SearchController" >
 	
 	<div class="container" id="searchbarContainer">
-		<div class="col-xs-8 col-sm-10 col-md-8 col-lg-8">
 			<form class="form-inline">
-				<input class="form-control input-lg" type="text" placeholder="Search here" ng-model="searchQuery">
+				<input class="input-lg searchInput" type="text" placeholder="Search here" ng-model="searchQuery">
 				<div class="form-group">
-					<input class="btn btn-default btn-md" value="Search Recipes" type="submit" ng-click="searchRecipes()">
-					<input class="btn btn-default btn-md" value="Search Tracks" type="submit" ng-click="searchTracks()">
-					<input class="btn btn-default btn-md" value="Search Audioprograms" type="submit" ng-click="searchPrograms()">
-					<input class="btn btn-default btn-md" value="Search Categories" type="submit" ng-click="searchCategories()">
+					<input class="searchButton" value="Search Recipes" type="submit" ng-click="searchRecipes()">
+					<input class="searchButton" value="Search Tracks" type="submit" ng-click="searchTracks()">
+					<input class="searchButton" value="Search Audioprograms" type="submit" ng-click="searchPrograms()">
+					<input class="searchButton" value="Search Categories" type="submit" ng-click="searchCategories()">
 				</div>
 			</form>
-		</div>
 	</div>
 	
 	<div id="resultsContainer">
 		<div id="searchResults" ng-repeat="res in searchResults | startFrom:currentResultPage*resultPageSize | limitTo:resultPageSize">
 			<div class="row">
-				<div class="col-xs-10 col-sm-10 col-md-10 col-lg-8">
-					<h4>{{res.name}}</h4>
-					<p ng-show="res.artist != null">{{res.artist}} </p>
-					<p>{{res.description}} </p>
+				<div class="col-xs-10 col-sm-10 col-md-10 col-lg-8" data-toggle="collapse" data-target=".resultDes-{{$index}}">
+					<p id="resultName">{{res.name}}</p>
+					<p ng-show="res.artist != null" class="resultText">{{res.artist}} </p>
+					<p class="collapse resultText resultDes-{{$index}}">{{res.description}} </p>
 				</div>
 				<div class="col-xs-2 col-sm-2 col-md-2 col-lg-4">
-					<img style="width: 50%;height: 50%;" src="../images/play.svg" ng-click="loadPlaylist(res, $index)"> 
+					<img class="searchPlay" style="width: 50%;height: 50%;" src="../images/play.svg" ng-click="loadPlaylist(res.id)">
 				</div>
 			</div>
 			<hr>
 		</div>
 	</div>
+    <div id="pageNavContainer">
+        <div id="searchNavButtonContainer" ng-hide="resultPageSize < 2">
+            <button class="searchButton" ng-disabled="currentResultPage == 0" ng-click="currentResultPage=currentResultPage-1">Edellinen</button>
+            <button class="searchButton" ng-hide="currentResultPage < 1" ng-click="currentResultPage = 0">1</button>
 
-	<div  id="pageNavContainer" ng-hide="resultPageSize < 2">
-		<button class="btn btn-default btn-lg" ng-disabled="currentResultPage == 0" ng-click="currentResultPage=currentResultPage-1">Edellinen</button>
-		<button class="btn btn-default btn-sm" ng-hide="currentResultPage < 1" ng-click="currentResultPage = 0">1</button>
-        
-		{{currentPage()}}
+            <p class="searchText">Sivu {{currentPage()}}</p>
 
-		<button class="btn btn-default btn-sm" ng-hide="currentResultPage >= searchResults.length/resultPageSize - 1" ng-click="currentResultPage = searchResults.length/resultPageSize-1">{{numberOfPages()}}</button> 
-		<button class="btn btn-default btn-lg" ng-disabled="currentResultPage >= searchResults.length/resultPageSize - 1" ng-click="currentResultPage=currentResultPage+1">Seuraava</button>
-	</div>
+            <button class="searchButton" ng-hide="currentResultPage >= searchResults.length/resultPageSize - 1" ng-click="currentResultPage = searchResults.length/resultPageSize-1">{{numberOfPages()}}</button> 
+            <button class="searchButton" ng-disabled="currentResultPage >= searchResults.length/resultPageSize - 1" ng-click="currentResultPage=currentResultPage+1">Seuraava</button>
+        </div>
+    </div>
 </div>
