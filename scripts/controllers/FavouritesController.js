@@ -116,7 +116,6 @@ angular.module('SentinaMoments')
             }
         }
 
-
         $scope.loadPlaylist = function (id, name, itemIndex) {
             if ($scope.viewState == "recipes") {
                 $state.go("player");
@@ -158,11 +157,7 @@ angular.module('SentinaMoments')
 
         };
 
-
-
         // Get and show the musicpieces when arriving to the view.
         $scope.getFromServer("musicpieces");
-
-
 
     });

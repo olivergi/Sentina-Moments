@@ -77,83 +77,107 @@ app.service("RequestService", function($log, $http, VariableFactory, $rootScope)
       		},500)
       		VariableFactory.nonceIndex = 0;
       	}
-      },
+    },
 
-      insertAudio: function(songIndex) {
-      	var i = songIndex;
-      	var playlist = VariableFactory.currentRecipe;
+	insertAudio: function(songIndex) {
+		var i = songIndex;
+		var playlist = VariableFactory.currentRecipe;
 
-      	// assign the file ID's
-      	if (playlist[i].musicPieceAudioFileId != null ){
-      		// recipe musicpiece items have this id
-      		var afId = playlist[i].musicPieceAudioFileId;
-      	} else if (playlist[i].audioFileId != null) {
-      		// audiofiles through search have this id
-      		var afId = playlist[i].audioFileId;
-      	} else if (playlist[i].audioProgramAudioFileId != null){
-      		// recipe audioprograms have this id
-      		var afId = playlist[i].audioProgramAudioFileId;
-      	}
-      	// Assign the audio playlist's file URL with the ID and nonce
-      	VariableFactory.audios[i] = VariableFactory.apiurl + 'audiofile/' + afId + '/' + VariableFactory.nonces[VariableFactory.nonceIndex].nonce + '/file.mp3';
-      	// call nextNonce() to check the state of available nonces
-      	return this.nextNonce();
+		// assign the file ID's
+		if (playlist[i].musicPieceAudioFileId != null ){
+			// recipe musicpiece items have this id
+			var afId = playlist[i].musicPieceAudioFileId;
+		} else if (playlist[i].audioFileId != null) {
+			// audiofiles through search have this id
+			var afId = playlist[i].audioFileId;
+		} else if (playlist[i].audioProgramAudioFileId != null){
+			// recipe audioprograms have this id
+			var afId = playlist[i].audioProgramAudioFileId;
+		}
+		// Assign the audio playlist's file URL with the ID and nonce
+		VariableFactory.audios[i] = VariableFactory.apiurl + 'audiofile/' + afId + '/' + VariableFactory.nonces[VariableFactory.nonceIndex].nonce + '/file.mp3';
+		// call nextNonce() to check the state of available nonces
+		return this.nextNonce();
 
-      },
+	},
 
-      loadPlaylist: function(rId) {
+	loadPlaylist: function(rId) {
+		VariableFactory.categoryMode = false;
 
-      	$http({
-      		method: 'GET',
-      		url: VariableFactory.apiurl + 'data/recipeitems',
-      		headers: {
-      			'Accept': 'application/json'
-      		},
-      		params: {
-      			recipeId: rId
-      		}
+		$http({
+			method: 'GET',
+			url: VariableFactory.apiurl + 'data/recipeitems',
+			headers: {
+				'Accept': 'application/json'
+			},
+			params: {
+				recipeId: rId
+			}
 
-      	}).then(function successCallback(response) {
-      		$log.info("Success, recipe loaded:", response.data);
-      		VariableFactory.currentRecipe = response.data.result;
-      		VariableFactory.audios = [];
-      		VariableFactory.currentSong = 0;
+		}).then(function successCallback(response) {
+			$log.info("Success, recipe loaded:", response.data);
+			VariableFactory.currentRecipe = response.data.result;
+			VariableFactory.audios = [];
+			VariableFactory.currentSong = 0;
 
- 		// Inserts the first audio file from the recipe to the playlist
- 		$rootScope.$broadcast('insertAudio');
+		// Inserts the first audio file from the recipe to the playlist
+		$rootScope.$broadcast('insertAudio');
 
-        // Broadcast to the player that the playlist can be started
-        $rootScope.$broadcast('startPlaylist');
+		// Broadcast to the player that the playlist can be started
+		$rootScope.$broadcast('startPlaylist');
 
 
-    }, function errorCallback(response) {
-    	$log.error("ERROR:", response.data);
-    });
+		}, function errorCallback(response) {
+			$log.error("ERROR:", response.data);
+		});
 
-      },
+	},
 
-      getUser: function() {
-      	$http({
-      		method: 'GET',
-      		url: VariableFactory.apiurl,
-      		headers: {
-      			'Accept': 'application/json'
-      		}
+	nextMusicPieceFromCategory: function(categoryId) {	
 
-      	}).then(function successCallback(response) {
-      		$log.info("Success, user object:", response.data.user);
-	          // set the user object
-	          VariableFactory.user = response.data.user;
+	   	$http({
+	        method: 'GET',
+	        url: VariableFactory.apiurl + 'music-category-channel/' + categoryId,
+	        headers: {
+	        	'Accept': 'application/json'
+	   		}
+	    }).then(function successCallback(response) {
 
-	          $rootScope.$broadcast('getNonces');
+	        VariableFactory.currentRecipe = [response.data];
+			VariableFactory.audios = [];
+			VariableFactory.currentSong = 0;
 
-	      }, function errorCallback(response) {
-	      	$log.error("ERROR:", response.data);
-	      });
+			$rootScope.$broadcast('insertAudio');
 
-	  	// Get today's playlist
-	  	return this.getTodaysRecipe();
-	  },
+			$rootScope.$broadcast('startPlaylist');
+
+	    }, function errorCallback(response) {
+			$log.error("ERROR:", response.data);
+	    });
+   	},
+
+	getUser: function() {
+		$http({
+			method: 'GET',
+			url: VariableFactory.apiurl,
+			headers: {
+				'Accept': 'application/json'
+			}
+
+		}).then(function successCallback(response) {
+			$log.info("Success, user object:", response.data.user);
+	      // set the user object
+	      VariableFactory.user = response.data.user;
+
+	      $rootScope.$broadcast('getNonces');
+
+	  }, function errorCallback(response) {
+	  	$log.error("ERROR:", response.data);
+	  });
+
+		// Get today's playlist
+		return this.getTodaysRecipe();
+	},
 
  	// use 'Moment' library to get today's date and then call
  	// the getRecipeTimings function to get today's recipe

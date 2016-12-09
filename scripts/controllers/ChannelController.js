@@ -3,7 +3,6 @@
 app.controller('ChannelController', function ($scope, $http, $log, $rootScope, VariableFactory, RequestService){
  
  	$scope.title = "Valitse kanavat, joista pidät:";
- 	$scope.apiurl = "http://localhost:8080/services/";
 	$scope.nonceIterator = -1;	
  	$scope.channelButtons = [];
  	$scope.selectedChannels = [];
@@ -17,7 +16,7 @@ app.controller('ChannelController', function ($scope, $http, $log, $rootScope, V
     function getChannelsFromServer() {
 	  	$http({
 	    	method: 'GET',
-	        url: $scope.apiurl.concat('data/musiccategories'),
+	        url: VariableFactory.apiurl + 'data/musiccategories',
 	        headers: {
 	        'Accept': 'application/json'
 	   		},
@@ -90,7 +89,7 @@ app.controller('ChannelController', function ($scope, $http, $log, $rootScope, V
    function getNextMusicPieceFromCategory(categoryId) {
 	   	$http({
 	        method: 'GET',
-	        url: $scope.apiurl.concat('music-category-channel/'+categoryId),
+	        url: VariableFactory.apiurl + 'music-category-channel/' + categoryId,
 	        headers: {
 	        	'Accept': 'application/json'
 	   		}
@@ -115,7 +114,7 @@ app.controller('ChannelController', function ($scope, $http, $log, $rootScope, V
 	
 	function getAudioFiles() {
 		for (var i = 0; i < $scope.playlist.length; i++) {
-      		getAudioFileFromServer($scope.playlist[i].id);
+  			getAudioFileFromServer($scope.playlist[i].id);
     	}
 	}
    
@@ -130,9 +129,9 @@ app.controller('ChannelController', function ($scope, $http, $log, $rootScope, V
 	 	var nonce = nonces[$scope.nonceIterator].nonce; //VAIN KYMMENEN
 	   	$http({
 	        method: 'GET',
-	        url: $scope.apiurl.concat('audiofile/'+audioId+'/'+nonce+'/file.mp3'),
+	        url: VariableFactory.apiurl + 'audiofile/' + audioId + '/' + nonce +' /file.mp3',
 	        headers: {
-	        'Accept': 'application/json'
+	        	'Accept': 'application/json'
 	   		}
 	    }).then(function successCallback(response) {
 	        $log.info("Success (audioId "+audioId+")");

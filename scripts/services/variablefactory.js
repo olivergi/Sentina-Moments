@@ -12,12 +12,16 @@ app.factory("VariableFactory", function($log, $http) {
 	var audios = [];
 	// Song index for the current playing audio file
 	var currentSong = 0;
+	// boolean for audio player's music category mode
+	var categoryMode = false;
+	// Music Category Id to have the current chosen category at hand
+	var currentCategoryId = 0;
 	// Store for the curŕent recipe's name to be shown on the user interface
 	var currentRecipeName = "";
 	// Variable for the current playlist for the audio player
-	var currentRecipe = {};
+	var currentRecipe = [];
 	// Store the todays recipe in an object so the information can be fetched easily
-	var todaysRecipe = {};
+	var todaysRecipe = [];
     
 	return {
 		// return the values when the factory is called upon
@@ -27,6 +31,8 @@ app.factory("VariableFactory", function($log, $http) {
 		nonceIndex,
 		audios,
 		currentSong,
+		categoryMode,
+		currentCategoryId,
 		currentRecipeName,
 		currentRecipe,
 		todaysRecipe

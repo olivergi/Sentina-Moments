@@ -17,13 +17,13 @@
 	<div id="resultsContainer">
 		<div id="searchResults" ng-repeat="res in searchResults | startFrom:currentResultPage*resultPageSize | limitTo:resultPageSize">
 			<div class="row">
-				<div class="col-xs-10 col-sm-10 col-md-10 col-lg-8" ng-click="loadPlaylist(res.id)">
+				<div class="col-xs-10 col-sm-10 col-md-10 col-lg-8">
 					<h4>{{res.name}}</h4>
 					<p ng-show="res.artist != null">{{res.artist}} </p>
 					<p>{{res.description}} </p>
 				</div>
 				<div class="col-xs-2 col-sm-2 col-md-2 col-lg-4">
-					<img style="width: 50%;height: 50%;" src="../images/play.svg" ng-click=""> 
+					<img style="width: 50%;height: 50%;" src="../images/play.svg" ng-click="loadPlaylist(res, $index)"> 
 				</div>
 			</div>
 			<hr>
