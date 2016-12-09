@@ -126,18 +126,23 @@ app.value("songRemember",{})
 	        $scope.$watch(function() {
 	        	return $scope.audio.progress;
 	        }, function(newValue) {
-	        	if (newValue >= 1 ){
+	        	if (!VariableFactory.categoryMode && newValue >= 1 ){
 	        		$scope.nextTrack();
+	        	} else if ($scope.clickableNextTrack && newValue >= 1){
+	        		$scope.nextTrack();	
 	        	}
 	        });
+	        // continuation for the autoplay feature, for category mode
+	        if (VariableFactory.categoryMode) {
+	        	$scope.audio.play();
+	        }
 	    }) 	
         
         $scope.logout = function() {
-         localStorage.clear();
-         VariableFactory.user = {};
-            document.cookie = "_SESSION=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
-         $log.info("USER OBJECT: ", VariableFactory.user);
-         $state.go('login');
+			localStorage.clear();
+			VariableFactory.user = {};
+			$log.info("USER OBJECT: ", VariableFactory.user);
+			$state.go('login');
         }
 
 	    //Listener for getting the nonces once the user object is available
@@ -153,48 +158,53 @@ app.value("songRemember",{})
         	// set the next track button as unclickable for a moment 
         	// so the nonce of the audiofile gets used correctly in the backend
         	$scope.clickableNextTrack = false;
-        	
-        	// check if the current song index reaches the end of the playlist
-        	if (VariableFactory.currentSong >= VariableFactory.currentRecipe.length-1){
-        		// start the playlist again
-        		$log.info("playlist restart");
-        		VariableFactory.currentSong = 0;
 
-        		// insert the currentsong into the playlist
-        		RequestService.insertAudio(VariableFactory.currentSong);
+        	if (VariableFactory.categoryMode == true){
+        		RequestService.nextMusicPieceFromCategory(VariableFactory.currentCategoryId);
 
-        		$scope.audio = ngAudio.load(VariableFactory.audios[VariableFactory.currentSong]);
         	} else {
-        		// choose the next song
-        		
-        		// Inserts the first audio file from the recipe to the playlist
-        		RequestService.insertAudio(VariableFactory.currentSong+1); 
-        		$scope.audio = ngAudio.load(VariableFactory.audios[VariableFactory.currentSong+1]);
-        		VariableFactory.currentSong++;
+	        	// check if the current song index reaches the end of the playlist
+	        	if (VariableFactory.currentSong >= VariableFactory.currentRecipe.length-1){
+	        		// start the playlist again
+	        		$log.info("playlist restart");
+	        		VariableFactory.currentSong = 0;
 
-		 		//$log.info("next audio:",$scope.audio);
-		 		$scope.audio.play();	
-		 	}
-        	// update the scope values for the new track, so the UI values update
-        	$scope.currentSongInfo = VariableFactory.currentRecipe[VariableFactory.currentSong];
-        	if ($scope.currentSongInfo.musicPieceArtist != null ) {
-        		// Check for musicpieces from a recipe
-        		$scope.artistName = $scope.currentSongInfo.musicPieceArtist;
-        		$scope.trackName = $scope.currentSongInfo.musicPieceName;
-        	} else if ($scope.currentSongInfo.audioProgramName != null) {
-        		// Check for audioprogram items from a recipe
-        		$scope.audioProgramName = $scope.currentSongInfo.audioProgramName;
-        		$scope.audioProgramDescription = $scope.currentSongInfo.audioProgramDescription;
-        	} else if ($scope.currentSongInfo.artist != null) {
-        		// this check is for musicpieces through favourites and search view
-        		$scope.artistName = $scope.currentSongInfo.artist;
-        		$scope.trackName = $scope.currentSongInfo.name;
-        	} else if ($scope.currentSongInfo.name != null) {
-        		// this check is for audioprograms through favourites and search view
-        		$scope.audioProgramName = $scope.currentSongInfo.name;
-        		$scope.audioProgramDescription = $scope.currentSongInfo.description;
+	        		// insert the currentsong into the playlist
+	        		RequestService.insertAudio(VariableFactory.currentSong);
+
+	        		$scope.audio = ngAudio.load(VariableFactory.audios[VariableFactory.currentSong]);
+	        	} else {
+	        		// choose the next song
+	        		
+	        		// Inserts the first audio file from the recipe to the playlist
+	        		RequestService.insertAudio(VariableFactory.currentSong+1); 
+	        		$scope.audio = ngAudio.load(VariableFactory.audios[VariableFactory.currentSong+1]);
+	        		VariableFactory.currentSong++;
+
+			 		//$log.info("next audio:",$scope.audio);
+			 		$scope.audio.play();	
+			 	}
+	        	// update the scope values for the new track, so the UI values update
+	        	$scope.currentSongInfo = VariableFactory.currentRecipe[VariableFactory.currentSong];
+	        	if ($scope.currentSongInfo.musicPieceArtist != null ) {
+	        		// Check for musicpieces from a recipe
+	        		$scope.artistName = $scope.currentSongInfo.musicPieceArtist;
+	        		$scope.trackName = $scope.currentSongInfo.musicPieceName;
+	        	} else if ($scope.currentSongInfo.audioProgramName != null) {
+	        		// Check for audioprogram items from a recipe
+	        		$scope.audioProgramName = $scope.currentSongInfo.audioProgramName;
+	        		$scope.audioProgramDescription = $scope.currentSongInfo.audioProgramDescription;
+	        	} else if ($scope.currentSongInfo.artist != null) {
+	        		// this check is for musicpieces through favourites and search view
+	        		$scope.artistName = $scope.currentSongInfo.artist;
+	        		$scope.trackName = $scope.currentSongInfo.name;
+	        	} else if ($scope.currentSongInfo.name != null) {
+	        		// this check is for audioprograms through favourites and search view
+	        		$scope.audioProgramName = $scope.currentSongInfo.name;
+	        		$scope.audioProgramDescription = $scope.currentSongInfo.description;
+	        	}
         	}
-
+        	
         	// reload the view if in player view
         	if ($state.is("player")){
         		$state.reload();

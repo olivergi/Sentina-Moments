@@ -14,7 +14,7 @@ angular.module('SentinaMoments')
             var getRoute = route;
             $http({
                 method: 'GET',
-                url: $scope.apiurl.concat('data/' + getRoute),
+                url: VariableFactory.apiurl + 'data/' + getRoute,
                 headers: {
                     'Accept': 'application/json'
                 },
@@ -48,7 +48,7 @@ angular.module('SentinaMoments')
         $scope.deleteFav = function (obj) {
             $http({
                 method: 'GET',
-                url: $scope.apiurl.concat('data/usertags'),
+                url: VariableFactory.apiurl + 'data/usertags',
                 headers: {
                     'Accept': 'application/json'
                 },
@@ -126,7 +126,6 @@ angular.module('SentinaMoments')
             }); */
         }
 
-
         $scope.loadPlaylist = function(id, name, itemIndex) {
             if ($scope.viewState == "recipes"){
                 $state.go("player");
@@ -165,11 +164,7 @@ angular.module('SentinaMoments')
                 // Broadcast to the player that the playlist can be started
                 $rootScope.$broadcast('startPlaylist');
             }
-                
-            };
-            
-        $scope.manageFavo = function(type, obj){
-            RequestService.manageFav(type, obj);
+              
         };
 
         // Get and show the musicpieces when arriving to the view.
