@@ -12,9 +12,10 @@ var app = angular.module('SentinaMoments')
          
          RequestService.loginFormPost("auth/page/hashdb/login", sessionuser, sessionpass);
          RequestService.getUser();
+        $log.info("Variable Factory Name: ", VariableFactory.user.name);
          
          setTimeout(function(){
-            if (VariableFactory.user.id != null){   
+            if (VariableFactory.user.name == sessionuser){   
                 $state.go('player');
             }
          }, 1000)
@@ -34,16 +35,23 @@ var app = angular.module('SentinaMoments')
             // Sorry! No Web Storage support..
             $log.info("Sorry");
         }
-         
+
          RequestService.loginFormPost("auth/page/hashdb/login", _username, _password);
-         RequestService.getUser();
+         setTimeout(function(){
+            RequestService.getUser();
+         }, 1000)
          
          setTimeout(function(){
-            if (VariableFactory.user.id != null){   
+            if (VariableFactory.user.name == _username){   
                 $state.go('player');
             }
-         }, 1000)
+         }, 2000)
      }
      
      $scope.sessionCheck();
+     
+     $('.logininput').keypress(function(e){
+      if(e.keyCode==13)
+        $scope.submit();
+    });
  });

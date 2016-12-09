@@ -128,11 +128,11 @@ app.value("songRemember",{})
 	    }) 	
         
         $scope.logout = function() {
-         localStorage.clear();
-         VariableFactory.user = {};
-            document.cookie = "_SESSION=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
-         $log.info("USER OBJECT: ", VariableFactory.user);
-         $state.go('login');
+            RequestService.request('POST', 'auth/logout', {}, {});
+            localStorage.clear();
+            VariableFactory.user = {};
+            $log.info("USER OBJECT: ", VariableFactory.user);
+            $state.go('login');
         }
 
 	    //Listener for getting the nonces once the user object is available
