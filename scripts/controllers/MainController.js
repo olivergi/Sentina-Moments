@@ -91,6 +91,7 @@ app.config(function($urlRouterProvider, $stateProvider){
 app.value("songRemember",{})
 	// The main controller of the application
 	.controller('MainController', function($scope, ngAudio, $log, $state, $http, RequestService, VariableFactory) {
+         $scope.state = $state;
 
 	    // Boolean for the next track button to fix the issue that it cannot be spam clicked
 	    $scope.clickableNextTrack = true;
@@ -142,6 +143,7 @@ app.value("songRemember",{})
             RequestService.request('POST', 'auth/logout', {}, {});
             localStorage.clear();
             VariableFactory.user = {};
+            $scope.showMenu = false;
             $log.info("USER OBJECT: ", VariableFactory.user);
             $state.go('login');
         }

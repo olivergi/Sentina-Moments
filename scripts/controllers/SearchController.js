@@ -184,3 +184,4 @@ app.filter('startFrom', function() {
 		return input.slice(start);
 	}		
 });
+

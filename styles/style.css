@@ -34,6 +34,15 @@ body, html {
     display: inline-block;
 }
 
+#navPlayer{
+    margin-top: 5px;
+    margin-left: 20px;
+    color: white;
+    text-decoration: none;
+    font-family: 'Bitter', sans-serif;
+    display: inline-block;
+}
+
 .nav  {
     font-size: 2em !important;
 }
@@ -244,24 +253,23 @@ input[type=range]:focus::-ms-fill-upper {
 	text-align: center;
 }
 
-#channelContainer {
-	height: 100%;
+.channelContainer {
 	width: 100%;
-	overflow-y: auto !important;
-	
+    height: 600px;
+    overflow-y: auto;
 }
 
-#channels {
-	height: 100%;
-	width: 100%;
-	margin-bottom: 9em;
+.readyImg {
+	width: 50px;
+	height: 50px;
+    margin-left: 5px;
 }
 
 .channelInfo h1 {
 	text-align: center;
 	color: white;
-	margin-top: 1em;
-	margin-bottom: 1em;
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
 	font-size: 3em;
 }
 

@@ -2,7 +2,7 @@
 	
 	<div class="container" id="searchbarContainer">
 			<form class="form-inline">
-				<input class="input-lg searchInput" type="text" placeholder="Search here" ng-model="searchQuery">
+				<input class="input-lg searchInput" type="text" placeholder="Search here" ng-model="searchQuery" onfocus="{this.value = ''}">
 				<div class="form-group">
 					<input class="searchButton" value="Search Recipes" type="submit" ng-click="searchRecipes()">
 					<input class="searchButton" value="Search Tracks" type="submit" ng-click="searchTracks()">
@@ -16,7 +16,10 @@
 		<div id="searchResults" ng-repeat="res in searchResults | startFrom:currentResultPage*resultPageSize | limitTo:resultPageSize">
 			<div class="row">
 				<div class="col-xs-10 col-sm-10 col-md-10 col-lg-8" data-toggle="collapse" data-target=".resultDes-{{$index}}">
-					<p id="resultName">{{res.name}}</p>
+					<p id="resultName" style="display: inline-block;">{{res.name}}</p> 
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-4" id="descripButton" ng-show="res.description.length > 1">
+                        <img class="searchDes" style="width: 30%;height: 30%;" src="../images/drop.svg">
+                    </div>
 					<p ng-show="res.artist != null" class="resultText">{{res.artist}} </p>
 					<p class="collapse resultText resultDes-{{$index}}">{{res.description}} </p>
 				</div>
@@ -28,13 +31,13 @@
 		</div>
 	</div>
     <div id="pageNavContainer">
-        <div id="searchNavButtonContainer" ng-hide="resultPageSize < 2">
+        <div id="searchNavButtonContainer" ng-show="searchResults.length > 4">
             <button class="searchButton" ng-disabled="currentResultPage == 0" ng-click="currentResultPage=currentResultPage-1">Edellinen</button>
-            <button class="searchButton" ng-hide="currentResultPage < 1" ng-click="currentResultPage = 0">1</button>
+            <button class="searchButton" ng-disabled="currentResultPage < 1" ng-click="currentResultPage = 0">1</button>
 
             <p class="searchText">Sivu {{currentPage()}}</p>
 
-            <button class="searchButton" ng-hide="currentResultPage >= searchResults.length/resultPageSize - 1" ng-click="currentResultPage = searchResults.length/resultPageSize-1">{{numberOfPages()}}</button> 
+            <button class="searchButton" ng-disabled="currentResultPage >= searchResults.length/resultPageSize - 1" ng-click="currentResultPage = searchResults.length/resultPageSize-1">{{numberOfPages()}}</button> 
             <button class="searchButton" ng-disabled="currentResultPage >= searchResults.length/resultPageSize - 1" ng-click="currentResultPage=currentResultPage+1">Seuraava</button>
         </div>
     </div>

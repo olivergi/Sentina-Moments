@@ -8,9 +8,15 @@ app.controller('ChannelController', function ($scope, $http, $log, $rootScope, V
  	$scope.selectedChannels = [];
  	$scope.playlist = [];
  	$scope.playlistAudioFiles = [];
+    $scope.buttonSelected = 0;
 
     $scope.toggleChannelButton = function () {
         this.chButton.state = !this.chButton.state;
+        if (this.chButton.state == true){
+            $scope.buttonSelected++;
+        } else {
+            $scope.buttonSelected--;
+        }
     };
     
     function getChannelsFromServer() {

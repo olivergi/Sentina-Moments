@@ -1,6 +1,12 @@
-<div id="channels" ng-controller="ChannelController">
-	<header class="channelInfo"><h1>{{title}}</h1></header>
-	<div id="channelContainer container-fluid">
+<div ng-controller="ChannelController">
+	<header class="channelInfo">
+        <h1 style="float: left; margin-left: 30px;">{{title}}</h1>
+        <div class="readyButton" ng-show="buttonSelected > 0">
+            <h1 ng-click="getSelectedChannels()">Valmis<img src="../images/ready.svg" class="readyImg"></h1>
+        </div>
+    </header>
+    <div class="channelContainer">
+	<div id="container-fluid">
     	
 		<div class="col-md-6" ng-repeat="chButton in channelButtons">
     		<div class="col-md-12">
@@ -14,4 +20,5 @@
 		<button ng-click="getSelectedChannels()">TEST</button>
 		
   	</div>
+    </div>
 </div>
