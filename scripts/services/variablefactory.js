@@ -14,8 +14,8 @@ app.factory("VariableFactory", function($log, $http) {
 	var currentSong = 0;
 	// boolean for audio player's music category mode
 	var categoryMode = false;
-	// Music Category Id to have the current chosen category at hand
-	var currentCategoryId = 0;
+	// Music Category Id to have the current chosen category at hand, specified as an array for multiple categories
+	var currentCategories = [0];
 	// Store for the curŕent recipe's name to be shown on the user interface
 	var currentRecipeName = "";
 	// Variable for the current playlist for the audio player
@@ -32,7 +32,7 @@ app.factory("VariableFactory", function($log, $http) {
 		audios,
 		currentSong,
 		categoryMode,
-		currentCategoryId,
+		currentCategories,
 		currentRecipeName,
 		currentRecipe,
 		todaysRecipe

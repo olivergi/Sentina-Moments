@@ -1,16 +1,19 @@
 'use strict';
 
-app.controller('ChannelController', function ($scope, $http, $log, $rootScope, VariableFactory, RequestService){
+app.controller('ChannelController', function ($scope, $http, $log, $rootScope, VariableFactory, RequestService, $state){
  
  	$scope.title = "Valitse kanavat, joista pidät:";
-	$scope.nonceIterator = -1;	
  	$scope.channelButtons = [];
  	$scope.selectedChannels = [];
- 	$scope.playlist = [];
- 	$scope.playlistAudioFiles = [];
 
     $scope.toggleChannelButton = function () {
         this.chButton.state = !this.chButton.state;
+
+        if (this.chButton.state == false) {
+        	$scope.showComplete = true;
+        } else {
+        	$scope.showComplete = false;
+        }
     };
     
     function getChannelsFromServer() {
@@ -24,18 +27,18 @@ app.controller('ChannelController', function ($scope, $http, $log, $rootScope, V
 	   			start: 0
 	   		}
 	    }).then(function successCallback(response) {
-
 	        $log.info("Success:", response.data);
+
 	        createButtons(response.data.result);
 
 	    }, function errorCallback(response) {
 	        $log.error("ERROR:", response.data);
 	    });
    	}
-    
+    // Populate the ng-repeat array to show the fetched music channels
     function createButtons(respData) {
-    	$scope.count = Object.keys(respData).length;
-		for (var i=0; i < $scope.count; i++) {
+    	$scope.categoryCount = respData.length;
+		for (var i=0; i < $scope.categoryCount; i++) {
      	  	var name = respData[i].name;
      	  	var id = respData[i].id;
      	  	$scope.channelButtons.push({
@@ -47,6 +50,7 @@ app.controller('ChannelController', function ($scope, $http, $log, $rootScope, V
     	}
 	};
 	
+	// Checks the length of the music category that the name is shown correctly 
 	function checkNameLength(name) {
 		if (name.length > 14) {
 			return true;
@@ -56,104 +60,45 @@ app.controller('ChannelController', function ($scope, $http, $log, $rootScope, V
 		}
 	};
 	
+	// Get the buttons that are selected 
 	$scope.getSelectedChannels = function() {
 		$scope.selectedChannels = [];
-		$scope.playlist = [];
-		$scope.playlistAudioFiles = [];
-		$scope.nonceIterator = 0;
-		for (var i=0; i < $scope.count; i++) {
+
+		VariableFactory.currentCategories = [];
+
+		for (var i=0; i < $scope.categoryCount; i++) {
      	  	if($scope.channelButtons[i].state == true) {
      	  		$scope.selectedChannels.push({
       				id: $scope.channelButtons[i].id
     			});
+
+    			VariableFactory.currentCategories.push({
+    				id: $scope.channelButtons[i].id,
+    				name: $scope.channelButtons[i].label
+    			});
      	  	}	
-    	}
-    	checkSelectedChannelsLength();
-	};
-	
-	function checkSelectedChannelsLength () {
+		}
+
+		// If there are selected channels, create a playlist of those channels
 		if($scope.selectedChannels.length > 0) {
 			createPlaylist();
+		} else {
+			// If no categories are selected, show a message?
+			// Or maybe have the button as disabled until there is atleast 1 selection
 		}
-		else {
-			//Show message?
-		}
+
 	};
 	
 	function createPlaylist() {
-		for (var i = 0; i < $scope.selectedChannels.length; i++) {
-      		getNextMusicPieceFromCategory($scope.selectedChannels[i].id);
-    	}
+		$state.go("player");
+		VariableFactory.categoryMode = true;
+
+		VariableFactory.currentRecipeName = VariableFactory.currentCategories[0].name;
+		RequestService.nextMusicPieceFromCategory(VariableFactory.currentCategories[0].id);
+
 	}
-   
-   function getNextMusicPieceFromCategory(categoryId) {
-	   	$http({
-	        method: 'GET',
-	        url: VariableFactory.apiurl + 'music-category-channel/' + categoryId,
-	        headers: {
-	        	'Accept': 'application/json'
-	   		}
-	    }).then(function successCallback(response) {
-	        $log.info("Success:", response.data);
-	        console.log("Audiofile ID: "+response.data.audioFileId);
-	        $scope.playlist.push({	
-				id: response.data.audioFileId
-			});
-			$rootScope.$broadcast('audioIdFound');
-	    }, 	function errorCallback(response) {
-	        $log.error("ERROR:", response.data);
-	    });
-   	}
-   	
-	$scope.$on('audioIdFound', function(event, path) {
-		console.log("Audio ID saved");
-		if($scope.playlist.length == $scope.selectedChannels.length) {
-			getAudioFiles();
-		}
-	});
-	
-	function getAudioFiles() {
-		for (var i = 0; i < $scope.playlist.length; i++) {
-  			getAudioFileFromServer($scope.playlist[i].id);
-    	}
-	}
-   
-	function getAudioFileFromServer(audioId) {
-		var nonces = VariableFactory.nonces;
-		if($scope.nonceIterator > 9) {
-			$scope.nonceIterator > 0;
-		}
-		else {
-			$scope.nonceIterator++;
-		}
-	 	var nonce = nonces[$scope.nonceIterator].nonce; //VAIN KYMMENEN
-	   	$http({
-	        method: 'GET',
-	        url: VariableFactory.apiurl + 'audiofile/' + audioId + '/' + nonce +' /file.mp3',
-	        headers: {
-	        	'Accept': 'application/json'
-	   		}
-	    }).then(function successCallback(response) {
-	        $log.info("Success (audioId "+audioId+")");
-	        $scope.playlistAudioFiles.push({	
-				audioFile: response
-			});
-			$rootScope.$broadcast('audioFileFound');   
-	    }, function errorCallback(response) {
-	        $log.error("ERROR:", response.data);
-	    });
-   	}
-   	
-   	$scope.$on('audioFileFound', function(event, path) {
-		console.log("Audio file saved");
-		if($scope.nonceIterator > 3) {
-			RequestService.getNonces();
-		}
-		if ($scope.playlistAudioFiles.length == $scope.playlist.length) {
-			console.log($scope.playlistAudioFiles.length);
-		}
-	});
      
+    // Get the music categories on load of the state
    	getChannelsFromServer();
  });
 
