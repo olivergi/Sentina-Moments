@@ -74,7 +74,7 @@ app.controller('SearchController',function($rootScope, $scope, $http, $log, Requ
 	    }, function errorCallback(response) {
 			$log.error("ERROR:", response.data);
 	    });
-	} 
+	}
 
 	$scope.searchPrograms = function() {
 
@@ -185,12 +185,8 @@ app.controller('SearchController',function($rootScope, $scope, $http, $log, Requ
 	    		$log.info("this item is the current recipe")
 				// Maybe add some kind of visual indicator that this is the current playing playlist
 	    	}
-	    	
-
 	    }
-
 	};
-
 });
 
 // Custom filter for the search results 

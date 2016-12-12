@@ -7,7 +7,7 @@
     <div class="buttons">
         <div class="playerButton" ng-click='audio.paused ? audio.play() : audio.pause()'>
             <img id="play" ng-src="{{audio.paused && '../images/play.svg' || '../images/pause.svg'}}" class="playerIcon">
-            <p class="textShadow playerText">{{audio.paused && 'Listen' || 'Stop'}}</p>
+            <p class="textShadow playerText">{{audio.paused && 'Kuuntele' || 'Pysäytä'}}</p>
         </div>
     </div>
 
@@ -24,7 +24,7 @@
     <div class="buttonSection">
         <div class="col-xs-4 col-sm-4 col-md-4">
             <div class="greenCircle">
-                <p class="textShadow">Good</p>
+                <p class="textShadow">Hyvä</p>
             </div>
         </div>
         <div class="col-xs-4 col-sm-4 col-md-4">
@@ -34,7 +34,7 @@
         </div>
         <div class="col-xs-4 col-sm-4 col-md-4">
         <div class="redCircle" ng-click="!clickableNextTrack||nextTrack();" ng-disabled="audio.canPlay">
-                <p class="textShadow">Bad</p>
+                <p class="textShadow">Huono</p>
             </div>
         </div>
     </div>

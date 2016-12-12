@@ -169,14 +169,14 @@ app.service("RequestService", function($log, $http, VariableFactory, $rootScope)
 
 		}).then(function successCallback(response) {
 			$log.info("Success, user object:", response.data.user);
-	      // set the user object
-	      VariableFactory.user = response.data.user;
+			// set the user object
+			VariableFactory.user = response.data.user;
 
-	      $rootScope.$broadcast('getNonces');
+			$rootScope.$broadcast('getNonces');
 
-	  }, function errorCallback(response) {
-	  	$log.error("ERROR:", response.data);
-	  });
+		}, function errorCallback(response) {
+			$log.error("ERROR:", response.data);
+		});
 
 		// Get today's playlist
 		return this.getTodaysRecipe();

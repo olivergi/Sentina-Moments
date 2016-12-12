@@ -97,7 +97,6 @@ app.controller('ChannelController', function ($scope, $http, $log, $rootScope, V
 
 		VariableFactory.currentRecipeName = VariableFactory.currentCategories[0].name;
 		RequestService.nextMusicPieceFromCategory(VariableFactory.currentCategories[0].id);
-
 	}
      
     // Get the music categories on load of the state
