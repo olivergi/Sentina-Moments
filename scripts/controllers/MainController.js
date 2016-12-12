@@ -106,6 +106,11 @@ app.value("songRemember",{})
         	$scope.recipeName = VariableFactory.currentRecipeName;
         	$scope.currentSongInfo = VariableFactory.currentRecipe[VariableFactory.currentSong];
 
+        	// Clear the strings on the UI before they are set to prevent a bug with showing wrong text
+        	$scope.artistName = "";
+        	$scope.trackName = "";
+        	$scope.audioProgramName = "";
+
         	if ($scope.currentSongInfo.musicPieceArtist != null ) {
         		// Check for musicpieces from a recipe
         		$scope.artistName = $scope.currentSongInfo.musicPieceArtist;
@@ -113,7 +118,6 @@ app.value("songRemember",{})
         	} else if ($scope.currentSongInfo.audioProgramName != null) {
         		// Check for audioprogram items from a recipe
         		$scope.audioProgramName = $scope.currentSongInfo.audioProgramName;
-        		$scope.audioProgramDescription = $scope.currentSongInfo.audioProgramDescription;
         	} else if ($scope.currentSongInfo.artist != null) {
         		// this check is for musicpieces through favourites and search view
         		$scope.artistName = $scope.currentSongInfo.artist;
@@ -121,7 +125,6 @@ app.value("songRemember",{})
         	} else if ($scope.currentSongInfo.name != null) {
         		// this check is for audioprograms through favourites and search view
         		$scope.audioProgramName = $scope.currentSongInfo.name;
-        		$scope.audioProgramDescription = $scope.currentSongInfo.description;
         	}
 	        // assign an autoplay for audiofiles, call nextTrack() when the current track's progress is full
 	        $scope.$watch(function() {
@@ -162,9 +165,26 @@ app.value("songRemember",{})
         	// so the nonce of the audiofile gets used correctly in the backend
         	$scope.clickableNextTrack = false;
 
-        	if (VariableFactory.categoryMode == true){
-        		RequestService.nextMusicPieceFromCategory(VariableFactory.currentCategoryId);
+        	// Clear the strings on the UI before they are set to prevent a bug with showing wrong text
+        	$scope.artistName = "";
+        	$scope.trackName = "";
+        	$scope.audioProgramName = "";
 
+        	// if current playing mode is the random audio file from a music category
+        	if (VariableFactory.categoryMode == true){
+        		if (VariableFactory.currentCategories.length > 1){
+        			// if there's multiple categories, take a random category and request audio file from there
+        			var rand = Math.floor(Math.random() * VariableFactory.currentCategories.length);
+
+        			RequestService.nextMusicPieceFromCategory(VariableFactory.currentCategories[rand].id);
+        			VariableFactory.currentRecipeName = VariableFactory.currentCategories[rand].name;
+
+        		} else {
+        			// otherwise just take the first one
+        			RequestService.nextMusicPieceFromCategory(VariableFactory.currentCategories[0].id);
+        		}
+
+        	// normal playing mode
         	} else {
 	        	// check if the current song index reaches the end of the playlist
 	        	if (VariableFactory.currentSong >= VariableFactory.currentRecipe.length-1){
@@ -196,7 +216,6 @@ app.value("songRemember",{})
 	        	} else if ($scope.currentSongInfo.audioProgramName != null) {
 	        		// Check for audioprogram items from a recipe
 	        		$scope.audioProgramName = $scope.currentSongInfo.audioProgramName;
-	        		$scope.audioProgramDescription = $scope.currentSongInfo.audioProgramDescription;
 	        	} else if ($scope.currentSongInfo.artist != null) {
 	        		// this check is for musicpieces through favourites and search view
 	        		$scope.artistName = $scope.currentSongInfo.artist;
@@ -204,7 +223,6 @@ app.value("songRemember",{})
 	        	} else if ($scope.currentSongInfo.name != null) {
 	        		// this check is for audioprograms through favourites and search view
 	        		$scope.audioProgramName = $scope.currentSongInfo.name;
-	        		$scope.audioProgramDescription = $scope.currentSongInfo.description;
 	        	}
         	}
         	

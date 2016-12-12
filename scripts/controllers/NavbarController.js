@@ -6,14 +6,16 @@ angular.module('SentinaMoments').controller('NavbarController',function($scope, 
 	$scope.firstClickDate = 0;
 	$scope.showMenu = false;
 
+	// prevents the passage to the menu view by accident
 	$scope.tripleclick = function() {
 		if (!$state.is("login")){
-			if(new Date() - $scope.firstClickDate < 500){
-			$scope.clicks++;
-			}
-			else{
+			if (new Date() - $scope.firstClickDate < 500){
+				$scope.clicks++;
+			} else {
 				$scope.clicks = 1;	
 			}
+
+			// If the navbar is pressed three times within 0.5 second intervals
 			if($scope.clicks == 3){
 				toggleAdvancedMode();
 				$scope.clicks = 1;

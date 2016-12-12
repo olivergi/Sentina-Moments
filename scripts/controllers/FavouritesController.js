@@ -117,6 +117,8 @@ angular.module('SentinaMoments')
         }
 
         $scope.loadPlaylist = function (id, name, itemIndex) {
+            VariableFactory.categoryMode = false;
+
             if ($scope.viewState == "recipes") {
                 $state.go("player");
                 if (VariableFactory.currentRecipeName != name) {
@@ -124,7 +126,7 @@ angular.module('SentinaMoments')
                     VariableFactory.currentRecipeName = name;
                 } else {
                     $log.info("this item is the current recipe")
-                        // Maybe add some kind of visual indicator that this is the current playing playlist
+                    // Maybe add some kind of visual indicator that this is the current playing playlist
                 }
             } else if ($scope.viewState == "audioprograms") {
                 // assign the audio as current audio and all of the audioprograms as the playlist

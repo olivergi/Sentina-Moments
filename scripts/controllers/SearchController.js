@@ -2,9 +2,13 @@
 
 var app = angular.module('SentinaMoments');
 app.controller('SearchController',function($rootScope, $scope, $http, $log, RequestService, VariableFactory, $state){
+	// The results array for items that are shown on the view
 	$scope.searchResults = [];
+	// The index of the result page which is currently active
 	$scope.currentResultPage = 0;
+	// The amount of results a page can have
 	$scope.resultPageSize = 4;
+	// A variable for knowing which search was done, that the playlist can be correctly loaded
 	$scope.listType = ""; 	
 
 	// Function to calculate how many pages are made from the search results
@@ -129,10 +133,9 @@ app.controller('SearchController',function($rootScope, $scope, $http, $log, Requ
 	}
 
 	$scope.loadPlaylist = function(resultObject, itemIndex) {
-		$log.info("this is the resultObject: ", resultObject);
-		$state.go("player");
 	    if ($scope.listType == "recipes"){
 			if (VariableFactory.currentRecipeName != resultObject.name) {
+				$state.go("player");
 				RequestService.loadPlaylist(resultObject.id);
 				VariableFactory.currentRecipeName = resultObject.name;
 			} else {
@@ -141,6 +144,7 @@ app.controller('SearchController',function($rootScope, $scope, $http, $log, Requ
 			}
 
 	    } else if ($scope.listType == "audioprograms") {
+	    	$state.go("player");
 			VariableFactory.currentRecipeName = "Ei soittolistaa";
             VariableFactory.currentRecipe = [resultObject];
             VariableFactory.audios = [];
@@ -153,6 +157,7 @@ app.controller('SearchController',function($rootScope, $scope, $http, $log, Requ
             $rootScope.$broadcast('startPlaylist');
 
 	    } else if ($scope.listType == "musicpieces") {
+	    	$state.go("player");
 			VariableFactory.currentRecipeName = "Ei soittolistaa";
             VariableFactory.currentRecipe = [resultObject];
             VariableFactory.audios = [];
@@ -165,11 +170,22 @@ app.controller('SearchController',function($rootScope, $scope, $http, $log, Requ
             $rootScope.$broadcast('startPlaylist');
 
 	    } else if ($scope.listType == "musiccategories") {
-			VariableFactory.categoryMode = true;
+	    	if (VariableFactory.currentRecipeName != resultObject.name) {
+				$state.go("player");
+				VariableFactory.categoryMode = true;
+				VariableFactory.currentCategories = [];
 
-			VariableFactory.currentRecipeName = resultObject.name;
-			VariableFactory.currentCategoryId = resultObject.id;
-			RequestService.nextMusicPieceFromCategory(resultObject.id);
+				VariableFactory.currentRecipeName = resultObject.name;
+				VariableFactory.currentCategories.push({
+					id: resultObject.id,
+					name: resultObject.name
+	    		});
+				RequestService.nextMusicPieceFromCategory(resultObject.id);
+	    	} else {
+	    		$log.info("this item is the current recipe")
+				// Maybe add some kind of visual indicator that this is the current playing playlist
+	    	}
+	    	
 
 	    }
 

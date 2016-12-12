@@ -87,6 +87,7 @@ app.service("RequestService", function($log, $http, VariableFactory, $rootScope)
 
 		// assign the file ID's
 		if (playlist[i].musicPieceAudioFileId != null ){
+			
 			// recipe musicpiece items have this id
 			var afId = playlist[i].musicPieceAudioFileId;
 		} else if (playlist[i].audioFileId != null) {

@@ -1,24 +1,28 @@
-<div id="favourites-container" style="color: white;" ng-controller="FavouritesController">
+<div id="dailyItems-container" style="color: white;" ng-controller="DailyController">
     <header style="text-align:center;">
-        <h1 ng-click="getFromServer('musicpieces')" style="display: inline-block;">Kappaleet</h1>
-        <h1 ng-click="getFromServer('recipes')" style="display: inline-block;">Reseptit</h1>
-        <h1 ng-click="getFromServer('audioprograms')" style="display: inline-block;">Ohjelmat</h1>
+        <h1 ng-click="filterItems('Music')" style="display: inline-block;">Musiikki</h1>
+        <h1 ng-click="filterItems('News')" style="display: inline-block;">Uutiset</h1>
+        <h1 ng-click="filterItems('Spiritual')" style="display: inline-block;">Hengelliset</h1>
+        <h1 ng-click="filterItems('Story')" style="display: inline-block;">Tarinat</h1>
+        <h1 ng-click="filterItems('Game')" style="display: inline-block;">Pelit</h1>
+        <h1 ng-click="filterItems('Exercise')" style="display: inline-block;">Jumpat</h1>
+        <h1 ng-click="filterItems('Radio')" style="display: inline-block;">Radio</h1>
     </header>
     <div style="width: 100%;" class="playlist table-responsive">
         <table class="table table-condensed table-striped table-inverse">
             <thead>
                 <tr class="bigger">
-                    <th ng-show="favourites[0].artist != null">Artist</th>
-                    <th ng-show="favourites[0].artist != null">Track</th><th ng-show="favourites[0].artist == null">Name</th>
-                    <th ng-show="favourites[0].length != null">Duration</th><th ng-show="favourites[0].length == true">Description</th>
+                    <th ng-show="dailyItems[0] != null">Esittäjä</th>
+                    <th ng-show="dailyItems[0] != null && viewState == 'Music' || viewState == 'Radio'">Kappale</th>
+                    <th ng-show="dailyItems[0] != null">Kesto</th>
+                    <th ng-show="">Lisätietoja</th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="fav in favourites" class="bigger">
-                    <td ng-show="favourites[0].artist != null">{{fav.artist}}</td>
-                    <td>{{fav.name}}</td>
-                    <td ng-show="favourites[0].length != null">{{fav.length | trackTime}}<img class="theIkoni" ng-show="showDelete" style="float:right"></td>
-                    <td ng-show="favourites[0].length == true">{{fav.description}} </td>
+                <tr ng-repeat="item in dailyItems" class="bigger">
+                    <td>{{item.musicPieceArtist != null ? item.musicPieceArtist : item.audioProgramName}}</td>
+                    <td ng-show="dailyItems[0] != null && viewState == 'Music' || viewState == 'Radio'">{{item.musicPieceName != null ? item.musicPieceName : null }}</td>
+                    <td>{{item.musicPieceArtist != null ? item.musicPieceLength : item.audioProgramLength | trackTime}}</td>
                 </tr>
             </tbody>
         </table>
