@@ -77,7 +77,7 @@ angular.module('SentinaMoments')
         $scope.currentSong = VariableFactory.currentRecipe[VariableFactory.currentSong];
     var today = moment().utc().format();
         $log.info(today);
-                if($scope.currentSong.MusicPieceAudioFileId != null && $scope.currentSong.musicPieceArtist != null){
+                if($scope.currentSong.musicPieceAudioFileId != null && $scope.currentSong.musicPieceArtist != null){
                     var tempObj = {id:0,
                       userTagGroupId: null,
                       recipeTaggedId: null,
