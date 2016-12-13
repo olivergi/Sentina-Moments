@@ -9,9 +9,9 @@ During this application we will be working together with Sentina on a redesign o
 
 #https://sentina.savelsirkku.fi/
 
-We have used NPM, bootstrap, moments and angular libraries in our project. These libraries are required to run the project and are in a folder that must be downloaded from the following link. Extract the folder to the project folder. 
+We have used NPM, bootstrap, moments, sweetalerts and angular libraries in our project. These libraries are required to run the project and are in a folder that must be downloaded from the following link. Extract the folder to the project folder. 
 
-> https://drive.google.com/open?id=0BwCk4cW-WgmGbGpEeG50Wk00X2c
+> https://drive.google.com/file/d/0BwCk4cW-WgmGMjlLMldtbzgzRlE/view?usp=sharing
 
 To serve the application using webpack in terminal use: 
 

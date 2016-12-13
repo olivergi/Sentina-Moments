@@ -107,10 +107,14 @@
 
 .resultText {
     font-size: 1.5em;
+    color: #292c30;
 }
 
 #resultName {
     font-size: 1.75em;
+    color: white;
+    font-family: 'Bitter', sans-serif;
+	text-shadow: 1px 2px 2px #000000;
 }
 
 .searchInput,.close-icon {
