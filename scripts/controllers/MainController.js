@@ -140,7 +140,23 @@ app.value("songRemember",{})
 	        if (VariableFactory.categoryMode) {
 	        	$scope.audio.play();
 	        }
-	    }) 	
+	    })
+        
+        // Logout button alert using Sweetalert library
+        $scope.logoutButton = function() {
+        swal({
+            title: "Oletko varma?",
+            text: "Sinut kirjataan ulos palvelusta.",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Ok",
+            cancelButtonText: "Peruuta",
+        },
+        function(){
+          $scope.logout();
+        });
+        }
         
         $scope.logout = function() {
             RequestService.request('POST', 'auth/logout', {}, {});
