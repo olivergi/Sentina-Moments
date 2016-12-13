@@ -5,16 +5,16 @@ app.controller('LoginController',function($scope, $http, $log, VariableFactory, 
 
     $scope.sessionCheck = function() {
         $log.info("SessionCheck Called");
-        if (localStorage.username != null) {
+        if (localStorage.sessionCheck != null) {
             $log.info("Session Check True");
-            var sessionuser = localStorage.username;
+            /*var sessionuser = localStorage.username;
             var sessionpass = localStorage.password;
 
-            RequestService.loginFormPost("auth/page/hashdb/login", sessionuser, sessionpass);
+            RequestService.loginFormPost("auth/page/hashdb/login", sessionuser, sessionpass); */
             RequestService.getUser();
 
             setTimeout(function(){
-                if (VariableFactory.user.name == sessionuser){   
+                if (VariableFactory.user.name != null){   
                     $state.go('player');
                 }
             }, 1000)
@@ -27,8 +27,9 @@ app.controller('LoginController',function($scope, $http, $log, VariableFactory, 
        var _password = $('#password').val();
 
        if (typeof(Storage) !== "undefined") {
-            localStorage.setItem("username", _username);
-            localStorage.setItem("password", _password);
+            localStorage.setItem("sessionCheck", "true");
+            /*localStorage.setItem("username", _username);
+            localStorage.setItem("password", _password);*/
             $log.info("Session Set");
         } else {
             // Sorry! No Web Storage support..

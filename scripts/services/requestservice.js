@@ -44,7 +44,6 @@ app.service("RequestService", function($log, $http, VariableFactory, $rootScope)
     	cred.append('username', _username);
     	cred.append('password', _password);
         
-        $log.info("CREDS: ", username, password );
     	return this.request('POST', route, {}, cred);
     },
 
