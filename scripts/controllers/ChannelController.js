@@ -5,7 +5,6 @@ app.controller('ChannelController', function ($scope, $http, $log, $rootScope, V
  	$scope.title = "Valitse kanavat, joista pidät:";
  	$scope.channelButtons = [];
  	$scope.selectedChannels = [];
- 	$scope.playlist = [];
  	$scope.playlistAudioFiles = [];
     $scope.buttonSelected = 0;
 
@@ -29,8 +28,6 @@ app.controller('ChannelController', function ($scope, $http, $log, $rootScope, V
 	   			start: 0
 	   		}
 	    }).then(function successCallback(response) {
-	        $log.info("Success:", response.data);
-
 	        createButtons(response.data.result);
 
 	    }, function errorCallback(response) {
@@ -56,8 +53,7 @@ app.controller('ChannelController', function ($scope, $http, $log, $rootScope, V
 	function checkNameLength(name) {
 		if (name.length > 14) {
 			return true;
-		}
-		else {
+		} else {
 		 	return false;
 		}
 	};
@@ -69,11 +65,14 @@ app.controller('ChannelController', function ($scope, $http, $log, $rootScope, V
 		VariableFactory.currentCategories = [];
 
 		for (var i=0; i < $scope.categoryCount; i++) {
+			// If a button is selected
      	  	if($scope.channelButtons[i].state == true) {
+     	  		// Add it to the selected categories array
      	  		$scope.selectedChannels.push({
       				id: $scope.channelButtons[i].id
     			});
 
+     	  		// Also add the category information to the variable factory 
     			VariableFactory.currentCategories.push({
     				id: $scope.channelButtons[i].id,
     				name: $scope.channelButtons[i].label

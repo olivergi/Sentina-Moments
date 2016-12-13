@@ -9,8 +9,7 @@ angular.module('SentinaMoments')
         $scope.userTags = [];
         $scope.viewState = '';
 
-        $scope.getFromServer = function (route) {
-            $log.info(route);
+        $scope.getFavourites = function (route) {
             var getRoute = route;
             
             document.getElementById("musicpieces").className = "dailyButton";
@@ -30,20 +29,19 @@ angular.module('SentinaMoments')
                 }
 
             }).then(function successCallback(response) {
-                $log.info("Success:", response.data);
                 switch (getRoute) {
-                case "recipes":
-                    $scope.viewState = 'recipes';
-                    $scope.favourites = response.data.result;
-                    break;
-                case "musicpieces":
-                    $scope.viewState = 'musicpieces';
-                    $scope.favourites = response.data.result;
-                    break;
-                case "audioprograms":
-                    $scope.viewState = 'audioprograms';
-                    $scope.favourites = response.data.result;
-                    break;
+                    case "recipes":
+                        $scope.viewState = 'recipes';
+                        $scope.favourites = response.data.result;
+                        break;
+                    case "musicpieces":
+                        $scope.viewState = 'musicpieces';
+                        $scope.favourites = response.data.result;
+                        break;
+                    case "audioprograms":
+                        $scope.viewState = 'audioprograms';
+                        $scope.favourites = response.data.result;
+                        break;
                 }
 
             }, function errorCallback(response) {
@@ -64,13 +62,11 @@ angular.module('SentinaMoments')
                 }
 
             }).then(function successCallback(response) {
-                $log.info("Success:", response.data);
                 $scope.userTags = response.data.result;
                 var i = 0;
                 while (i <= response.data.result.length - 1) {
+                    // If the object is found in the usertags, delete the object
                     if (response.data.result[i].audioFileTaggedId == obj.audioFileId) {
-                        $log.info("Hello tämä löyty nyt")
-
                         $http({
                             method: 'DELETE',
                             url: VariableFactory.apiurl + '/data/usertags/' + response.data.result[i].id,
@@ -78,14 +74,16 @@ angular.module('SentinaMoments')
                                 'Accept': 'application/json'
                             }
                         }).then(function successCallback(response) {
-                            $log.info("Success hello loop juttu ja delete onnistui: ", response.data);
+                            //$log.info("Delete success: ", response.data);
                         }, function errorCallback(response) {
                             $log.error("ERROR:", response.data);
                         });
                         break;
                     } else {
-                        $log.info("No same tagId");
+                        // TODO: User feedback
+                        // Usertag was not found
                     }
+
                     i++;
                 }
 
@@ -94,8 +92,9 @@ angular.module('SentinaMoments')
             });
         }
         
-
+        // An on-click function for the bin to remove objects from the playlist
         $scope.checkView = function () {
+            // if the delete functionality is active, then show prompt to confirm
             if($scope.showDelete == true) {
                 swal({
                     title: "Oletko varma?",
@@ -109,23 +108,23 @@ angular.module('SentinaMoments')
                     $scope.showDelete = false;
                     switch ($scope.viewState) {
                         case 'musicpieces':
-                            $scope.getFromServer('musicpieces');
+                            $scope.getFavourites('musicpieces');
                             break;
                         case 'audioprograms':
-                            $scope.getFromServer('audioprograms');
+                            $scope.getFavourites('audioprograms');
                             break;
                         case 'recipes':
-                            $scope.getFromServer('recipes');
+                            $scope.getFavourites('recipes');
                             break;
                         }
                 })   
             } else {
+                // if the delete icons are not visible, make them visible.
                 $scope.showDelete = true;
             }
         }
 
         $scope.favourite = function (obj) {
-            $log.info(obj);
             var i = 0;
             while (i <= $scope.userTags.length - 1) {
                 if ($scope.userTags[i].audioFileTaggedId == obj.audioFileId) {
@@ -147,7 +146,7 @@ angular.module('SentinaMoments')
                     RequestService.loadPlaylist(id);
                     VariableFactory.currentRecipeName = name;
                 } else {
-                    $log.info("this item is the current recipe")
+                    //$log.info("this item is the current recipe")
                     // Maybe add some kind of visual indicator that this is the current playing playlist
                 }
             } else if ($scope.viewState == "audioprograms") {
@@ -182,6 +181,6 @@ angular.module('SentinaMoments')
         };
 
         // Get and show the musicpieces when arriving to the view.
-        $scope.getFromServer("musicpieces");
+        $scope.getFavourites("musicpieces");
 
     });

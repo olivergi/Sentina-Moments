@@ -18,12 +18,6 @@ app.config(function($urlRouterProvider, $stateProvider){
 			if (songRemember[url]) {
                 	// If the current song is remembered, load the file on the player.
                 	$scope.audio = songRemember[url];
-
-                } else {
-                	// Initial audio load
-                    //$scope.audio = ngAudio.load(url);
-                    //songRemember[url] = $scope.audio;
-
                 }
             }
         })
@@ -91,7 +85,8 @@ app.config(function($urlRouterProvider, $stateProvider){
 app.value("songRemember",{})
 	// The main controller of the application
 	.controller('MainController', function($scope, ngAudio, $log, $state, $http, RequestService, VariableFactory) {
-         $scope.state = $state;
+		// Save the state of the current view in a variable 
+        $scope.state = $state;
 
 	    // Boolean for the next track button to fix the issue that it cannot be spam clicked
 	    $scope.clickableNextTrack = true;
@@ -144,18 +139,17 @@ app.value("songRemember",{})
         
         // Logout button alert using Sweetalert library
         $scope.logoutButton = function() {
-        swal({
-            title: "Oletko varma?",
-            text: "Sinut kirjataan ulos palvelusta.",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Ok",
-            cancelButtonText: "Peruuta",
-        },
-        function(){
-          $scope.logout();
-        });
+	        swal({
+	            title: "Oletko varma?",
+	            text: "Sinut kirjataan ulos palvelusta.",
+	            type: "warning",
+	            showCancelButton: true,
+	            confirmButtonColor: "#DD6B55",
+	            confirmButtonText: "Ok",
+	            cancelButtonText: "Peruuta",
+	        }, function(){
+	          $scope.logout();
+	        });
         }
         
         $scope.logout = function() {
@@ -163,7 +157,6 @@ app.value("songRemember",{})
             localStorage.clear();
             VariableFactory.user = {};
             $scope.showMenu = false;
-            $log.info("USER OBJECT: ", VariableFactory.user);
             $state.go('login');
         }
 
@@ -205,7 +198,6 @@ app.value("songRemember",{})
 	        	// check if the current song index reaches the end of the playlist
 	        	if (VariableFactory.currentSong >= VariableFactory.currentRecipe.length-1){
 	        		// start the playlist again
-	        		$log.info("playlist restart");
 	        		VariableFactory.currentSong = 0;
 
 	        		// insert the currentsong into the playlist

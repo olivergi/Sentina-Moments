@@ -54,8 +54,6 @@ app.controller('SearchController',function($rootScope, $scope, $http, $log, Requ
 			$scope.searchResults = [];
 			$scope.currentResultPage = 0;
 
-			$log.info("Success:", response.data);
-
 			$scope.searchResults = response.data.result;
 			$scope.listType = "recipes";
 
@@ -82,8 +80,6 @@ app.controller('SearchController',function($rootScope, $scope, $http, $log, Requ
 			$scope.searchResults = [];
 			$scope.currentResultPage = 0;
 
-			$log.info("Success:", response.data);
-
 			$scope.searchResults = response.data.result;
 			$scope.listType = "musicpieces";
 
@@ -109,8 +105,6 @@ app.controller('SearchController',function($rootScope, $scope, $http, $log, Requ
 		}).then(function successCallback(response) {
 			$scope.searchResults = [];
 			$scope.currentResultPage = 0;
-
-			$log.info("Success:", response.data);
 
 			$scope.searchResults = response.data.result;
 			$scope.listType = "audioprograms";
@@ -179,7 +173,7 @@ app.controller('SearchController',function($rootScope, $scope, $http, $log, Requ
                         },
                         JSON.stringify(tempObj));
             } else {
-                $log.info(obj, "already in favourites")
+                //$log.info(obj, "already in favourites")
             }
         }, function errorCallback(response) {
             $log.error("ERROR:", response.data);
@@ -204,8 +198,6 @@ app.controller('SearchController',function($rootScope, $scope, $http, $log, Requ
 			$scope.searchResults = [];
 			$scope.currentResultPage = 0;
 
-			$log.info("Success:", response.data);
-
 			$scope.searchResults = response.data.result;
 			$scope.listType = "musiccategories";
 
@@ -216,13 +208,16 @@ app.controller('SearchController',function($rootScope, $scope, $http, $log, Requ
 
     //Play the music from the search View
 	$scope.loadPlaylist = function(resultObject, itemIndex) {
+        // Set the category mode as false, in case the user was previously playing categories 
+        VariableFactory.categoryMode = false;
+	    
 	    if ($scope.listType == "recipes"){
 			if (VariableFactory.currentRecipeName != resultObject.name) {
 				$state.go("player");
 				RequestService.loadPlaylist(resultObject.id);
 				VariableFactory.currentRecipeName = resultObject.name;
 			} else {
-				$log.info("this item is the current recipe")
+				//$log.info("this item is the current recipe")
 				// Maybe add some kind of visual indicator that this is the current playing playlist
 			}
 
@@ -256,15 +251,15 @@ app.controller('SearchController',function($rootScope, $scope, $http, $log, Requ
             if (VariableFactory.currentRecipeName != resultObject.name) {
                 $state.go("player");
                 VariableFactory.categoryMode = true;
-                VariableFactory.currentCategories = [];
 				VariableFactory.currentRecipeName = resultObject.name;
+                VariableFactory.currentCategories = [];
 				VariableFactory.currentCategories.push({
 					id: resultObject.id,
 					name: resultObject.name
 	    		});
 				RequestService.nextMusicPieceFromCategory(resultObject.id);
 	    	} else {
-	    		$log.info("this item is the current recipe")
+	    		//$log.info("this item is the current recipe")
 				// Maybe add some kind of visual indicator that this is the current playing playlist
 	    	}
 	    }

@@ -29,7 +29,7 @@ app.service("RequestService", function($log, $http, VariableFactory, $rootScope)
 					throw err;
 				});
 			}
-			$log.info(route + ":", resp);
+			//$log.info(route + ":", resp);
 			return resp.json();
 		});
 	},
@@ -60,7 +60,6 @@ app.service("RequestService", function($log, $http, VariableFactory, $rootScope)
     		}
 
     	}).then(function successCallback(response) {
-    		$log.info("Nonces:", response.data.result);
     		VariableFactory.nonces = response.data.result;
 
     	}, function errorCallback(response) {
@@ -86,12 +85,13 @@ app.service("RequestService", function($log, $http, VariableFactory, $rootScope)
 
 		// assign the file ID's
 		if (playlist[i].musicPieceAudioFileId != null ){
-			
 			// recipe musicpiece items have this id
 			var afId = playlist[i].musicPieceAudioFileId;
+
 		} else if (playlist[i].audioFileId != null) {
 			// audiofiles through search have this id
 			var afId = playlist[i].audioFileId;
+
 		} else if (playlist[i].audioProgramAudioFileId != null){
 			// recipe audioprograms have this id
 			var afId = playlist[i].audioProgramAudioFileId;
@@ -117,7 +117,7 @@ app.service("RequestService", function($log, $http, VariableFactory, $rootScope)
 			}
 
 		}).then(function successCallback(response) {
-			$log.info("Success, recipe loaded:", response.data);
+			//$log.info("Success, recipe loaded:", response.data);
 			VariableFactory.currentRecipe = response.data.result;
 			VariableFactory.audios = [];
 			VariableFactory.currentSong = 0;
@@ -167,7 +167,6 @@ app.service("RequestService", function($log, $http, VariableFactory, $rootScope)
 			}
 
 		}).then(function successCallback(response) {
-			$log.info("Success, user object:", response.data.user);
 			// set the user object
 			VariableFactory.user = response.data.user;
 
@@ -200,7 +199,6 @@ app.service("RequestService", function($log, $http, VariableFactory, $rootScope)
  			}
 
  		}).then(function successCallback(response) {
- 			$log.info("Success, today's recipe: ", response.data.result);
  			VariableFactory.todaysRecipe = response.data.result;
 
  			setTimeout(function(){
@@ -217,7 +215,6 @@ app.service("RequestService", function($log, $http, VariableFactory, $rootScope)
  		});
  	},
         
-
  };
 
 });

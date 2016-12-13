@@ -54,7 +54,6 @@ app.controller('DailyController', function ($rootScope, $scope, $http, $log, $st
             }
 
         }).then(function successCallback(response) {
-            $log.info("Success, daily items fetched:", response.data);
             $scope.dailyPlaylist = response.data.result;
 
             $scope.filterItems("Music");
@@ -65,9 +64,9 @@ app.controller('DailyController', function ($rootScope, $scope, $http, $log, $st
     }
 
     $scope.loadPlaylist = function(resultObject, itemIndex) {
-
         $state.go("player");
 
+        // Translate the filetype to use on the user interface
         switch($scope.viewState) {
             case "Music":
                 var fileType = 'Musiikki';
@@ -112,6 +111,7 @@ app.controller('DailyController', function ($rootScope, $scope, $http, $log, $st
 
     };  
 
+    // Get the daily recipe at the start of the view
     $scope.getDailyItems(); 
 
 });

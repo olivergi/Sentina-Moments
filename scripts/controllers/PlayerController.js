@@ -20,100 +20,102 @@ angular.module('SentinaMoments')
         VariableFactory.currentRecipeName = obj.data.name;
     });
 
-    $scope.$on('insertAudio', function(event) {
+ 	$scope.$on('insertAudio', function(event) {
     	// Inserts the first audio file from the recipe to the playlist
-        RequestService.insertAudio(VariableFactory.currentSong);
+    	RequestService.insertAudio(VariableFactory.currentSong);
     });
-    
-    
+
+
     //This function gets the user favourites and then iterates through them checking if the 
     $scope.getUserTags = function(){
-        $scope.currentSong = VariableFactory.currentRecipe[VariableFactory.currentSong];
-        var i = 0;
-        var variableFound = false;
-            
-        $http({
-                method: 'GET',
-                url: VariableFactory.apiurl + 'data/usertags',
-                headers: {
-                    'Accept': 'application/json'
-                },
-                params: {
-                    onlyTagged: true,
-                    hideDeleted: true
-                }
-            }).then(function successCallback(response){
-              while (i <= response.data.result.length -1){
-                  
-                  if(response.data.result[i].audioFileTaggedId != null && response.data.result[i].audioFileTaggedId == $scope.currentSong.musicPieceAudioFileId){
-                      $log.info("backend: ", response.data.result[i], "Trying to pos: ", $scope.currentSong);
-                      variableFound = true;
-                      break;
-                  }else if(response.data.result[i].audioFileTaggedId != null && response.data.result[i].audioFileTaggedId == $scope.currentSong.audioProgramAudioFileId){      
-                      $log.info("backend: ", response.data.result[i], "Trying to pos: ", $scope.currentSong);
-                      variableFound = true;
-                      break;
-                     }else if(response.data.result[i].audioFileTaggedId != null && response.data.result[i].audioFileTaggedId == $scope.currentSong.audioFileId){
-                      $log.info("backend: ", response.data.result[i], "Trying to pos: ", $scope.currentSong);
-                      variableFound = true;
-                      break;
-                  }else{
+    	$scope.currentSong = VariableFactory.currentRecipe[VariableFactory.currentSong];
+    	var i = 0;
+    	var variableFound = false;
 
-                  }
-                  i++;
-              }
-            if(variableFound == false){
-                $scope.playerFav();
-            }else{
-                $log.info($scope.currentSong, "already in favourites")
-            }
-            }, function errorCallback(response){
-                $log.error("ERROR:", response.data);
-            });
+    	$http({
+    		method: 'GET',
+    		url: VariableFactory.apiurl + 'data/usertags',
+    		headers: {
+    			'Accept': 'application/json'
+    		},
+    		params: {
+    			onlyTagged: true,
+    			hideDeleted: true
+    		}
+    	}).then(function successCallback(response){
+    		// Iterate through the usertags and check if the current objects ID corresponds to the one in the usertags
+    		while (i <= response.data.result.length -1){
+
+    			if(response.data.result[i].audioFileTaggedId != null && response.data.result[i].audioFileTaggedId == $scope.currentSong.musicPieceAudioFileId){
+    				variableFound = true;
+    				break;
+    			} else if (response.data.result[i].audioFileTaggedId != null && response.data.result[i].audioFileTaggedId == $scope.currentSong.audioProgramAudioFileId){      
+    				variableFound = true;
+    				break;
+    			} else if (response.data.result[i].audioFileTaggedId != null && response.data.result[i].audioFileTaggedId == $scope.currentSong.audioFileId){
+    				variableFound = true;
+    				break;
+    			} else{
+    				// Do nothing
+    			}
+
+    			i++;
+    		}
+    		// If the object is NOT found in the usertags, add to the favourites
+    		if (variableFound == false) {
+    			$scope.playerFav();
+    		} else {
+    			// TODO: User feedback 
+    			$log.info($scope.currentSong, "already in favourites")
+    		}
+    	}, function errorCallback(response){
+    		$log.error("ERROR:", response.data);
+    	});
     }
     
     //This function is used in getUserTags, to send the POST for favouriting currentSong object.
     $scope.playerFav = function(){
-        $scope.currentSong = VariableFactory.currentRecipe[VariableFactory.currentSong];
-    var today = moment().utc().format();
-        $log.info(today);
-                if($scope.currentSong.musicPieceAudioFileId != null && $scope.currentSong.musicPieceArtist != null){
-                    var tempObj = {id:0,
-                      userTagGroupId: null,
-                      recipeTaggedId: null,
-                      audioFileTaggedId: $scope.currentSong.musicPieceAudioFileId,
-                      lengthAudioFile: 0,
-                      audioProgramId: null,
-                      musicPieceId: $scope.currentSong.id,
-                      insertionTime: today}
-                    
-        }else if($scope.currentSong.audioProgramAudioFileId != null && $scope.currentSong.audioProgramName != null){ 
-            var tempObj = {id:0,
-                      userTagGroupId: null,
-                      recipeTaggedId: null,
-                      audioFileTaggedId: $scope.currentSong.audioProgramAudioFileId,
-                      lengthAudioFile: 0,
-                      audioProgramId: $scope.currentSong.id,
-                      musicPieceId: null,
-                      insertionTime: today} 
-        }
-        else if($scope.currentSong.name != null || $scope.currentSong.artist != null){
-            var tempObj = {id:0,
-                      userTagGroupId: null,
-                      recipeTaggedId: null,
-                      audioFileTaggedId: $scope.currentSong.audioFileId,
-                      lengthAudioFile: 0,
-                      audioProgramId: null,
-                      musicPieceId: null,
-                      insertionTime: today}
-            
-        }
-        $log.info("Here is currentSong: ", $scope.currentSong,  "Here is object for POST: ", tempObj);
-            
-        RequestService.request('POST',
-                              'data/usertags/0',
-                              {'Content-Type': 'application/json'},
-                              JSON.stringify(tempObj)); 
-    }
- });
+    	$scope.currentSong = VariableFactory.currentRecipe[VariableFactory.currentSong];
+    	var today = moment().utc().format();
 
+    	if($scope.currentSong.musicPieceAudioFileId != null && $scope.currentSong.musicPieceArtist != null){
+    		var tempObj = {
+    			id:0,
+    			userTagGroupId: null,
+    			recipeTaggedId: null,
+    			audioFileTaggedId: $scope.currentSong.musicPieceAudioFileId,
+    			lengthAudioFile: 0,
+    			audioProgramId: null,
+    			musicPieceId: $scope.currentSong.id,
+    			insertionTime: today
+    		}
+		} else if($scope.currentSong.audioProgramAudioFileId != null && $scope.currentSong.audioProgramName != null){ 
+			var tempObj = {
+				id:0,
+				userTagGroupId: null,
+				recipeTaggedId: null,
+				audioFileTaggedId: $scope.currentSong.audioProgramAudioFileId,
+				lengthAudioFile: 0,
+				audioProgramId: $scope.currentSong.id,
+				musicPieceId: null,
+				insertionTime: today
+			} 
+		} else if($scope.currentSong.name != null || $scope.currentSong.artist != null){
+			var tempObj = {
+				id:0,
+				userTagGroupId: null,
+				recipeTaggedId: null,
+				audioFileTaggedId: $scope.currentSong.audioFileId,
+				lengthAudioFile: 0,
+				audioProgramId: null,
+				musicPieceId: null,
+				insertionTime: today
+			}
+		}
+
+		RequestService.request('POST',
+			'data/usertags/0',
+			{'Content-Type': 'application/json'},
+			JSON.stringify(tempObj)); 
+	}
+});
