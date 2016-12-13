@@ -112,3 +112,17 @@
 #resultName {
     font-size: 1.75em;
 }
+
+.searchInput,.close-icon {
+	position: relative;
+}
+
+.close-icon {
+	left: -2.5em;
+	bottom: -0.3em;
+	color: red;
+}
+
+span.glyphicon{
+    font-size: 1.7em;
+}

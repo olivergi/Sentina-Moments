@@ -8,25 +8,33 @@ app.controller('DailyController', function ($rootScope, $scope, $http, $log, $st
     $scope.filterItems = function(filter) {
         // filters the content on the results depending on the type
         $scope.dailyItems = [];
-        $log.info("filter: ",filter)
         
-        document.getElementById("Music").className = "dailyButton";
-        document.getElementById("News").className = "dailyButton";
-        document.getElementById("Spiritual").className = "dailyButton";
-        document.getElementById("Story").className = "dailyButton";
-        document.getElementById("Game").className = "dailyButton";
-        document.getElementById("Exercise").className = "dailyButton";
-        document.getElementById("Radio").className = "dailyButton";
-        
-        document.getElementById(filter).className = "dailyButtonSelected";
+        if ($state.is('daily')){
+            document.getElementById("Music").className = "dailyButton";
+            document.getElementById("News").className = "dailyButton";
+            document.getElementById("Spiritual").className = "dailyButton";
+            document.getElementById("Story").className = "dailyButton";
+            document.getElementById("Game").className = "dailyButton";
+            document.getElementById("Exercise").className = "dailyButton";
+            document.getElementById("Radio").className = "dailyButton";
+            document.getElementById("Kaikki").className = "dailyButton";
+            
+            document.getElementById(filter).className = "dailyButtonSelected";
 
-        for (var i = 0; i < $scope.dailyPlaylist.length; i++){
-            if($scope.dailyPlaylist[i].type == filter) {
-                $scope.dailyItems.push($scope.dailyPlaylist[i]);
-            } 
+            for (var i = 0; i < $scope.dailyPlaylist.length; i++){
+                if(filter == 'Kaikki') {
+                    // If filter 'Kaikki' is selected, push all items to the playlist
+                    $scope.dailyItems.push($scope.dailyPlaylist[i])
+                } else {
+                    // Otherwise check the types and display the correct objects
+                    if($scope.dailyPlaylist[i].type == filter) {
+                        $scope.dailyItems.push($scope.dailyPlaylist[i]);
+                    } 
+                }
+                
+            }
+            $scope.viewState = filter;
         }
-        $scope.viewState = filter;
-        $log.info("dailyitems:", $scope.dailyItems);
             
     }
 
@@ -55,6 +63,54 @@ app.controller('DailyController', function ($rootScope, $scope, $http, $log, $st
             $log.error("ERROR:", response.data);
         });
     }
+
+    $scope.loadPlaylist = function(resultObject, itemIndex) {
+
+        $state.go("player");
+
+        switch($scope.viewState) {
+            case "Music":
+                var fileType = 'Musiikki';
+                break;
+            case "News":
+                var fileType = 'Uutiset';
+                break;
+            case "Spiritual":
+                var fileType = 'Hengelliset';
+                break;
+            case "Story":
+                var fileType = 'Tarinat';
+                break;
+            case "Game":
+                var fileType = 'Pelit';
+                break;
+            case "Exercise":
+                var fileType = 'Jumpat';
+                break;
+            case "Radio":
+                var fileType = 'Radio';
+                break;
+            case "Kaikki":
+                var fileType = 'Kaikki';
+                break;
+
+        }
+        if (fileType != 'Kaikki'){
+            VariableFactory.currentRecipeName = "Päivän resepti - " + fileType; 
+        } else {
+            VariableFactory.currentRecipeName = VariableFactory.todaysRecipe[0].name;
+        }
+        VariableFactory.currentRecipe = $scope.dailyItems;
+        VariableFactory.audios = [];
+        VariableFactory.currentSong = itemIndex;
+
+        // Inserts the first audio file from the recipe to the playlist
+        RequestService.insertAudio(VariableFactory.currentSong);
+
+        // Broadcast to the player that the playlist can be started
+        $rootScope.$broadcast('startPlaylist');
+
+    };  
 
     $scope.getDailyItems(); 
 

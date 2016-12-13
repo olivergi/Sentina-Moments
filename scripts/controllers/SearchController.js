@@ -9,7 +9,11 @@ app.controller('SearchController',function($rootScope, $scope, $http, $log, Requ
 	// The amount of results a page can have
 	$scope.resultPageSize = 4;
 	// A variable for knowing which search was done, that the playlist can be correctly loaded
-	$scope.listType = ""; 	
+	$scope.listType = "";
+	// The string on the search input field, used as a parameter for the search requests
+	$scope.searchQuery = ""; 	
+    // A variable to show the selected Favourite
+    $scope.showFavourite = false;
 
 	// Function to calculate how many pages are made from the search results
 	// Math.ceil rounds the result
@@ -20,6 +24,18 @@ app.controller('SearchController',function($rootScope, $scope, $http, $log, Requ
 		return Math.ceil($scope.currentResultPage + 1);
 	}
 
+  	$scope.$watch(function() {
+    	return $scope.searchQuery;
+    }, function(newValue) {
+    	if (newValue != null) {	
+			if(newValue.length === 0){
+				$scope.hideRemoveBtn = true;
+	        } else {
+				$scope.hideRemoveBtn = false;
+	        }
+		}
+    });
+	
 	$scope.searchRecipes = function() {
 
 	    $http({
@@ -74,7 +90,7 @@ app.controller('SearchController',function($rootScope, $scope, $http, $log, Requ
 	    }, function errorCallback(response) {
 			$log.error("ERROR:", response.data);
 	    });
-	} 
+	}
 
 	$scope.searchPrograms = function() {
 
@@ -102,29 +118,29 @@ app.controller('SearchController',function($rootScope, $scope, $http, $log, Requ
 		}, function errorCallback(response) {
 			$log.error("ERROR:", response.data);
 		});
-	
+    }
+    
+    //Function for adding search results to favourites
+      $scope.favSearch = function (obj) {
+        $log.info("Fav Clicked");
+        var tempObj = {
+            id:0,
+            userTagGroupId: null,
+            recipeTaggedId: null,
+            audioFileTaggedId: obj.audioFileId,
+            lengthAudioFile: 0,
+            audioProgramId: null,
+            musicPieceId: obj.id,
+            insertionTime: "2016-12-09T12:57:52.584Z"
+        }
+        RequestService.request(
+            'POST',
+            'data/usertags/0',
+            {'Content-Type': 'application/json'},
+            JSON.stringify(tempObj));
+      }
 
-
-  
-  $scope.favSearch = function (obj) {
-    $log.info("Fav Clicked");
-    var tempObj = {id:0,
-    userTagGroupId: null,
-    recipeTaggedId: null,
-    audioFileTaggedId: obj.audioFileId,
-    lengthAudioFile: 0,
-    audioProgramId: null,
-    musicPieceId: obj.id,
-    insertionTime: "2016-12-09T12:57:52.584Z"}
-    RequestService.request(
-        'POST',
-        'data/usertags/0',
-        {'Content-Type': 'application/json'},
-        JSON.stringify(tempObj));
-}
-
-  }
-
+    //Function to search through categories
 	$scope.searchCategories = function() {
 
 		$http({
@@ -153,6 +169,7 @@ app.controller('SearchController',function($rootScope, $scope, $http, $log, Requ
 		});
 	}
 
+    //Play the music from the search View
 	$scope.loadPlaylist = function(resultObject, itemIndex) {
 	    if ($scope.listType == "recipes"){
 			if (VariableFactory.currentRecipeName != resultObject.name) {
@@ -206,12 +223,8 @@ app.controller('SearchController',function($rootScope, $scope, $http, $log, Requ
 	    		$log.info("this item is the current recipe")
 				// Maybe add some kind of visual indicator that this is the current playing playlist
 	    	}
-	    	
-
 	    }
-
 	};
-
 });
 
 // Custom filter for the search results 
