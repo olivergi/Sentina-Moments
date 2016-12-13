@@ -9,6 +9,16 @@ app.controller('DailyController', function ($rootScope, $scope, $http, $log, $st
         // filters the content on the results depending on the type
         $scope.dailyItems = [];
         $log.info("filter: ",filter)
+        
+        document.getElementById("Music").className = "dailyButton";
+        document.getElementById("News").className = "dailyButton";
+        document.getElementById("Spiritual").className = "dailyButton";
+        document.getElementById("Story").className = "dailyButton";
+        document.getElementById("Game").className = "dailyButton";
+        document.getElementById("Exercise").className = "dailyButton";
+        document.getElementById("Radio").className = "dailyButton";
+        
+        document.getElementById(filter).className = "dailyButtonSelected";
 
         for (var i = 0; i < $scope.dailyPlaylist.length; i++){
             if($scope.dailyPlaylist[i].type == filter) {

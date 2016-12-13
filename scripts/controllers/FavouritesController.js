@@ -12,6 +12,12 @@ angular.module('SentinaMoments')
         $scope.getFromServer = function (route) {
             $log.info(route);
             var getRoute = route;
+            
+            document.getElementById("musicpieces").className = "dailyButton";
+            document.getElementById("audioprograms").className = "dailyButton";
+            document.getElementById("recipes").className = "dailyButton";
+            document.getElementById(route).className = "dailyButtonSelected";
+            
             $http({
                 method: 'GET',
                 url: VariableFactory.apiurl + 'data/' + getRoute,

@@ -1,8 +1,8 @@
 <div id="favourites-container" ng-controller="FavouritesController">
     <header>
-        <h1 ng-click="getFromServer('musicpieces')">Kappaleet</h1>
-        <h1 ng-click="getFromServer('recipes')" style="display: inline-block;">Reseptit</h1>
-        <h1 ng-click="getFromServer('audioprograms')">Ohjelmat</h1>
+        <h1 ng-click="getFromServer('musicpieces')" class="dailyButton" id="musicpieces">Kappaleet</h1>
+        <h1 ng-click="getFromServer('recipes')" style="display: inline-block;" class="dailyButton" id="recipes">Reseptit</h1>
+        <h1 ng-click="getFromServer('audioprograms')" class="dailyButton" id="audioprograms">Ohjelmat</h1>
         <h1 id="headeri" ng-click="checkView(); showDelete = !showDelete">Poista<img class="active-remove"  ng-src="../images/bin.svg"></h1>
     </header>
     <div style="width: 100%;" class="playlist table-responsive">

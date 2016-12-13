@@ -168,6 +168,49 @@ input[type=range]:focus::-ms-fill-upper {
 }
 /* HERE ENDS MUSIC PLAYER */
 
+/* DAILY CONTENT CSS */
+.dailyButton {
+    display: inline-block;
+    text-align: center;
+    outline:none !important;
+    
+    padding: 10px;
+    -webkit-border-radius: 14px;
+	-moz-border-radius: 14px;
+	border-radius: 14px;
+	background: rgb(42, 55, 94);
+	background: -moz-linear-gradient(90deg, rgb(42, 55, 94) 20%, rgb(61, 92, 137) 64%);
+	background: -webkit-linear-gradient(90deg, rgb(42, 55, 94) 20%, rgb(61, 92, 137) 64%);
+	background: -o-linear-gradient(90deg, rgb(42, 55, 94) 20%, rgb(61, 92, 137) 64%);
+	background: -ms-linear-gradient(90deg, rgb(42, 55, 94) 20%, rgb(61, 92, 137) 64%);
+	background: linear-gradient(0deg, rgb(42, 55, 94) 20%, rgb(61, 92, 137) 64%);
+	-webkit-box-shadow: 1px 3px 6px rgba(50, 50, 50, 0.45);
+	-moz-box-shadow:    1px 3px 6px rgba(50, 50, 50, 0.45);
+	box-shadow:         1px 3px 6px rgba(50, 50, 50, 0.45);
+}
+
+.dailyButtonSelected {
+    display: inline-block;
+    text-align: center;
+    outline:none !important;
+    
+    padding: 10px;
+    -webkit-border-radius: 14px;
+	-moz-border-radius: 14px;
+	border-radius: 14px;
+	background: #F06930;
+	background-image: -webkit-linear-gradient(top, #F06930, #6e331c);
+    background-image: -moz-linear-gradient(top, #F06930, #6e331c);
+    background-image: -ms-linear-gradient(top, #F06930, #6e331c);
+    background-image: -o-linear-gradient(top, #F06930, #6e331c);
+    background-image: linear-gradient(to bottom, #F06930, #6e331c);
+	-webkit-box-shadow: 1px 3px 6px rgba(50, 50, 50, 0.45);
+	-moz-box-shadow:    1px 3px 6px rgba(50, 50, 50, 0.45);
+	box-shadow:         1px 3px 6px rgba(50, 50, 50, 0.45);
+}
+
+/* DAILY CONTENT ENDS HERE */
+
 .play{
    width: 50%;
    height: 50%;

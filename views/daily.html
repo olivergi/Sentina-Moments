@@ -1,12 +1,12 @@
 <div id="dailyItems-container" style="color: white;" ng-controller="DailyController">
     <header style="text-align:center;">
-        <h1 ng-click="filterItems('Music')" style="display: inline-block;">Musiikki</h1>
-        <h1 ng-click="filterItems('News')" style="display: inline-block;">Uutiset</h1>
-        <h1 ng-click="filterItems('Spiritual')" style="display: inline-block;">Hengelliset</h1>
-        <h1 ng-click="filterItems('Story')" style="display: inline-block;">Tarinat</h1>
-        <h1 ng-click="filterItems('Game')" style="display: inline-block;">Pelit</h1>
-        <h1 ng-click="filterItems('Exercise')" style="display: inline-block;">Jumpat</h1>
-        <h1 ng-click="filterItems('Radio')" style="display: inline-block;">Radio</h1>
+        <h1 ng-click="filterItems('Music')" class="dailyButton" id="Music" >Musiikki</h1>
+        <h1 ng-click="filterItems('News')" class="dailyButton" id="News" >Uutiset</h1>
+        <h1 ng-click="filterItems('Spiritual')" class="dailyButton" id="Spiritual" >Hengelliset</h1>
+        <h1 ng-click="filterItems('Story')" class="dailyButton" id="Story" >Tarinat</h1>
+        <h1 ng-click="filterItems('Game')" class="dailyButton" id="Game" >Pelit</h1>
+        <h1 ng-click="filterItems('Exercise')" class="dailyButton" id="Exercise" >Jumpat</h1>
+        <h1 ng-click="filterItems('Radio')" class="dailyButton" id="Radio" >Radio</h1>
     </header>
     <div style="width: 100%;" class="playlist table-responsive">
         <table class="table table-condensed table-striped table-inverse">
@@ -22,7 +22,9 @@
                 <tr ng-repeat="item in dailyItems" class="bigger">
                     <td>{{item.musicPieceArtist != null ? item.musicPieceArtist : item.audioProgramName}}</td>
                     <td ng-show="dailyItems[0] != null && viewState == 'Music' || viewState == 'Radio'">{{item.musicPieceName != null ? item.musicPieceName : null }}</td>
-                    <td>{{item.musicPieceArtist != null ? item.musicPieceLength : item.audioProgramLength | trackTime}}</td>
+                    <td style="display: inline-block; min-width: 150px;">{{item.musicPieceArtist != null ? item.musicPieceLength : item.audioProgramLength | trackTime}}
+                    <img class="searchPlay" style="width: 30%; height: 30%; display: inline-block; margin-top: 0px;" src="../images/play.svg" ng-click="loadPlaylist(res, $index)"> 
+                    </td>
                 </tr>
             </tbody>
         </table>
