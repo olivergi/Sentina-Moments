@@ -2,12 +2,16 @@
 	
 	<div class="container" id="searchbarContainer">
 			<form class="form-inline">
-				<input class="input-lg searchInput" type="text" placeholder="Search here" ng-model="searchQuery" onfocus="{this.value = ''}">
+				<input class="input-lg searchInput" type="text" placeholder="Search here" ng-model="searchQuery">
+				<a class="clear close-icon" ng-click="searchQuery = null" ng-hide="hideRemoveBtn">
+				    <span class="glyphicon glyphicon-remove"></span>
+				</a>
+
 				<div class="form-group">
-					<input class="searchButton" value="Search Recipes" type="submit" ng-click="searchRecipes()">
-					<input class="searchButton" value="Search Tracks" type="submit" ng-click="searchTracks()">
-					<input class="searchButton" value="Search Audioprograms" type="submit" ng-click="searchPrograms()">
-					<input class="searchButton" value="Search Categories" type="submit" ng-click="searchCategories()">
+					<input class="searchButton" value="Etsi reseptejä" type="submit" ng-click="searchRecipes()">
+					<input class="searchButton" value="Etsi kappaleita" type="submit" ng-click="searchTracks()">
+					<input class="searchButton" value="Etsi ohjelmia" type="submit" ng-click="searchPrograms()">
+					<input class="searchButton" value="Etsi kategorioita" type="submit" ng-click="searchCategories()">
 				</div>
 			</form>
 	</div>

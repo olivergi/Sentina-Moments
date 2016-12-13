@@ -8,7 +8,6 @@ app.controller('DailyController', function ($rootScope, $scope, $http, $log, $st
     $scope.filterItems = function(filter) {
         // filters the content on the results depending on the type
         $scope.dailyItems = [];
-        $log.info("filter: ",filter)
         
         document.getElementById("Music").className = "dailyButton";
         document.getElementById("News").className = "dailyButton";
@@ -26,7 +25,6 @@ app.controller('DailyController', function ($rootScope, $scope, $http, $log, $st
             } 
         }
         $scope.viewState = filter;
-        $log.info("dailyitems:", $scope.dailyItems);
             
     }
 
