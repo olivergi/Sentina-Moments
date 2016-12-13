@@ -122,24 +122,69 @@ app.controller('SearchController',function($rootScope, $scope, $http, $log, Requ
     
     //Function for adding search results to favourites
       $scope.favSearch = function (obj) {
-        $log.info("Fav Clicked");
-        var tempObj = {
-            id:0,
-            userTagGroupId: null,
-            recipeTaggedId: null,
-            audioFileTaggedId: obj.audioFileId,
-            lengthAudioFile: 0,
-            audioProgramId: null,
-            musicPieceId: obj.id,
-            insertionTime: "2016-12-09T12:57:52.584Z"
-        }
-        RequestService.request(
-            'POST',
-            'data/usertags/0',
-            {'Content-Type': 'application/json'},
-            JSON.stringify(tempObj));
-      }
+        var i = 0;
+        var variableFound = false;
+        var today = moment().utc().format();
+        $http({
+            method: 'GET',
+            url: VariableFactory.apiurl + 'data/usertags',
+            headers: {
+                'Accept': 'application/json'
+            },
+            params: {
+                onlyTagged: true,
+                hideDeleted: true
+            }
+        }).then(function successCallback(response) {
+            while (i <= response.data.result.length - 1) {
+                if (obj.id == response.data.result[i].recipeTaggedId) {
+                    variableFound = true;
+                    break;
+                } else if (obj.audioFileId == response.data.result[i].audioFileTaggedId) {
+                    variableFound = true;
+                    break;
+                } else {
 
+                }
+                i++;
+            }
+            if (variableFound == false) {
+                if (obj.audioFileId != null) {
+                    var tempObj = {
+                        id: 0,
+                        userTagGroupId: null,
+                        recipeTaggedId: null,
+                        audioFileTaggedId: obj.audioFileId,
+                        lengthAudioFile: 0,
+                        audioProgramId: null,
+                        musicPieceId: obj.audioFileId,
+                        insertionTime: today
+                    }
+                } else {
+                    var tempObj = {
+                        id: 0,
+                        userTagGroupId: null,
+                        recipeTaggedId: null,
+                        audioFileTaggedId: obj.id,
+                        lengthAudioFile: 0,
+                        audioProgramId: null,
+                        musicPieceId: null,
+                        insertionTime: today
+                    }
+                }
+                RequestService.request(
+                        'POST',
+                        'data/usertags/0', {
+                            'Content-Type': 'application/json'
+                        },
+                        JSON.stringify(tempObj));
+            } else {
+                $log.info(obj, "already in favourites")
+            }
+        }, function errorCallback(response) {
+            $log.error("ERROR:", response.data);
+        });
+    }
     //Function to search through categories
 	$scope.searchCategories = function() {
 
@@ -194,9 +239,9 @@ app.controller('SearchController',function($rootScope, $scope, $http, $log, Requ
             // Broadcast to the player that the playlist can be started
             $rootScope.$broadcast('startPlaylist');
 
-	    } else if ($scope.listType == "musicpieces") {
-	    	$state.go("player");
-			VariableFactory.currentRecipeName = "Ei soittolistaa";
+        } else if ($scope.listType == "musicpieces") {
+            $state.go("player");
+            VariableFactory.currentRecipeName = "Ei soittolistaa";
             VariableFactory.currentRecipe = [resultObject];
             VariableFactory.audios = [];
             VariableFactory.currentSong = 0;
@@ -207,12 +252,11 @@ app.controller('SearchController',function($rootScope, $scope, $http, $log, Requ
             // Broadcast to the player that the playlist can be started
             $rootScope.$broadcast('startPlaylist');
 
-	    } else if ($scope.listType == "musiccategories") {
-	    	if (VariableFactory.currentRecipeName != resultObject.name) {
-				$state.go("player");
-				VariableFactory.categoryMode = true;
-				VariableFactory.currentCategories = [];
-
+        } else if ($scope.listType == "musiccategories") {
+            if (VariableFactory.currentRecipeName != resultObject.name) {
+                $state.go("player");
+                VariableFactory.categoryMode = true;
+                VariableFactory.currentCategories = [];
 				VariableFactory.currentRecipeName = resultObject.name;
 				VariableFactory.currentCategories.push({
 					id: resultObject.id,
@@ -227,11 +271,11 @@ app.controller('SearchController',function($rootScope, $scope, $http, $log, Requ
 	};
 });
 
-// Custom filter for the search results 
-app.filter('startFrom', function() {
-	return function(input, start) {
-		start = +start; //parse to int
-		return input.slice(start);
-	}		
-});
 
+// Custom filter for the search results 
+app.filter('startFrom', function () {
+    return function (input, start) {
+        start = +start; //parse to int
+        return input.slice(start);
+    }
+});

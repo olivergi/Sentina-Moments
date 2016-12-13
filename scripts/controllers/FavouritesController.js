@@ -51,7 +51,7 @@ angular.module('SentinaMoments')
             });
         }
 
-        $scope.deleteFav = function (obj) {
+         $scope.deleteFav = function (obj) {
             $http({
                 method: 'GET',
                 url: VariableFactory.apiurl + 'data/usertags',
@@ -93,6 +93,7 @@ angular.module('SentinaMoments')
                 $log.error("ERROR:", response.data);
             });
         }
+        
 
         $scope.checkView = function () {
             if($scope.showDelete == true) {
