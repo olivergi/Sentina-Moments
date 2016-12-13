@@ -7,23 +7,25 @@
         <h1 ng-click="filterItems('Game')" class="dailyButton" id="Game" >Pelit</h1>
         <h1 ng-click="filterItems('Exercise')" class="dailyButton" id="Exercise" >Jumpat</h1>
         <h1 ng-click="filterItems('Radio')" class="dailyButton" id="Radio" >Radio</h1>
+        <h1 ng-click="filterItems('Kaikki')" class="dailyButton" id="Kaikki" >Kaikki</h1>
     </header>
-    <div style="width: 100%;" class="playlist table-responsive">
+    <div style="width: 100%; max-height: 450px; overflow-y: auto;" class="playlist table-responsive">
         <table class="table table-condensed table-striped table-inverse">
             <thead>
                 <tr class="bigger">
-                    <th ng-show="dailyItems[0] != null">Esittäjä</th>
-                    <th ng-show="dailyItems[0] != null && viewState == 'Music' || viewState == 'Radio'">Kappale</th>
+                    <th ng-show="dailyItems[0] != null && viewState == 'Music' || viewState == 'Radio' || viewState == 'Kaikki'">Esittäjä</th>
+                    <th ng-show="dailyItems[0] != null">Kappale</th>
                     <th ng-show="dailyItems[0] != null">Kesto</th>
                     <th ng-show="">Lisätietoja</th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="item in dailyItems" class="bigger">
-                    <td>{{item.musicPieceArtist != null ? item.musicPieceArtist : item.audioProgramName}}</td>
-                    <td ng-show="dailyItems[0] != null && viewState == 'Music' || viewState == 'Radio'">{{item.musicPieceName != null ? item.musicPieceName : null }}</td>
-                    <td style="display: inline-block; min-width: 150px;">{{item.musicPieceArtist != null ? item.musicPieceLength : item.audioProgramLength | trackTime}}
-                    <img class="searchPlay" style="width: 30%; height: 30%; display: inline-block; margin-top: 0px;" src="../images/play.svg" ng-click="loadPlaylist(res, $index)"> 
+                    <td ng-show="dailyItems[0] != null && viewState == 'Music' || viewState == 'Radio' || viewState == 'Kaikki'">{{item.musicPieceArtist != null ? item.musicPieceArtist : null}}</td>
+                    <td ng-show="dailyItems[0] != null">{{item.musicPieceName != null ? item.musicPieceName : item.audioProgramName }}</td>
+                    <td style="display: inline-block; min-width: 150px;">
+                        <p style="display: inline-block;"> {{item.musicPieceArtist != null ? item.musicPieceLength : item.audioProgramLength | trackTime}} </p>
+                    <img class="searchPlay" style="width: 30%; height: 30%; display: inline-block; margin-top: 0px; float: right;" src="../images/play.svg" ng-click="loadPlaylist(item, $index)"> 
                     </td>
                 </tr>
             </tbody>

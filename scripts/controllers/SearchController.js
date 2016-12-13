@@ -116,28 +116,30 @@ app.controller('SearchController',function($rootScope, $scope, $http, $log, Requ
 		}, function errorCallback(response) {
 			$log.error("ERROR:", response.data);
 		});
-	
+	}
 
 
   
   $scope.favSearch = function (obj) {
-    $log.info("Fav Clicked");
-    var tempObj = {id:0,
-    userTagGroupId: null,
-    recipeTaggedId: null,
-    audioFileTaggedId: obj.audioFileId,
-    lengthAudioFile: 0,
-    audioProgramId: null,
-    musicPieceId: obj.id,
-    insertionTime: "2016-12-09T12:57:52.584Z"}
-    RequestService.request(
-        'POST',
-        'data/usertags/0',
-        {'Content-Type': 'application/json'},
-        JSON.stringify(tempObj));
-}
+	    $log.info("Fav Clicked");
+	    var tempObj = {
+	    	id:0,
+		    userTagGroupId: null,
+		    recipeTaggedId: null,
+		    audioFileTaggedId: obj.audioFileId,
+		    lengthAudioFile: 0,
+		    audioProgramId: null,
+		    musicPieceId: obj.id,
+		    insertionTime: "2016-12-09T12:57:52.584Z"
+		}
+		
+	    RequestService.request(
+	        'POST',
+	        'data/usertags/0',
+	        {'Content-Type': 'application/json'},
+	        JSON.stringify(tempObj));
+	}
 
-  }
 
 	$scope.searchCategories = function() {
 
