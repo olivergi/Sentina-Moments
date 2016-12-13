@@ -44,9 +44,21 @@ angular.module('SentinaMoments')
                 }
             }).then(function successCallback(response){
               while (i <= response.data.result.length -1){
-                  if(response.data.result[i].audioFileTaggedId == $scope.currentSong.musicPieceAudioFileId || response.data.result[i].audioFileTaggedId == $scope.currentSong.audioProgramAudioFileId || response.data.result[i].audioFileTaggedId == $scope.currentSong.audioFileId){
+                  
+                  if(response.data.result[i].audioFileTaggedId != null && response.data.result[i].audioFileTaggedId == $scope.currentSong.musicPieceAudioFileId){
+                      $log.info("backend: ", response.data.result[i], "Trying to pos: ", $scope.currentSong);
                       variableFound = true;
+                      break;
+                  }else if(response.data.result[i].audioFileTaggedId != null && response.data.result[i].audioFileTaggedId == $scope.currentSong.audioProgramAudioFileId){      
+                      $log.info("backend: ", response.data.result[i], "Trying to pos: ", $scope.currentSong);
+                      variableFound = true;
+                      break;
+                     }else if(response.data.result[i].audioFileTaggedId != null && response.data.result[i].audioFileTaggedId == $scope.currentSong.audioFileId){
+                      $log.info("backend: ", response.data.result[i], "Trying to pos: ", $scope.currentSong);
+                      variableFound = true;
+                      break;
                   }else{
+
                   }
                   i++;
               }
@@ -65,7 +77,7 @@ angular.module('SentinaMoments')
         $scope.currentSong = VariableFactory.currentRecipe[VariableFactory.currentSong];
     var today = moment().utc().format();
         $log.info(today);
-                if($scope.currentSong.musicPieceArtist != null || $scope.currentSong.artist != null){
+                if($scope.currentSong.MusicPieceAudioFileId != null && $scope.currentSong.musicPieceArtist != null){
                     var tempObj = {id:0,
                       userTagGroupId: null,
                       recipeTaggedId: null,
@@ -75,7 +87,7 @@ angular.module('SentinaMoments')
                       musicPieceId: $scope.currentSong.id,
                       insertionTime: today}
                     
-        }else if($scope.currentSong.audioProgramName != null || $scope.currentSong.name != null){ 
+        }else if($scope.currentSong.audioProgramAudioFileId != null && $scope.currentSong.audioProgramName != null){ 
             var tempObj = {id:0,
                       userTagGroupId: null,
                       recipeTaggedId: null,
@@ -85,6 +97,18 @@ angular.module('SentinaMoments')
                       musicPieceId: null,
                       insertionTime: today} 
         }
+        else if($scope.currentSong.name != null || $scope.currentSong.artist != null){
+            var tempObj = {id:0,
+                      userTagGroupId: null,
+                      recipeTaggedId: null,
+                      audioFileTaggedId: $scope.currentSong.audioFileId,
+                      lengthAudioFile: 0,
+                      audioProgramId: null,
+                      musicPieceId: null,
+                      insertionTime: today}
+            
+        }
+        $log.info("Here is currentSong: ", $scope.currentSong,  "Here is object for POST: ", tempObj);
             
         RequestService.request('POST',
                               'data/usertags/0',
