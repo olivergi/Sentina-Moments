@@ -373,7 +373,7 @@ input[type=range]:focus::-ms-fill-upper {
 .menuButton {
 	color: rgb(255, 255, 255);
 	font-size: 3em;
-	padding: 30px;
+	padding: 10px;
 	width: 100%;
     margin-top: 1em;
     text-align: center;
@@ -715,8 +715,33 @@ input[type=password] {
 
 .logout {
     position: absolute;
-    bottom: 0;
-    left: 44%
+    bottom: 5px;
+    left: 40%
+}
+
+.logoutButton {
+    color: white;
+	font-size: 1.5em;
+	padding: 10px;
+    max-width: 250px;
+    min-width: 200px;
+    text-align: center;
+    display: inline-block;
+    outline: none;
+	
+	text-shadow: 1px 4px 4px rgba(30, 30, 30, 0.51);
+	-webkit-border-radius: 14px;
+	-moz-border-radius: 14px;
+	border-radius: 14px;
+	background: #e62929;
+    background-image: -webkit-linear-gradient(top, #e62929, #662020);
+    background-image: -moz-linear-gradient(top, #e62929, #662020);
+    background-image: -ms-linear-gradient(top, #e62929, #662020);
+    background-image: -o-linear-gradient(top, #e62929, #662020);
+    background-image: linear-gradient(to bottom, #e62929, #662020);
+	-webkit-box-shadow: 1px 3px 6px rgba(50, 50, 50, 0.45);
+	-moz-box-shadow:    1px 3px 6px rgba(50, 50, 50, 0.45);
+	box-shadow:         1px 3px 6px rgba(50, 50, 50, 0.45);
 }
 
 /* LOGIN ENDS HERE */

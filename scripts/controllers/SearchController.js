@@ -9,7 +9,9 @@ app.controller('SearchController',function($rootScope, $scope, $http, $log, Requ
 	// The amount of results a page can have
 	$scope.resultPageSize = 4;
 	// A variable for knowing which search was done, that the playlist can be correctly loaded
-	$scope.listType = ""; 	
+	$scope.listType = "";
+    // A variable to show the selected Favourite
+    $scope.showFavourite = false;
 
 	// Function to calculate how many pages are made from the search results
 	// Math.ceil rounds the result
@@ -102,29 +104,27 @@ app.controller('SearchController',function($rootScope, $scope, $http, $log, Requ
 		}, function errorCallback(response) {
 			$log.error("ERROR:", response.data);
 		});
-	
+    }
+    
+    //Function for adding search results to favourites
+      $scope.favSearch = function (obj) {
+        $log.info("Fav Clicked");
+        var tempObj = {id:0,
+        userTagGroupId: null,
+        recipeTaggedId: null,
+        audioFileTaggedId: obj.audioFileId,
+        lengthAudioFile: 0,
+        audioProgramId: null,
+        musicPieceId: obj.id,
+        insertionTime: "2016-12-09T12:57:52.584Z"}
+        RequestService.request(
+            'POST',
+            'data/usertags/0',
+            {'Content-Type': 'application/json'},
+            JSON.stringify(tempObj));
+      }
 
-
-  
-  $scope.favSearch = function (obj) {
-    $log.info("Fav Clicked");
-    var tempObj = {id:0,
-    userTagGroupId: null,
-    recipeTaggedId: null,
-    audioFileTaggedId: obj.audioFileId,
-    lengthAudioFile: 0,
-    audioProgramId: null,
-    musicPieceId: obj.id,
-    insertionTime: "2016-12-09T12:57:52.584Z"}
-    RequestService.request(
-        'POST',
-        'data/usertags/0',
-        {'Content-Type': 'application/json'},
-        JSON.stringify(tempObj));
-}
-
-  }
-
+    //Function to search through categories
 	$scope.searchCategories = function() {
 
 		$http({
@@ -153,6 +153,7 @@ app.controller('SearchController',function($rootScope, $scope, $http, $log, Requ
 		});
 	}
 
+    //Play the music from the search View
 	$scope.loadPlaylist = function(resultObject, itemIndex) {
 	    if ($scope.listType == "recipes"){
 			if (VariableFactory.currentRecipeName != resultObject.name) {

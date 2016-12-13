@@ -95,16 +95,31 @@ angular.module('SentinaMoments')
         }
 
         $scope.checkView = function () {
-            switch ($scope.viewState) {
-            case 'musicpieces':
-                $scope.getFromServer('musicpieces');
-                break;
-            case 'audioprograms':
-                $scope.getFromServer('audioprograms');
-                break;
-            case 'recipes':
-                $scope.getFromServer('recipes');
-                break;
+            if($scope.showDelete == true) {
+                swal({
+                    title: "Oletko varma?",
+                    text: "Valinnat poistetaan soittolistaltasi.",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Kyllä",
+                    cancelButtonText: "Peruuta",
+                }, function() {
+                    $scope.showDelete = false;
+                    switch ($scope.viewState) {
+                        case 'musicpieces':
+                            $scope.getFromServer('musicpieces');
+                            break;
+                        case 'audioprograms':
+                            $scope.getFromServer('audioprograms');
+                            break;
+                        case 'recipes':
+                            $scope.getFromServer('recipes');
+                            break;
+                        }
+                })   
+            } else {
+                $scope.showDelete = true;
             }
         }
 
