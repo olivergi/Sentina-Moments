@@ -216,6 +216,7 @@ app.service("RequestService", function($log, $http, VariableFactory, $rootScope)
  			$log.error("ERROR:", response.data);
  		});
  	},
+        
 
  };
 
