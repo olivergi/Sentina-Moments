@@ -5,10 +5,10 @@ app.service("RequestService", function($log, $http, VariableFactory, $rootScope)
 	return {
 	//Request for login
 	request: function(method, route, headersObj, body) {
-		let headers = new Headers();
+		var headers = new Headers();
 		if (typeof headersObj === 'object') {
 			Object.keys(headersObj).forEach(function (key) {
-				let value = headersObj[key];
+				var value = headersObj[key];
 				headers.append(key, value);
 			});
 		}
@@ -18,14 +18,14 @@ app.service("RequestService", function($log, $http, VariableFactory, $rootScope)
 			body,
 			headers,
 			credentials: 'same-origin'
-		}).then(resp => {
+		}).then(function (resp)  {
 			if (!resp.ok) {
 				if (resp.status >= 500 || resp.status < 400) {
 					throw new Error('Internal error: ' + resp.status);
 				}
-				return resp.json().then(json => {
+				return resp.json().then(function (json) {
 					console.error(json);
-					let err = new Error('Request failed');
+					var err = new Error('Request failed');
 					throw err;
 				});
 			}

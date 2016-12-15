@@ -1,7 +1,7 @@
 var app = angular.module('SentinaMoments');
 app.factory("VariableFactory", function($log, $http) {
 	// URL using webpack's proxy to the Sentina server for requesting data
-	var apiurl =  "http://localhost:8080/services/";
+	var apiurl =  "http://192.168.43.149:8080/services/";
 	// User object
 	var user = [];
 	// Audio nonces for getting the audio file from backend

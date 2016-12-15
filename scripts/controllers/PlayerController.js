@@ -1,8 +1,7 @@
 'use strict';
 
 angular.module('SentinaMoments')
-.controller('PlayerController',function($rootScope, $scope, ngAudio, $http, $log, VariableFactory, RequestService){
-	$scope.apiurl = "http://localhost:8080/services/";
+.controller('PlayerController',function($rootScope, $scope, ngAudio, $http, $state, $log, VariableFactory, RequestService){
 
 	$scope.formatTime = function(seconds) {
 		var minutes = Math.floor(seconds / 60);
@@ -24,6 +23,14 @@ angular.module('SentinaMoments')
     	// Inserts the first audio file from the recipe to the playlist
     	RequestService.insertAudio(VariableFactory.currentSong);
     });
+    
+    $scope.changeCircleCss = function(circle) {
+        if ($state.is('player')){
+            document.getElementById("greenCircle").className = "greenCircle";
+            document.getElementById("yellowCircle").className = "yellowCircle";
+            document.getElementById(circle).className = circle+"Active";
+        }
+    }
 
 
     //This function gets the user favourites and then iterates through them checking if the 

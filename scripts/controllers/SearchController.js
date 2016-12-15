@@ -11,8 +11,8 @@ app.controller('SearchController',function($rootScope, $scope, $http, $log, Requ
 	// A variable for knowing which search was done, that the playlist can be correctly loaded
 	$scope.listType = "";
 	// The string on the search input field, used as a parameter for the search requests
-	$scope.searchQuery = ""; 	
-    // A variable to show the selected Favourite
+	$scope.searchQuery = "";
+    // Variable for showing Favourite Icon
     $scope.showFavourite = false;
 
 	// Function to calculate how many pages are made from the search results
@@ -35,6 +35,10 @@ app.controller('SearchController',function($rootScope, $scope, $http, $log, Requ
 	        }
 		}
     });
+    
+    $scope.showFav = function (index) {
+        document.getElementById("searchFav"+index).className = "searchFav";
+    }
 	
 	$scope.searchRecipes = function() {
 

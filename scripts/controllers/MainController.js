@@ -7,7 +7,7 @@ app.config(function($urlRouterProvider, $stateProvider){
 
 	.state("player", {
 		url: "/",
-		templateUrl: "../../views/player.html",
+		templateUrl: "views/player.html",
 		controller: function($scope, ngAudio, songRemember,$log, VariableFactory, $state, RequestService) {
 			if (VariableFactory.user.id == null){
 				$state.go('login');
@@ -24,7 +24,7 @@ app.config(function($urlRouterProvider, $stateProvider){
 
 	.state('menu', {
 		url: "/menu",
-		templateUrl: "../../views/menu.html",
+		templateUrl: "views/menu.html",
 		controller: function(VariableFactory, $state) {
 			if (VariableFactory.user.id == null){   
 				$state.go('login');
@@ -34,7 +34,7 @@ app.config(function($urlRouterProvider, $stateProvider){
 
 	.state('search', {
 		url: "/search",
-		templateUrl: "../../views/search.html",
+		templateUrl: "views/search.html",
 		controller: function(VariableFactory, $state) {
 			if (VariableFactory.user.id == null){   
 				$state.go('login');
@@ -44,7 +44,7 @@ app.config(function($urlRouterProvider, $stateProvider){
 
 	.state('daily', {
 		url: "/daily",
-		templateUrl: "../../views/daily.html",
+		templateUrl: "views/daily.html",
 		controller: function(VariableFactory, $state) {
 			if (VariableFactory.user.id == null){   
 				$state.go('login');
@@ -54,12 +54,12 @@ app.config(function($urlRouterProvider, $stateProvider){
 
 	.state('login', {
 		url: "/login",
-		templateUrl: "../../views/login.html",
+		templateUrl: "views/login.html",
 	})
 
 	.state('channels', {
 		url: "/channels",
-		templateUrl: "../../views/channels.html",
+		templateUrl: "views/channels.html",
 		controller: function(VariableFactory, $state) {
 			if (VariableFactory.user.id == null){   
 				$state.go('login');
@@ -69,7 +69,7 @@ app.config(function($urlRouterProvider, $stateProvider){
 
 	.state('favourites', {
 		url: "/favourites",
-		templateUrl: "../../views/favourites.html",
+		templateUrl: "views/favourites.html",
 		controller: function(VariableFactory, $state) {
 			if (VariableFactory.user.id == null){   
 				$state.go('login');
