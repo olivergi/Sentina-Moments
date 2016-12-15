@@ -67,17 +67,8 @@ angular.module('SentinaMoments')
                 while (i <= response.data.result.length - 1) {
                     // If the object is found in the usertags, delete the object
                     if (response.data.result[i].audioFileTaggedId == obj.audioFileId) {
-                        $http({
-                            method: 'DELETE',
-                            url: VariableFactory.apiurl + '/data/usertags/' + response.data.result[i].id,
-                            headers: {
-                                'Accept': 'application/json'
-                            }
-                        }).then(function successCallback(response) {
-                            //$log.info("Delete success: ", response.data);
-                        }, function errorCallback(response) {
-                            $log.error("ERROR:", response.data);
-                        });
+                        RequestService.request('DELETE', 'data/usertags/' + response.data.result[i].id,
+{}, null)
                         break;
                     } else {
                         // TODO: User feedback
@@ -125,16 +116,37 @@ angular.module('SentinaMoments')
         }
 
         $scope.favourite = function (obj) {
-            var i = 0;
-            while (i <= $scope.userTags.length - 1) {
-                if ($scope.userTags[i].audioFileTaggedId == obj.audioFileId) {
-                    RequestService.request('POST', '/data/usertags/0', {
-                        'Content-Type': 'application/json'
-                    }, JSON.stringify($scope.userTags[i]));
-                    break;
+            $http({
+                method: 'GET',
+                url: VariableFactory.apiurl + 'data/usertags',
+                headers: {
+                    'Accept': 'application/json'
+                },
+                params: {
+                    onlyTagged: true,
+                    hideDeleted: true
                 }
-                i++;
-            }
+
+            }).then(function successCallback(response) {
+            var today = moment().utc().format();
+            var tempObj = {
+				id:0,
+				userTagGroupId: null,
+				recipeTaggedId: null,
+				audioFileTaggedId: obj.audioFileId,
+				lengthAudioFile: 0,
+				audioProgramId: null,
+				musicPieceId: null,
+				insertionTime: today
+			}
+                    RequestService.request('POST', 
+                    '/data/usertags/0',
+                    {'Content-Type': 'application/json'},
+                    JSON.stringify(tempObj));
+            }, function errorCallback(response) {
+                log.error("ERROR: ", response.data);
+            })
+            
         }
 
         $scope.loadPlaylist = function (id, name, itemIndex) {
