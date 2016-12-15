@@ -168,6 +168,13 @@ input[type=range]:focus::-ms-fill-upper {
 }
 /* HERE ENDS MUSIC PLAYER */
 
+#menuLink {
+   color: white;
+   text-decoration: none;
+   font-family: 'Bitter', sans-serif;
+   display: inline-block;
+}
+
 /* DAILY CONTENT CSS */
 .dailyButton {
     display: inline-block;
