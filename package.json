@@ -17,7 +17,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "webpack-dev-server --hot"
+    "test": "webpack-dev-server --host 192.168.43.149"
   },
   "repository": {
     "type": "git",

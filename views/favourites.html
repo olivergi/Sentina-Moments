@@ -25,12 +25,12 @@
                     </td>
                     <td ng-show="favourites[0].length != null">
                         <p class="favTime">{{fav.length | trackTime}}</p>
-                        <img ng-show="!showDelete" class="favPlay" src="../images/play.svg" ng-click="loadPlaylist(fav.id, fav.name, $index)"> 
-                        <img class="theIkoni" ng-show="showDelete && viewState == 'musicpieces' || showDelete && viewState == 'audioprograms'" style="float:right" ng-src="{{showFavourite && '../images/favFavourite.svg' || '../images/cross.svg'}}" ng-click="showFavourite ? favourite(fav) : deleteFav(fav); showFavourite = !showFavourite">
+                        <img ng-show="!showDelete" class="favPlay" src="images/play.svg" ng-click="loadPlaylist(fav.id, fav.name, $index)"> 
+                        <img class="theIkoni" ng-show="showDelete && viewState == 'musicpieces' || showDelete && viewState == 'audioprograms'" style="float:right" ng-src="{{showFavourite && 'images/favFavourite.svg' || 'images/cross.svg'}}" ng-click="showFavourite ? favourite(fav) : deleteFav(fav); showFavourite = !showFavourite">
                     </td>
                     <td ng-show="viewState == 'recipes'"><p class="favDesc">{{fav.description}}</p>
-                        <img ng-show="!showDelete" class="favPlay" src="../images/play.svg" ng-click="loadPlaylist(fav.id, fav.name, $index)">
-                        <img ng-click="showFavourite ? favourite(fav) : deleteFav(fav); showFavourite = !showFavourite" class="theIkoni" ng-show="showDelete" style="float:right" ng-src="{{showFavourite && '../images/favFavourite.svg' || '../images/cross.svg'}}">
+                        <img ng-show="!showDelete" class="favPlay" src="images/play.svg" ng-click="loadPlaylist(fav.id, fav.name, $index)">
+                        <img ng-click="showFavourite ? favourite(fav) : deleteFav(fav); showFavourite = !showFavourite" class="theIkoni" ng-show="showDelete" style="float:right" ng-src="{{showFavourite && 'images/favFavourite.svg' || 'images/cross.svg'}}">
                     </td>
                 </tr>
             </tbody>

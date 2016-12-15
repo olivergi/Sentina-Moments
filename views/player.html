@@ -6,7 +6,7 @@
     </div>
     <div class="buttons">
         <div class="playerButton" ng-click='audio.paused ? audio.play() : audio.pause()'>
-            <img id="play" ng-src="{{audio.paused && '../images/play.svg' || '../images/pause.svg'}}" class="playerIcon">
+            <img id="play" ng-src="{{audio.paused && 'images/play.svg' || 'images/pause.svg'}}" class="playerIcon">
             <p class="textShadow playerText">{{audio.paused && 'Kuuntele' || 'Pysäytä'}}</p>
         </div>
     </div>
@@ -23,12 +23,12 @@
 
     <div class="buttonSection">
         <div class="col-xs-4 col-sm-4 col-md-4">
-            <div class="greenCircle" ng-click="getUserTags()">
+            <div class="greenCircle" id="greenCircle" ng-click="changeCircleCss('greenCircle'); getUserTags()">
                 <p class="textShadow">Hyvä</p>
             </div>
         </div>
         <div class="col-xs-4 col-sm-4 col-md-4">
-            <div class="yellowCircle">
+            <div class="yellowCircle" id="yellowCircle" ng-click="changeCircleCss('yellowCircle')">
                 <p class="textShadow">Ok</p>
             </div>
         </div>

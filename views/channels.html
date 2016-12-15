@@ -1,14 +1,14 @@
-<div ng-controller="ChannelController">
+<div ng-controller="ChannelController" class="channelPage">
 	<header class="channelInfo">
         <h1 style="float: left; margin-left: 30px;">{{title}}</h1>
         <div class="readyButton" ng-show="buttonSelected > 0">
-            <h1 class="dailyButton" style="margin-top: 3px; padding-bottom: 5px;" ng-click="getSelectedChannels()">Valmis<img src="../images/ready.svg" class="readyImg"></h1>
+            <h1 class="dailyButton" style="margin-top: 3px; padding-bottom: 5px;" ng-click="getSelectedChannels()">Valmis<img src="images/ready.svg" class="readyImg"></h1>
         </div>
     </header>
     <div class="channelContainer">
        <div id="container-fluid">
             <div class="col-md-6" ng-repeat="chButton in channelButtons">
-                <div class="col-md-12">
+                <div class="col-md-12 col-sm-6">
                     <button ng-click="toggleChannelButton()" class="channelButton" ng-class="{on : chButton.state, channelSmall : chButton.longTitle}">
                         {{chButton.label}}
                     </button>
